@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/attendancecheck"
+            android:icon="@drawable/ic_baseline_event_available_24"
+            android:title="출석체크"></item>
+        <item
+            android:id="@+id/list"
+            android:icon="@drawable/ic_baseline_people_24"
+            android:title="명부확인">
+
+
+        </item>
+
+
+    </group>
+</menu>

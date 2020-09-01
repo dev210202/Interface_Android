@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="people"
+            type="org.sejonguniv.if_2020.model.People" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.state}"
+            android:id="@+id/state_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.generation}"
+            android:id="@+id/generation_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.department}"
+            android:id="@+id/department_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.studentID}"
+            android:id="@+id/studentID_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.name}"
+            android:id="@+id/name_edittext"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/list_background"></EditText>
+
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.phoneNumber}"
+            android:id="@+id/phonenumber_edittext"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.firstDues}"
+            android:id="@+id/firstdues_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.secondDues}"
+            android:id="@+id/seconddues_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.openingMeeting}"
+            android:id="@+id/openningmeeting_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/list_background"></EditText>
+        <EditText
+            android:gravity="center"
+            android:singleLine="true"
+            setText="@{people.finalMeeting}"
+            android:id="@+id/finalmeeting_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/list_background"></EditText>
+
+
+    </LinearLayout>
+</layout>

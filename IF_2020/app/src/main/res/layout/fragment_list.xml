@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.sejonguniv.if_2020.ui.list.ListFragmentViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.list.ListActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123123213FRAGMENT"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+        <Button
+            android:id="@+id/complete_button"
+            android:text="수정완료"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
+
+        <com.kelin.scrollablepanel.library.ScrollablePanel
+            android:id="@+id/excelpanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </com.kelin.scrollablepanel.library.ScrollablePanel>
+
+    </LinearLayout>
+</layout>
