@@ -1,0 +1,19 @@
+package org.sejonguniv.if_2020.network;
+
+import org.sejonguniv.if_2020.model.Notice;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+
+public interface APIService {
+
+    @POST("posts")
+    Call<String> saveNotice(@Body Notice notice);
+
+    @GET("posts/list")
+    Call<List<Notice>> getNotice();
+}

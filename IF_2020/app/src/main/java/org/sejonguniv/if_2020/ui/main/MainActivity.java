@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.sejonguniv.if_2020.base.BaseActivity;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.databinding.ActivityMainBinding;
+import org.sejonguniv.if_2020.ui.attendance.AttendanceFragment;
 import org.sejonguniv.if_2020.ui.list.ListFragment;
 
 import java.io.File;
@@ -55,7 +56,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 switch (id) {
                     case R.id.attendancecheck: {
-                        // 출석체크로 이동
+                        AttendanceFragment attendanceFragment = new AttendanceFragment();
+                        transaction.replace(R.id.frame_layout, attendanceFragment).commitAllowingStateLoss();
+                        break;
                     }
                     case R.id.list: {
                         ListFragment listFragment = new ListFragment();

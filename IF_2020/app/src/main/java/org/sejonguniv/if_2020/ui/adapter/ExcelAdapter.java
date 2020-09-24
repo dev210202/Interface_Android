@@ -1,6 +1,8 @@
 package org.sejonguniv.if_2020.ui.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +30,15 @@ public class ExcelAdapter extends PanelAdapter {
     private static final int COL_TYPE = 2;
     private static final int CELL_TYPE = 3;
 
-    List<LeftTitle> leftList = new ArrayList<>();
-    List<TopTitle> topList = new ArrayList<>();
-    List<List<CellData>> cellList = new ArrayList<>();
+    public ExcelAdapter(List<LeftTitle> leftList, List<TopTitle> topList, List<List<CellData>> cellList) {
+        this.leftList = leftList;
+        this.topList = topList;
+        this.cellList = cellList;
+    }
+
+    List<LeftTitle> leftList;
+    List<TopTitle> topList ;
+    List<List<CellData>> cellList;
 
     @Override
     public int getRowCount() {
@@ -60,8 +68,6 @@ public class ExcelAdapter extends PanelAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int row, int column) {
         int viewType = getItemViewType(row, column);
         switch (viewType) {
-            case NO_TYPE:
-                break;
             case ROW_TYPE:
                 setRowView(column, (RowViewHolder) holder);
                 break;
@@ -116,6 +122,24 @@ public class ExcelAdapter extends PanelAdapter {
 
             Log.e("info data", info.getTitle() + "  row : "+ row +" col : "+ col);
             viewHolder.titleEditText.setText(info.getTitle());
+            viewHolder.titleEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    cellList.get(row -1).get(col -1).setTitle(s.toString());
+                    Log.e("S", s.toString());
+                    Log.e("INFO TITLE", cellList.get(row -1).get(col -1).getTitle());
+                }
+            });
         }
 
 
@@ -149,18 +173,8 @@ public class ExcelAdapter extends PanelAdapter {
         public CellViewHolder(View view) {
             super(view);
             this.titleEditText = (EditText) view.findViewById(R.id.excel_edittext);
+
         }
     }
 
-    public void setLeftTitleCell(List<LeftTitle> leftList) {
-        this.leftList = leftList;
-    }
-
-    public void setTopTitleCell(List<TopTitle> topList) {
-        this.topList = topList;
-    }
-
-    public void setCellList(List<List<CellData>> cellList) {
-        this.cellList = cellList;
-    }
 }

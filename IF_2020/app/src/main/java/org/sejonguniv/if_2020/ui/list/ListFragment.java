@@ -32,22 +32,16 @@ public class ListFragment extends BaseFragment<FragmentListBinding, ListFragment
 
         viewModel.setTestData();
 
-        ExcelAdapter adapter = new ExcelAdapter();
-//        ArrayList<LeftTitle> leftTitles = viewModel.setLeftTitle();
-//        ArrayList<TopTitle> topTitles = setTop();
-//        ArrayList<List<CellData>> cells = setCell();
+        ExcelAdapter adapter = new ExcelAdapter(viewModel.setLeftTitle(),viewModel.setTopTilteCell(),viewModel.setCell());
 
-        adapter.setLeftTitleCell(viewModel.setLeftTitle());
-        adapter.setTopTitleCell(viewModel.setTopTilteCell());
-        adapter.setCellList(viewModel.setCell());
+
         binding.excelpanel.setPanelAdapter(adapter);
         View view = binding.getRoot();
-
         binding.completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewModel.saveData();
-                Toast.makeText(getContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG);
+                Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
 

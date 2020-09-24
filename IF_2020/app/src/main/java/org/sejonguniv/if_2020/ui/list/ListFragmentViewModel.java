@@ -31,8 +31,11 @@ public class ListFragmentViewModel extends ViewModel {
     People JU = new People("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");
     ArrayList<People> peopleArrayList = new ArrayList<People>();
 
+    List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
+    List<TopTitle> topTitles = new ArrayList<TopTitle>();
+    List<List<CellData>> cells = new ArrayList<>();
+
     public List<TopTitle> setTopTilteCell() {
-        List<TopTitle> topTitles = new ArrayList<TopTitle>();
         for(int i = 0; i < base.itemSize(); i++){
             TopTitle topTitle = new TopTitle();
             topTitle.setTitle(base.getData(i));
@@ -42,7 +45,6 @@ public class ListFragmentViewModel extends ViewModel {
     }
 
     public List<LeftTitle> setLeftTitle(){
-        List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
         for(int i = 0; i < peopleArrayList.size(); i++){
             LeftTitle leftTitle = new LeftTitle();
             leftTitle.setTitle(""+(i + 1));
@@ -52,7 +54,6 @@ public class ListFragmentViewModel extends ViewModel {
     }
 
     public List<List<CellData>> setCell(){
-        List<List<CellData>> cells = new ArrayList<>();
 
         for(int i = 0; i < peopleArrayList.size(); i++){
             ArrayList<CellData> cellList= new ArrayList<>();
@@ -115,16 +116,16 @@ public class ListFragmentViewModel extends ViewModel {
         for (int i = 0; i < peopleArrayList.size(); i++) {
             row = sheet.createRow(i + 1);
             createCell(cell, row,
-                    peopleArrayList.get(i).getState(),
-                    peopleArrayList.get(i).getGeneration(),
-                    peopleArrayList.get(i).getDepartment(),
-                    peopleArrayList.get(i).getStudentID(),
-                    peopleArrayList.get(i).getName(),
-                    peopleArrayList.get(i).getPhoneNumber(),
-                    peopleArrayList.get(i).getFirstDues(),
-                    peopleArrayList.get(i).getSecondDues(),
-                    peopleArrayList.get(i).getOpeningMeeting(),
-                    peopleArrayList.get(i).getFinalMeeting()
+                    cells.get(i).get(0).getTitle(),
+                    cells.get(i).get(1).getTitle(),
+                    cells.get(i).get(2).getTitle(),
+                    cells.get(i).get(3).getTitle(),
+                    cells.get(i).get(4).getTitle(),
+                    cells.get(i).get(5).getTitle(),
+                    cells.get(i).get(6).getTitle(),
+                    cells.get(i).get(7).getTitle(),
+                    cells.get(i).get(8).getTitle(),
+                    cells.get(i).get(9).getTitle()
             );
         }
 
