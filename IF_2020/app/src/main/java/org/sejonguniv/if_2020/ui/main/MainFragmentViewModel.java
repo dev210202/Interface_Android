@@ -2,6 +2,9 @@ package org.sejonguniv.if_2020.ui.main;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
@@ -10,7 +13,13 @@ import com.google.gson.GsonBuilder;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.network.APIService;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -23,18 +32,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainFragmentViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
-    OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+
+    ObservableArrayList<String> titleList= new ObservableArrayList<>();
+
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(loggingInterceptor)
+            .build();
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app.herokuapp.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(clientBuilder.build())
+            .client(okHttpClient)
             .build();
     APIService service = retrofit.create(APIService.class);
 
-    public void getNotice() {
+    public void getNoticeList() {
 
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        clientBuilder.addInterceptor(loggingInterceptor);
 
         Call<List<Notice>> request = service.getNotice();
         request.enqueue(new Callback<List<Notice>>() {
@@ -43,15 +59,16 @@ public class MainFragmentViewModel extends ViewModel {
                 if (response.body() != null) {
 
                     List<Notice> data = response.body();
-                    String a = "";
                     for (Notice u : data) {
-                        a = u.toString();
-                        Log.e("SUCCESS", u.getTitle() + u.getContent() + u.getAuthor());
-                    }
+                        titleList.add(u.getTitle());
+                        Log.e("SUCCESS get title", u.getTitle());
 
+                    }
+                    // 데이터 받아오는 속도가 느려서 rx사용해서 순서대로 진행시켜야할듯.
                 } else {
                     Log.e("SS?", "?");
                 }
+
             }
 
             @Override
@@ -59,8 +76,10 @@ public class MainFragmentViewModel extends ViewModel {
                 Log.e("Fail", t.toString());
             }
         });
+
     }
 
+    /*
     public void saveNotice(Notice notice) {
 
         Call<String> request = service.saveNotice(notice);
@@ -68,14 +87,16 @@ public class MainFragmentViewModel extends ViewModel {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.body() != null) {
-                    Log.e("Success", "!");
+                    Log.e("Success save", "!");
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.e("Fail", t.toString());
+                Log.e("Fail save", t.toString());
             }
         });
     }
+
+    */
 }
