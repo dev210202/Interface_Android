@@ -1,16 +1,19 @@
 package org.sejonguniv.if_2020.model;
 
-public class Notice {
+import java.io.Serializable;
+
+public class Notice implements Serializable {
+    int id;
     String title;
     String content;
-    String author;
+    String date;
 
-    public String getAuthor() {
-        return author;
+    public int getId() {
+        return id;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -27,5 +30,13 @@ public class Notice {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

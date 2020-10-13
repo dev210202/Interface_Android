@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="title"
-            type="java.lang.String" />
+            name="notice"
+            type="org.sejonguniv.if_2020.model.Notice" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,10 +15,11 @@
         android:layout_height="wrap_content">
 
         <TextView
+            NoticeClick="@{notice}"
             android:id="@+id/title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{title}"
+            android:text="@{notice.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>

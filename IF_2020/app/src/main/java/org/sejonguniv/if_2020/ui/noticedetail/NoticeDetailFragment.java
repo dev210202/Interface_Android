@@ -9,14 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.sejonguniv.if_2020.R;
+import org.sejonguniv.if_2020.base.BaseFragment;
+import org.sejonguniv.if_2020.databinding.FragmentNoticeDetailBinding;
 
-public class NoticeDetailFragment extends Fragment {
+public class NoticeDetailFragment extends BaseFragment<FragmentNoticeDetailBinding, NoticeDetailViewModel> {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notice_detail, container, false);
+        setBinding(inflater, R.layout.fragment_notice_detail, container);
+        setViewModel(NoticeDetailViewModel.class);
+        startProgressBar();
+        binding.setViewModel(viewModel);
+        binding.setTitle(viewModel.title);
+        binding.setContent(viewModel.content);
+        View view = binding.getRoot();
+
+        Bundle data = getArguments();
+        int noticeId = data.getInt("noticeId");
+
+        viewModel.findNotice(noticeId, dialog);
+
+        return view;
     }
 }

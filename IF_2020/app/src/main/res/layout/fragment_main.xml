@@ -5,9 +5,10 @@
 
     <data>
         <import type="androidx.databinding.ObservableArrayList"></import>
+        <import type="org.sejonguniv.if_2020.model.Notice"></import>
         <variable
             name="noticeList"
-            type="ObservableArrayList&lt;String&gt;" />
+            type="ObservableArrayList&lt;Notice&gt;" />
         <variable
             name="viewModel"
             type="org.sejonguniv.if_2020.ui.main.MainFragmentViewModel" />

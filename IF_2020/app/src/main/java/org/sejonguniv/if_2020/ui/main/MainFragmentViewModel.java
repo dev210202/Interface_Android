@@ -1,5 +1,6 @@
 package org.sejonguniv.if_2020.ui.main;
 
+import android.app.Dialog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class MainFragmentViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
-    ObservableArrayList<String> titleList= new ObservableArrayList<>();
+    ObservableArrayList<Notice> titleList= new ObservableArrayList<>();
 
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -48,7 +49,7 @@ public class MainFragmentViewModel extends ViewModel {
             .build();
     APIService service = retrofit.create(APIService.class);
 
-    public void getNoticeList() {
+    public void getNoticeList(Dialog dialog) {
 
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -60,11 +61,12 @@ public class MainFragmentViewModel extends ViewModel {
 
                     List<Notice> data = response.body();
                     for (Notice u : data) {
-                        titleList.add(u.getTitle());
+                        titleList.add(u);
                         Log.e("SUCCESS get title", u.getTitle());
-
+                        Log.e("asdasd", ""+ u.getId());
+                        dialog.dismiss();
                     }
-                    // 데이터 받아오는 속도가 느려서 rx사용해서 순서대로 진행시켜야할듯.
+
                 } else {
                     Log.e("SS?", "?");
                 }
@@ -79,7 +81,7 @@ public class MainFragmentViewModel extends ViewModel {
 
     }
 
-    /*
+
     public void saveNotice(Notice notice) {
 
         Call<String> request = service.saveNotice(notice);
@@ -98,5 +100,4 @@ public class MainFragmentViewModel extends ViewModel {
         });
     }
 
-    */
 }

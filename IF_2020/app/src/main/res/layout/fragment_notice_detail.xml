@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="androidx.databinding.ObservableField"></import>
+        <variable
+            name="content"
+            type="ObservableField&lt;String&gt;" />
+        <variable
+            name="title"
+            type="ObservableField&lt;String&gt;" />
+        <variable
+            name="viewModel"
+            type="org.sejonguniv.if_2020.ui.noticedetail.NoticeDetailViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.noticedetail.NoticeDetailFragment">
 
-    </FrameLayout>
+        <TextView
+
+            android:id="@+id/title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+
+            android:id="@+id/content_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{content}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_textview"></TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

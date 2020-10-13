@@ -8,16 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sejonguniv.if_2020.databinding.RecyclerviewNoticeBinding;
+import org.sejonguniv.if_2020.model.Notice;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
 
-    List<String> noticeList;
+    List<Notice> noticeList;
 
     public NoticeAdapter() {
-        this.noticeList = new ArrayList<String>();
+        this.noticeList = new ArrayList<Notice>();
     }
 
     @NonNull
@@ -29,8 +30,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String title = noticeList.get(position);
-        holder.bind(title);
+        Notice notice = noticeList.get(position);
+        holder.bind(notice);
     }
 
 
@@ -40,7 +41,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         return noticeList.size();
     }
 
-    public void setNotice(List<String> noticeList){
+    public void setNotice(List<Notice> noticeList){
         this.noticeList = noticeList;
         notifyDataSetChanged();
     }
@@ -54,8 +55,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             super(binding.getRoot());
             this.binding = binding;
         }
-        void bind(String title){
-            binding.setTitle(title);
+        void bind(Notice notice){
+            binding.setNotice(notice);
         }
     }
 

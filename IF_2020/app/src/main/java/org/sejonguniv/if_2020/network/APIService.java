@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIService {
 
@@ -16,4 +17,7 @@ public interface APIService {
 
     @GET("posts/list")
     Call<List<Notice>> getNotice();
+
+    @GET("posts/{noticeId}")
+    Call<Notice> find(@Path("noticeId") int noticeId);
 }
