@@ -10,11 +10,14 @@
         <item
             android:id="@+id/list"
             android:icon="@drawable/ic_baseline_people_24"
-            android:title="명부확인">
+            android:title="명부확인"></item>
+        <item
+            android:id="@+id/calendar"
+            android:icon="@drawable/ic_calendar_24"
+            android:title="일정보기">
 
 
         </item>
-
 
     </group>
 </menu>

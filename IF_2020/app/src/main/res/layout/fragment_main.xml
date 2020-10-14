@@ -11,7 +11,7 @@
             type="ObservableArrayList&lt;Notice&gt;" />
         <variable
             name="viewModel"
-            type="org.sejonguniv.if_2020.ui.main.MainFragmentViewModel" />
+            type="org.sejonguniv.if_2020.ui.main.MainViewModel" />
 
     </data>
 

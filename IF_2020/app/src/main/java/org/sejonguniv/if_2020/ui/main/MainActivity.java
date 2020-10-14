@@ -28,6 +28,7 @@ import org.sejonguniv.if_2020.base.BaseActivity;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.databinding.ActivityMainBinding;
 import org.sejonguniv.if_2020.ui.attendance.AttendanceFragment;
+import org.sejonguniv.if_2020.ui.calendar.CalendarFragment;
 import org.sejonguniv.if_2020.ui.list.ListFragment;
 
 import java.io.File;
@@ -63,6 +64,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     case R.id.list: {
                         ListFragment listFragment = new ListFragment();
                         transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
+                        break;
+                    }
+                    case R.id.calendar: {
+                        CalendarFragment calendarFragment = new CalendarFragment();
+                        transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
                         break;
                     }
 

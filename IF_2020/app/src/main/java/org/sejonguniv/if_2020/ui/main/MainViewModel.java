@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainFragmentViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
