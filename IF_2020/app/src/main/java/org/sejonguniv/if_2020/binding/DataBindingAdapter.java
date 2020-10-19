@@ -1,5 +1,6 @@
 package org.sejonguniv.if_2020.binding;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,9 @@ import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.model.Notice;
@@ -47,5 +51,9 @@ public class DataBindingAdapter {
                 transaction.commit();
             }
         });
+    }
+    @BindingAdapter("noticeSet")
+    public static void noticeSet(ExpandableTextView view, Notice notice){
+        view.setText(notice.getContent());
     }
 }

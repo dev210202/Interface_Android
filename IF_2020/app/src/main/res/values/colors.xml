@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="Red">#03DAC5</color>
+    <color name="interface_white">#ecf0f5</color>
+    <color name="interface_blue">#7070f3</color>
+    <color name="interface_grey">#909090</color>
+    <color name="interface_black">#121212</color>
 </resources>
