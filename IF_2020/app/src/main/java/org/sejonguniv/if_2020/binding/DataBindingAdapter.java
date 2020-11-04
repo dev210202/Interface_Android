@@ -2,8 +2,15 @@ package org.sejonguniv.if_2020.binding;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
@@ -12,12 +19,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.kelin.scrollablepanel.library.PanelAdapter;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
-import org.sejonguniv.if_2020.ui.noticedetail.NoticeDetailFragment;
 
 public class DataBindingAdapter {
     @BindingAdapter("setText")
@@ -27,33 +34,102 @@ public class DataBindingAdapter {
 
 
     @BindingAdapter("item")
-    public static void setItem(RecyclerView view, ObservableArrayList<Notice> noticeList){
+    public static void setItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
         NoticeAdapter adapter = (NoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
+        Log.e("setNoitce", "1");
     }
 
-    @BindingAdapter("NoticeClick")
-    public static void noticeClick(View view, Notice notice){
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("noticeId",notice.getId());
-
-                NoticeDetailFragment fragment = new NoticeDetailFragment();
-                fragment.setArguments(bundle);
-                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.frame_layout, fragment);
-                transaction.commit();
-            }
-        });
-    }
     @BindingAdapter("noticeSet")
-    public static void noticeSet(ExpandableTextView view, Notice notice){
+    public static void noticeSet(ExpandableTextView view, Notice notice) {
         view.setText(notice.getContent());
     }
+
+    @BindingAdapter("titleTextInput")
+    public static void titleTextInput(TextView view, String input) {
+
+
+        Log.e("String input", input);
+
+        int NOT_EXIST_INDEX = -1;
+
+        String text = view.getText().toString();
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+
+        if (input != "INIT") {
+
+            int startIndex = text.indexOf(input);
+            Log.e("startIndex", ""+startIndex);
+            int endIndex = startIndex + input.length();
+
+
+            if (startIndex != NOT_EXIST_INDEX) {
+                builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                view.setText(builder);
+                while (text.indexOf(input, startIndex + 1) != NOT_EXIST_INDEX) {
+
+                    startIndex = text.indexOf(input, startIndex + 1);
+                    endIndex = startIndex + input.length();
+
+                    builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    view.setText(builder);
+                    Log.e("a1 value", "" + startIndex);
+                }
+            }
+            else {
+                Log.e("!!!","!!!");
+                builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                view.setText(builder);
+            }
+        }
+
+    }
+
+
+
+    @BindingAdapter("contentTextInput")
+    public static void contentTextInput(ExpandableTextView view, String input) {
+
+        Log.e("String input", input);
+
+        int NOT_EXIST_INDEX = -1;
+
+        String text = view.getText().toString();
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+
+        if (input != "INIT") {
+
+            int startIndex = text.indexOf(input);
+            Log.e("startIndex", ""+startIndex);
+            int endIndex = startIndex + input.length();
+
+
+            if (startIndex != NOT_EXIST_INDEX) {
+                builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                view.setText(builder);
+                while (text.indexOf(input, startIndex + 1) != NOT_EXIST_INDEX) {
+
+                    startIndex = text.indexOf(input, startIndex + 1);
+                    endIndex = startIndex + input.length();
+
+                    builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    view.setText(builder);
+                    Log.e("a2 value", "" + startIndex);
+                }
+            }else {
+                Log.e("???","???");
+                builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                view.setText(builder);
+            }
+        }
+
+    }
+
+
 }

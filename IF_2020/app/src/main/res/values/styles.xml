@@ -12,4 +12,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MainDate">
+        <item name="android:textColor">@color/interface_black</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+
 </resources>

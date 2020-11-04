@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.main;
+package org.sejonguniv.if_2020.ui.notice;
 
 import android.app.Dialog;
 import android.util.Log;
@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainViewModel extends ViewModel {
+public class NoticeViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
@@ -67,7 +67,7 @@ public class MainViewModel extends ViewModel {
                         dialog.dismiss();
                     }
                     Notice test = new Notice();
-                    test.setTitle("이건 제목이야 근데 엄청 긴 제목이지 왜 제목이 기냐고? 나도 몰라 근데 제목이 길어야해 근데 사실 내용은 메이플 패치노트야");
+                    test.setTitle("이건 notice 제목이야 근데 엄청 긴 제목이지 왜 제목이 기냐고? 나도 몰라 근데 제목이 길어야해 근데 사실 내용은 메이플 패치노트야");
                     test.setContent("안녕하세요 GM학구입니다.\n" +
                             "\n" +
                             "게임 환경을 악용한 사행성 행위, 일명 도박 행위를 근절하기 위해 지속적으로 노력해왔는데요. 게임 환경만으로는 사행성 행위를 할 수 없도록 보완되었지만 메이플스토리에서 도박 참여자를 모집하고, 게임 외부 사이트로 접근을 유도하는 등의 방법으로 도박 행위가 지속되고 있습니다.\n" +
