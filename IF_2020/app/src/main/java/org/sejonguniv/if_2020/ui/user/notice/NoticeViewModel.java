@@ -1,10 +1,8 @@
-package org.sejonguniv.if_2020.ui.notice;
+package org.sejonguniv.if_2020.ui.user.notice;
 
 import android.app.Dialog;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.ViewModel;
 
@@ -14,12 +12,7 @@ import com.google.gson.GsonBuilder;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.network.APIService;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

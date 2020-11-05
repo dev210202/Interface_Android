@@ -11,14 +11,14 @@
             type="ObservableArrayList&lt;Notice&gt;" />
         <variable
             name="viewModel"
-            type="org.sejonguniv.if_2020.ui.notice.NoticeViewModel" />
+            type="org.sejonguniv.if_2020.ui.user.notice.NoticeViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.notice.NoticeFragment">
+        tools:context=".ui.user.notice.NoticeFragment">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"

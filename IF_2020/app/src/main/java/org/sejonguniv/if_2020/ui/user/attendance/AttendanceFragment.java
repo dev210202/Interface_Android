@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.attendance;
+package org.sejonguniv.if_2020.ui.user.attendance;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +20,9 @@ import android.widget.Toast;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
-import org.sejonguniv.if_2020.ui.list.ListFragmentViewModel;
+import org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel;
 
-public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, ListFragmentViewModel> {
+public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, AdminListFragmentViewModel> {
 
 
     private static final int GPS_ENABLE_REQUEST_CODE = 20;

@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.home;
+package org.sejonguniv.if_2020.ui.user.home;
 
 import android.os.Bundle;
 

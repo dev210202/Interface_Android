@@ -1,6 +1,9 @@
 package org.sejonguniv.if_2020;
 
 import org.junit.Test;
+import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel;
+import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeViewModel;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +15,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+
     }
 }

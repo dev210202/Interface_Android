@@ -16,26 +16,36 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.sejonguniv.if_2020.base.BaseActivity;
 import org.sejonguniv.if_2020.R;
-import org.sejonguniv.if_2020.databinding.ActivityMainBinding;
-import org.sejonguniv.if_2020.ui.attendance.AttendanceFragment;
-import org.sejonguniv.if_2020.ui.calendar.CalendarFragment;
-import org.sejonguniv.if_2020.ui.list.ListFragment;
-import org.sejonguniv.if_2020.ui.home.HomeFragment;
-import org.sejonguniv.if_2020.ui.notice.NoticeFragment;
+import org.sejonguniv.if_2020.databinding.ActivityUserMainBinding;
+import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
+import org.sejonguniv.if_2020.ui.user.attendance.AttendanceFragment;
+import org.sejonguniv.if_2020.ui.user.calendar.CalendarFragment;
+import org.sejonguniv.if_2020.ui.admin.list.AdminListFragment;
+import org.sejonguniv.if_2020.ui.user.home.HomeFragment;
+import org.sejonguniv.if_2020.ui.user.notice.NoticeFragment;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding> {
+public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setBinding(R.layout.activity_main);
-
+        setContentView(R.layout.activity_user_main);
+        setBinding(R.layout.activity_user_main);
+        AdminNoticeFragment adminNoticeFragment = new AdminNoticeFragment();
         HomeFragment homeFragment = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
 
         externalPermissionCheck();
+
+        binding.INTERFACE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, adminNoticeFragment).commitAllowingStateLoss();
+
+            }
+        });
 
         binding.navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -59,8 +69,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         break;
                     }
                     case R.id.list: {
-                        ListFragment listFragment = new ListFragment();
-                        transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
+                        AdminListFragment adminListFragment = new AdminListFragment();
+                        transaction.replace(R.id.frame_layout, adminListFragment).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.calendar: {
@@ -75,7 +85,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
         });
     }
-
 
     public void openDrawerLayout(View view) {
         binding.drawerlayout.openDrawer(GravityCompat.START);

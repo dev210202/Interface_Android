@@ -1,10 +1,8 @@
-package org.sejonguniv.if_2020.ui.list;
+package org.sejonguniv.if_2020.ui.admin.list;
 
 import android.os.Environment;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -21,12 +19,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-public class ListFragmentViewModel extends ViewModel {
+public class AdminListFragmentViewModel extends ViewModel {
     People base = new People("재학여부", "기수", "학과", "학번", "이름", "전화번호", "1학기회비", "2학기회비", "개총", "종총");
     People JU = new People("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");
     ArrayList<People> peopleArrayList = new ArrayList<People>();

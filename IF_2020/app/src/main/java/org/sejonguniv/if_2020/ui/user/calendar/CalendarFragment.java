@@ -1,18 +1,15 @@
-package org.sejonguniv.if_2020.ui.calendar;
+package org.sejonguniv.if_2020.ui.user.calendar;
 
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
@@ -21,8 +18,6 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentCalendarBinding;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel>  {
     @Override

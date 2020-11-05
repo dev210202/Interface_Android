@@ -29,7 +29,7 @@ public abstract class BaseFragment<B extends ViewDataBinding, V extends ViewMode
         binding =  DataBindingUtil.inflate(inflater, layoutId, container, false);
     }
 
-    protected void setViewModel(Class c) {
+    public void setViewModel(Class c) {
             ViewModelProvider.AndroidViewModelFactory viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
             viewModel = (V) new ViewModelProvider(getViewModelStore(), viewModelFactory).get(c);
     }

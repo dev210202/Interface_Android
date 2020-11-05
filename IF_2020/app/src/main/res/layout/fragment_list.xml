@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="org.sejonguniv.if_2020.ui.list.ListFragmentViewModel" />
+            type="org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.list.ListActivity">
+        tools:context=".ui.admin.list.ListActivity">
 
         <TextView
             android:id="@+id/textView"

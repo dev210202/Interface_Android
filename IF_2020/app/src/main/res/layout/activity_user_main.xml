@@ -12,7 +12,7 @@
         android:id="@+id/drawerlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.UserMainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +38,7 @@
         </ImageButton>
 
         <TextView
+            android:id="@+id/INTERFACE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

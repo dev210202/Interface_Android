@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.notice;
+package org.sejonguniv.if_2020.ui.user.notice;
 
 import android.os.Bundle;
 
@@ -35,7 +35,7 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         NoticeAdapter noticeAdapter = new NoticeAdapter();
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
 
-        Notice notice = new Notice();
+
 
         startProgressBar();
         viewModel.getNoticeList(dialog);

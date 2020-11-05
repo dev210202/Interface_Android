@@ -1,6 +1,4 @@
-package org.sejonguniv.if_2020.ui.attendance;
-
-import android.location.LocationManager;
+package org.sejonguniv.if_2020.ui.user.attendance;
 
 import androidx.lifecycle.ViewModel;
 

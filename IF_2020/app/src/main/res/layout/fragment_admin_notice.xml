@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.databinding.ObservableArrayList"></import>
+        <import type="org.sejonguniv.if_2020.model.Notice"></import>
+        <variable
+            name="noticeList"
+            type="ObservableArrayList&lt;Notice&gt;" />
+        <variable
+            name="viewModel"
+            type="org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.admin.notice.AdminNoticeFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            item="@{noticeList}"
+            android:id="@+id/notice_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+
+
+    </LinearLayout>
+</layout>

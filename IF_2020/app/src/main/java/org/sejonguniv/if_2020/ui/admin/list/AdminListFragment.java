@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.list;
+package org.sejonguniv.if_2020.ui.admin.list;
 
 import android.os.Bundle;
 
@@ -22,13 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListFragment extends BaseFragment<FragmentListBinding, ListFragmentViewModel> {
+public class AdminListFragment extends BaseFragment<FragmentListBinding, AdminListFragmentViewModel> {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_list, container);
-        setViewModel(ListFragmentViewModel.class);
+        setViewModel(AdminListFragmentViewModel.class);
 
         viewModel.setTestData();
 
