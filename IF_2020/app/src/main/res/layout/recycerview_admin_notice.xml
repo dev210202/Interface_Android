@@ -6,9 +6,7 @@
         <variable
             name="notice"
             type="org.sejonguniv.if_2020.model.Notice" />
-        <variable
-            name="input"
-            type="String" />
+
     </data>
 
     <LinearLayout
@@ -48,7 +46,6 @@
 
 
         <TextView
-            titleTextInput="@{input}"
             android:id="@+id/noticetitle_recycler_textview"
             android:textSize="18sp"
             android:layout_marginTop="16dp"
@@ -73,7 +70,6 @@
             android:layout_marginRight="16dp"
 
             noticeSet="@{notice}"
-            contentTextInput="@{input}"
             xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
             android:id="@+id/expand_text_view"
             android:layout_width="match_parent"

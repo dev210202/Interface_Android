@@ -16,13 +16,39 @@
         android:orientation="vertical"
         tools:context=".ui.admin.list.ListActivity">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/name_edittext"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="123123213FRAGMENT"
+            android:hint="이름"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></EditText>
+        <EditText
+            android:id="@+id/studentid_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="학번"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></EditText>
+        <EditText
+            android:id="@+id/groupnum_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="기수"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></EditText>
+        <EditText
+            android:id="@+id/name_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="이름"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></EditText>
+        <Button
+            android:id="@+id/save_button"
+            android:text="저장"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
         <Button
             android:id="@+id/complete_button"
             android:text="수정완료"

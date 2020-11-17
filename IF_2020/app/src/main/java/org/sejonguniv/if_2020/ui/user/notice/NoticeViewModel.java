@@ -31,9 +31,9 @@ public class NoticeViewModel extends ViewModel {
 
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build();
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app.herokuapp.com/api/v1/")

@@ -38,15 +38,6 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
 
         externalPermissionCheck();
 
-        binding.INTERFACE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, adminNoticeFragment).commitAllowingStateLoss();
-
-            }
-        });
-
         binding.navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -24,6 +24,7 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.ui.adapter.AdminNoticeAdapter;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
 
 public class DataBindingAdapter {
@@ -39,7 +40,12 @@ public class DataBindingAdapter {
         adapter.setNotice(noticeList);
         Log.e("setNoitce", "1");
     }
-
+    @BindingAdapter("adminItem")
+    public static void setAdminItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
+        AdminNoticeAdapter adapter = (AdminNoticeAdapter) view.getAdapter();
+        adapter.setNotice(noticeList);
+        Log.e("Admin setNoitce", "1");
+    }
     @BindingAdapter("noticeSet")
     public static void noticeSet(ExpandableTextView view, Notice notice) {
         view.setText(notice.getContent());
@@ -80,7 +86,7 @@ public class DataBindingAdapter {
                 }
             }
             else {
-                Log.e("!!!","!!!");
+                Log.e("DataBindgAdapter","titleTextInput NOT_EXIST_INDEX");
                 builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 view.setText(builder);
             }
@@ -123,7 +129,7 @@ public class DataBindingAdapter {
                     Log.e("a2 value", "" + startIndex);
                 }
             }else {
-                Log.e("???","???");
+                Log.e("DataBindingAdapter","contentTextInput NOT_EXIST_INDEX");
                 builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 view.setText(builder);
             }

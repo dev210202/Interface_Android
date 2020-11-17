@@ -8,12 +8,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:text="GPS"
-            android:id="@+id/gps_button"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/name_edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Button>
+            android:layout_height="wrap_content"
+            android:hint="이름"></EditText>
+
+        <EditText
+            android:id="@+id/studentid_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="학번"></EditText>
+        <EditText
+            android:id="@+id/groupnum_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="기수"></EditText>
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="암호"></EditText>
+
+        <Button
+            android:onClick="sendAttendance"
+            android:id="@+id/check_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="출석"></Button>
 
     </LinearLayout>
 </layout>

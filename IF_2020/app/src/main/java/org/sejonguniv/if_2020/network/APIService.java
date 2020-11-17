@@ -1,7 +1,9 @@
 package org.sejonguniv.if_2020.network;
 
+import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.model.Data;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.People;
 
 import java.util.List;
 
@@ -24,6 +26,11 @@ public interface APIService {
     Call<Notice> find(@Path("noticeId") int noticeId);
 
     @PUT("posts/{id}")
-    Call<Void> update(@Path("id")int id, @Body Data data);
+    Call<Void> update(@Path("id")int id, @Body Notice notice);
 
+    @POST("userCheck")
+    Call<Void> insertAttendee(@Body Attendee attendee);
+
+    @GET("member/list")
+    Call<List<People>> findAll();
 }

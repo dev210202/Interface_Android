@@ -105,12 +105,10 @@ public class AdminNoticeViewModel extends ViewModel {
         });
     }
 
-    public void editNotice(){
+    public void editNotice(Notice notice){
         // 공지사항의 index에 맞춰서 update/{index}
-        Data data = new Data();
-        data.setTitle("11051 title");
-        data.setContent("11051 content");
-        Call<Void> request = service.update(1, data);
+
+        Call<Void> request = service.update(1, notice);
         request.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

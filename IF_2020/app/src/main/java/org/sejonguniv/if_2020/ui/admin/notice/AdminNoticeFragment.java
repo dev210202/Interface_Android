@@ -12,6 +12,7 @@ import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAdminNoticeBinding;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.ui.adapter.AdminNoticeAdapter;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
 
 
@@ -24,20 +25,25 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         setViewModel(AdminNoticeViewModel.class);
 
         View view = binding.getRoot();
-        Notice notice = new Notice();
-        notice.setDate("123123");
-        notice.setId(1);
-        notice.setTitle("1105 TEST edit");
-        notice.setContent("1105 TEST edit 1105 TEST 1105 TEST 1105 TEST 1105 TEST 1105 TEST");
-//        viewModel.saveNotice(notice);
-        viewModel.editNotice();
-       // binding.setNoticeList();
+
         binding.setViewModel(viewModel);
+        binding.setNoticeList(viewModel.titleList);
 
+        AdminNoticeAdapter adapter = new AdminNoticeAdapter();
 
-        NoticeAdapter adapter = new NoticeAdapter();
-
+        startProgressBar();
         binding.noticeRecyclerview.setAdapter(adapter);
+        viewModel.getNoticeList(dialog);
+        binding.updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notice notice = new Notice();
+                notice.setTitle(binding.titleEdittext.getText().toString());
+                notice.setContent(binding.contentEdittext.getText().toString());
+                viewModel.editNotice(notice);
+                viewModel.getNoticeList(dialog);
+            }
+        });
 
 
         return view;

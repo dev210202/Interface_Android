@@ -30,7 +30,9 @@ public class AdminListFragment extends BaseFragment<FragmentListBinding, AdminLi
         setBinding(inflater, R.layout.fragment_list, container);
         setViewModel(AdminListFragmentViewModel.class);
 
-        viewModel.setTestData();
+
+        viewModel.getLocalExcelData(getContext());
+        viewModel.setExcelData();
 
         ExcelAdapter adapter = new ExcelAdapter(viewModel.setLeftTitle(),viewModel.setTopTilteCell(),viewModel.setCell());
 
@@ -41,45 +43,19 @@ public class AdminListFragment extends BaseFragment<FragmentListBinding, AdminLi
             @Override
             public void onClick(View view) {
                 viewModel.saveData();
+             //   viewModel.uploadData(); -> 서버에 cell data 모두 저장
                 Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
 
-        return view;
-    }
-
-    public ArrayList<LeftTitle> setLeft(){
-        ArrayList<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
-        for(int i = 0; i < 15; i++){
-            LeftTitle leftTitle = new LeftTitle();
-            leftTitle.setTitle(""+i);
-            leftTitles.add(leftTitle);
-        }
-        return leftTitles;
-    }
-
-    public ArrayList<TopTitle> setTop(){
-        ArrayList<TopTitle> topTitles = new ArrayList<TopTitle>();
-        for(int i = 0; i < 15; i++){
-            TopTitle topTitle = new TopTitle();
-            topTitle.setTitle(""+i);
-            topTitles.add(topTitle);
-        }
-        return topTitles;
-    }
-
-    public ArrayList<List<CellData>> setCell(){
-        ArrayList<List<CellData>> cells = new ArrayList<List<CellData>>();
-        for(int i = 0; i < 15; i++){
-            ArrayList<CellData> cellList = new ArrayList<CellData>();
-            cells.add(cellList);
-            for(int k = 0; k < 15; k++){
-                CellData cell = new CellData();
-                cell.setTitle(""+ i);
-                cellList.add(cell);
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //  viewModel. -> edittext data 서버에 저장
             }
-        }
-        return cells;
+        });
+
+        return view;
     }
 
 
