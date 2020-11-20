@@ -59,8 +59,11 @@ public class AdminNoticeViewModel extends ViewModel {
                         titleList.add(u);
                         Log.e("SUCCESS get title", u.getTitle());
                         Log.e("asdasd", ""+ u.getId());
-                        dialog.dismiss();
+
                     }
+
+                    // 테스트 데이터
+
                     Notice test = new Notice();
                     test.setTitle("ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ADMIN ");
                     test.setContent("안녕하세요 GM학구입니다.\n" +
@@ -72,8 +75,12 @@ public class AdminNoticeViewModel extends ViewModel {
                             "사행성 행위에 대한 호기심으로 한 번쯤은 가벼운 마음으로 참여해본 용사님들도 있을텐데요. 사행성 행위에 참여를 유도하는 경우는 물론, 사행성 행위에 단순히 참여하는 경우도 운영정책에 따라 게임 이용제한 혹은 거래제한 조치될 수 있는 점 안내드립니다. 이 점 주의하셔서 게임을 이용하시면서 사행성 행위 및 사행성 홍보를 목격하시더라도 절대 참여하지 마시고 게임 내 ‘신고하기’ 기능을 통해 적극적으로 신고해 주시길 부탁드리겠습니다.");
                     test.setDate("2020년 10월 19일");
                     titleList.add(test);
+                    dialog.dismiss();
+
                 } else {
                     Log.e("SS?", "?");
+
+                    dialog.dismiss();
                 }
 
             }
@@ -81,6 +88,7 @@ public class AdminNoticeViewModel extends ViewModel {
             @Override
             public void onFailure(Call<List<Notice>> call, Throwable t) {
                 Log.e("Fail", t.toString());
+                dialog.dismiss();
             }
         });
 

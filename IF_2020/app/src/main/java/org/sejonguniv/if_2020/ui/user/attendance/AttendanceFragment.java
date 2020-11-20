@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
+import org.sejonguniv.if_2020.gps.GpsTracker;
 import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel;
 
@@ -44,6 +46,12 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         } else {
             showDialogForLocationServiceSetting();
         }
+
+        GpsTracker gpsTracker = new GpsTracker(getContext());
+        double latitude = gpsTracker.getLatitude();
+        double longithude = gpsTracker.getLongitude();
+
+        Log.e("Current Lat, Lon", "lat : "+ latitude + " lon : " + longithude);
 
         binding.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override

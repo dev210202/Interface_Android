@@ -12,9 +12,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="MainDate">
-        <item name="android:textColor">@color/interface_black</item>
+    <style name="MainTitle">
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:fontFamily">@font/notosans_medium</item>
+        <item name="android:textColor">@color/interface_white</item>
         <item name="android:textSize">16dp</item>
+    </style>
+    <style name="MainContent">
+
+        <item name="android:textColor">@color/interface_white</item>
+        <item name="android:textSize">13dp</item>
+
     </style>
 
 

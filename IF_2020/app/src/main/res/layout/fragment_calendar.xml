@@ -7,7 +7,7 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,33 +15,37 @@
 
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:layout_weight="8"
+            android:background="@drawable/main_background"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:mcv_headerTextAppearance="@style/MainTitle"
+            app:mcv_dateTextAppearance="@style/MainTitle"
+            app:mcv_weekDayTextAppearance="@style/MainTitle"
             app:mcv_selectionColor="#a9dbf0cb"
             app:mcv_showOtherDates="defaults" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="#000000"
-            android:layout_weight="1"
+
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView">
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/calendar_textview"
-                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="111"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

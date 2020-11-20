@@ -38,13 +38,13 @@ public class DataBindingAdapter {
     public static void setItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
         NoticeAdapter adapter = (NoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
-        Log.e("setNoitce", "1");
+        Log.e("DataBindingAdapter", "item set OK");
     }
     @BindingAdapter("adminItem")
     public static void setAdminItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
         AdminNoticeAdapter adapter = (AdminNoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
-        Log.e("Admin setNoitce", "1");
+        Log.e("DataBindingAdapter", "adminItem set OK");
     }
     @BindingAdapter("noticeSet")
     public static void noticeSet(ExpandableTextView view, Notice notice) {
@@ -55,7 +55,7 @@ public class DataBindingAdapter {
     public static void titleTextInput(TextView view, String input) {
 
 
-        Log.e("String input", input);
+        Log.e("DataBindingAdapter", "titleTextInput input value = " + input);
 
         int NOT_EXIST_INDEX = -1;
 
@@ -99,7 +99,8 @@ public class DataBindingAdapter {
     @BindingAdapter("contentTextInput")
     public static void contentTextInput(ExpandableTextView view, String input) {
 
-        Log.e("String input", input);
+
+        Log.e("DataBindingAdapter", "contentTextInput input value = " + input);
 
         int NOT_EXIST_INDEX = -1;
 
