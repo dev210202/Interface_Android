@@ -1,6 +1,5 @@
 package org.sejonguniv.if_2020.ui.user.calendar;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,20 +29,25 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
         ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
         calendarDayList.add(CalendarDay.today());
+        calendarDayList.add(CalendarDay.from(2020, 11, 25));
 
 
 
-        Decorator decorator = new Decorator(Color.RED, calendarDayList, getActivity(), binding.calendarTextview);
 
-        binding.calendarView.addDecorator(decorator);
-        binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        EventDecorator eventDecorator = new EventDecorator(calendarDayList, getActivity(), binding.calendarTextview);
+        binding.calendarview.addDecorators(eventDecorator);
+        binding.calendarview.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                if(date.equals(CalendarDay.today())){
-                    decorator.setText("CLICK");
+
+                if(calendarDayList.contains(date)){
+                    eventDecorator.setText("CLICK");
                 }
                 else{
-                    decorator.setText(" ");
+
+                    OtherDecorator otherDecorator = new OtherDecorator(date, getActivity(), binding.calendarTextview);
+                    binding.calendarview.addDecorator(otherDecorator);
+                    eventDecorator.setText(" ");
                 }
             }
         });

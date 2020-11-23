@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
+
+import java.util.Calendar;
 
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
@@ -18,13 +22,45 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        setBinding(inflater,R.layout.fragment_home, container);
+        setBinding(inflater, R.layout.fragment_home, container);
         setViewModel(HomeViewModel.class);
 
         View view = binding.getRoot();
 
+        binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
+
         return view;
 
 
+    }
+
+    private String getDay() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String today = "";
+        switch (day) {
+            case 1:
+                today = " (일)";
+                break;
+            case 2:
+                today = " (월)";
+                break;
+            case 3:
+                today = " (화)";
+                break;
+            case 4:
+                today = " (수)";
+                break;
+            case 5:
+                today = " (목)";
+                break;
+            case 6:
+                today = " (금)";
+                break;
+            case 7:
+                today = " (토)";
+                break;
+        }
+        return today;
     }
 }

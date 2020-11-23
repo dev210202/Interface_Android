@@ -7,17 +7,20 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.user.calendar.CalendarFragment">
+        android:layout_height="match_parent">
 
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+
             android:background="@drawable/main_background"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/calendarView"
+            android:id="@+id/calendarview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,26 +29,27 @@
             app:mcv_headerTextAppearance="@style/MainTitle"
             app:mcv_dateTextAppearance="@style/MainTitle"
             app:mcv_weekDayTextAppearance="@style/MainTitle"
-            app:mcv_selectionColor="#a9dbf0cb"
             app:mcv_showOtherDates="defaults" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="9dp"
+            android:background="@drawable/main_background"
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="match_parent">
 
             <TextView
+                style="@style/MainTitle"
+                android:layout_marginLeft="16dp"
                 android:id="@+id/calendar_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="111"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="123123123"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
 </layout>
