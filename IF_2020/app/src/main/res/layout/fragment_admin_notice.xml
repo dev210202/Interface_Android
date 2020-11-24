@@ -43,5 +43,10 @@
             android:id="@+id/update_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Button>
+        <Button
+            android:text="save"
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
     </LinearLayout>
 </layout>

@@ -6,7 +6,9 @@
         <variable
             name="notice"
             type="org.sejonguniv.if_2020.model.Notice" />
-
+        <variable
+            name="viewModel"
+            type="org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeViewModel" />
     </data>
 
     <LinearLayout
@@ -20,41 +22,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:gravity="right"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="right"
             android:orientation="horizontal">
 
+            <TextView
+                android:layout_marginRight="8dp"
+                android:id="@+id/noticetitle_recycler_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{notice.title}"
+                android:textColor="@color/interface_white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/edit_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
             <ImageButton
+
                 android:id="@+id/edit_button"
-                android:background="@drawable/ic_edit_24"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></ImageButton>
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_edit_24"
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                app:layout_constraintTop_toTopOf="parent"></ImageButton>
+
             <ImageButton
                 android:id="@+id/delete_button"
-                android:background="@drawable/ic_delete_24"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/ic_delete_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
             </ImageButton>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/noticetitle_recycler_textview"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textColor="@color/interface_white"
-            android:text="@{notice.title}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
+
         <TextView
             android:id="@+id/noticedate_recycler_textview"
             android:layout_marginTop="4dp"

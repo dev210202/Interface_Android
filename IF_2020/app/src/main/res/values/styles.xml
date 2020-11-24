@@ -17,11 +17,30 @@
         <item name="android:textColor">@color/interface_white</item>
         <item name="android:textSize">16dp</item>
     </style>
+
     <style name="MainContent">
         <item name="android:textColor">@color/interface_white</item>
         <item name="android:textSize">13dp</item>
 
     </style>
 
+    <style name="Title">
+        <item name="android:textColor">@color/interface_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+
+    </style>
+
+    <style name="CheckInput">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:textColor">@color/interface_white</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColorHint">@color/interface_grey</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
 
 </resources>

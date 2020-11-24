@@ -57,7 +57,7 @@
                android:layout_marginStart="12dp"
                android:layout_marginLeft="12dp"
                android:layout_marginTop="12dp"
-               android:background="@drawable/ic_main_assignment_24"
+               android:background="@drawable/ic_schedule_24"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,6 +110,7 @@
            </TextView>
 
            <Button
+               android:id="@+id/check_button"
                style="@style/MainContent"
                android:layout_width="0dp"
                android:layout_height="26dp"

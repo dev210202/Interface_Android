@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.ObservableField;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,9 @@ import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
 import org.sejonguniv.if_2020.gps.GpsTracker;
 import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel;
+
+import java.util.Observable;
+import java.util.Observer;
 
 public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, AttendanceViewModel> {
 
@@ -58,7 +62,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
             public void onClick(View v) {
 
                 if (isExistEmptyInput()) {
-                    Toast.makeText(getContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
                 }
                 else{
                     Attendee attendee = new Attendee();
@@ -73,10 +77,11 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         });
 
 
+
         return view;
     }
 
-    void checkRunTimePermission() {
+    private void checkRunTimePermission() {
 
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
@@ -142,13 +147,16 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         builder.create().show();
     }
 
-    public boolean checkLocationServicesStatus() {
+    private boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     private boolean isExistEmptyInput(){
-        return (binding.nameEdittext.toString() == "" || binding.studentidEdittext.toString() == "" || binding.groupnumEdittext.toString() == "" || binding.passwordEdittext.toString() == "");
+        return (binding.nameEdittext.getText().length() == 0  ||
+                binding.studentidEdittext.getText().length() == 0 ||
+                binding.groupnumEdittext.getText().length() == 0 ||
+                binding.passwordEdittext.getText().length() == 0);
     }
 }

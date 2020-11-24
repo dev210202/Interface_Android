@@ -20,6 +20,7 @@ public class EventDecorator implements DayViewDecorator {
     private int color;
     private HashSet<CalendarDay> dates;
     private TextView textView;
+
     public EventDecorator(Collection<CalendarDay> dates, Activity context, TextView textView) {
         drawable = context.getResources().getDrawable(R.drawable.calendar_background);
 
@@ -28,16 +29,16 @@ public class EventDecorator implements DayViewDecorator {
     }
 
     @Override
-    public boolean shouldDecorate(CalendarDay day){
+    public boolean shouldDecorate(CalendarDay day) {
         return dates.contains(day);
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-       view.setSelectionDrawable(drawable);
+        view.setSelectionDrawable(drawable);
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         textView.setText(text);
     }
 

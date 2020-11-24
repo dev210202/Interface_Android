@@ -10,12 +10,14 @@ import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -26,6 +28,7 @@ import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.adapter.AdminNoticeAdapter;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
+import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeViewModel;
 
 public class DataBindingAdapter {
     @BindingAdapter("setText")
@@ -137,6 +140,7 @@ public class DataBindingAdapter {
         }
 
     }
+
 
 
 }

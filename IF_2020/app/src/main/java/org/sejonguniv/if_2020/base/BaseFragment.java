@@ -29,18 +29,18 @@ public abstract class BaseFragment<B extends ViewDataBinding, V extends ViewMode
         binding =  DataBindingUtil.inflate(inflater, layoutId, container, false);
     }
 
-    public void setViewModel(Class c) {
+    protected void setViewModel(Class c) {
             ViewModelProvider.AndroidViewModelFactory viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
             viewModel = (V) new ViewModelProvider(getViewModelStore(), viewModelFactory).get(c);
     }
-    public void startProgressBar() {
+    protected void startProgressBar() {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.progressbar_main);
         dialog.show();
     }
-    public void stopProgressBar(){
+    protected void stopProgressBar(){
         dialog.dismiss();
     }
 }

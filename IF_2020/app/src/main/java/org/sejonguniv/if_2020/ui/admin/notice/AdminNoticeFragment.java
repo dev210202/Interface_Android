@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,17 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
 
         startProgressBar();
         binding.noticeRecyclerview.setAdapter(adapter);
+        adapter.setOnItemClickListener(new AdminNoticeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                if(v.getId() == R.id.delete_button){
+                   viewModel.deleteNotice(position);
+                }
+                else {
+                    // edit
+                }
+            }
+        });
         viewModel.getNoticeList(dialog);
         binding.updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +57,15 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
             }
         });
 
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notice notice = new Notice();
+                notice.setTitle(binding.titleEdittext.getText().toString());
+                notice.setContent(binding.contentEdittext.getText().toString());
+                viewModel.saveNotice(notice);
+            }
+        });
 
         return view;
     }

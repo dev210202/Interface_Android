@@ -1,44 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/check_textview"
+            style="@style/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingLeft="24dp"
+            android:text="출석체크"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <EditText
             android:id="@+id/name_edittext"
+            style="@style/CheckInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="이름"></EditText>
+            android:background="@drawable/main_background"
+            android:hint="이름"
+            app:layout_constraintTop_toBottomOf="@+id/check_textview"></EditText>
+
+        <TextView
+            android:id="@+id/name_textView"
+            android:textColor="@color/interface_grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="6dp"
+            android:text="2~4글자 / 띄어쓰기 금지 / 장난 금지"
+            app:layout_constraintTop_toBottomOf="@+id/name_edittext"></TextView>
 
         <EditText
             android:id="@+id/studentid_edittext"
+            style="@style/CheckInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="학번"></EditText>
+            android:background="@drawable/main_background"
+            android:hint="학번"
+            app:layout_constraintTop_toBottomOf="@+id/name_textView"></EditText>
         <EditText
             android:id="@+id/groupnum_edittext"
+            style="@style/CheckInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="기수"></EditText>
+            android:background="@drawable/main_background"
+            android:hint="기수"
+            app:layout_constraintTop_toBottomOf="@+id/studentid_edittext"></EditText>
+
+
         <EditText
             android:id="@+id/password_edittext"
+            style="@style/CheckInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="암호"></EditText>
+            android:background="@drawable/main_background"
+            android:hint="암호"
+            app:layout_constraintTop_toBottomOf="@+id/groupnum_edittext"></EditText>
 
         <Button
-            android:onClick="sendAttendance"
+            android:textColor="@color/interface_white"
+            android:background="@drawable/complete_button_background"
             android:id="@+id/check_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="출석"></Button>
+            android:onClick="sendAttendance"
+            android:text="완료"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"></Button>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

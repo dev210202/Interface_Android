@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
+import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
 
 import java.util.Calendar;
 
@@ -29,8 +32,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
 
-        return view;
+        binding.checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                AdminNoticeFragment homeFragment = new AdminNoticeFragment();
+                transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
+            }
+        });
 
+        return view;
 
     }
 

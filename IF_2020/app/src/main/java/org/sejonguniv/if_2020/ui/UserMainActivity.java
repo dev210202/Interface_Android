@@ -81,7 +81,7 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
         binding.drawerlayout.openDrawer(GravityCompat.START);
     }
 
-    public void externalPermissionCheck() {
+    private void externalPermissionCheck() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 

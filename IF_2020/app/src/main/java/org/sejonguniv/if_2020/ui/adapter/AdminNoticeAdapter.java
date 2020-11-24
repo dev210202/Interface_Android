@@ -1,8 +1,10 @@
 package org.sejonguniv.if_2020.ui.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -19,6 +21,7 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
 
 
     List<Notice> noticeList;
+    private OnItemClickListener mListener = null;
 
     public AdminNoticeAdapter() {
         this.noticeList = new ArrayList<Notice>();
@@ -51,16 +54,47 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
         return noticeList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         RecycerviewAdminNoticeBinding binding;
+        Notice notice = noticeList.get(getAdapterPosition());
 
         public ViewHolder(RecycerviewAdminNoticeBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onItemClick(v, notice.getId());
+                        Log.e("edit", "onclick");
+                    }
+
+                }
+            });
+            binding.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        Notice notice = noticeList.get(getAdapterPosition());
+                        mListener.onItemClick(v, notice.getId());
+                    }
+                }
+            });
         }
-        void bind(Notice notice){
+
+        void bind(Notice notice) {
             binding.setNotice(notice);
         }
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
     }
 }

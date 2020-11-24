@@ -16,11 +16,11 @@
 
         <item
             android:id="@+id/attendancecheck"
-            android:icon="@drawable/ic_baseline_event_available_24"
+            android:icon="@drawable/ic_check_24"
             android:title="출석체크"></item>
         <item
             android:id="@+id/list"
-            android:icon="@drawable/ic_baseline_people_24"
+            android:icon="@drawable/ic_people_24"
             android:title="명부확인"></item>
         <item
             android:id="@+id/calendar"

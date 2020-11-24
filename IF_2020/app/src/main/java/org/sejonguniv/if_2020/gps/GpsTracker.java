@@ -95,7 +95,7 @@ public class GpsTracker extends Service implements LocationListener {
         }
         catch (Exception e)
         {
-            Log.d("@@@", ""+e.toString());
+            Log.d("Exception", ""+e.toString());
         }
 
         return location;
