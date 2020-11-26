@@ -20,15 +20,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.admin.notice.AdminNoticeFragment">
-
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refreshlayout"
+    android:layout_weight="1"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp">
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="1"
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             adminItem="@{noticeList}"
             android:id="@+id/notice_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="0dp"></androidx.recyclerview.widget.RecyclerView>
-
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <EditText
             android:id="@+id/title_edittext"
             android:layout_width="match_parent"

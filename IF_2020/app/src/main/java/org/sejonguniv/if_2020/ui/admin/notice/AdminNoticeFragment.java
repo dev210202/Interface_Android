@@ -3,6 +3,7 @@ package org.sejonguniv.if_2020.ui.admin.notice;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,17 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         AdminNoticeAdapter adapter = new AdminNoticeAdapter();
 
         startProgressBar();
+
+        binding.swipeRefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                binding.swipeRefreshlayout.setRefreshing(false);
+                dialog.show();
+                viewModel.titleList.clear();
+                viewModel.getNoticeList(dialog);
+            }
+        });
+
         binding.noticeRecyclerview.setAdapter(adapter);
         adapter.setOnItemClickListener(new AdminNoticeAdapter.OnItemClickListener() {
             @Override
@@ -41,21 +53,16 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
                    viewModel.deleteNotice(position);
                 }
                 else {
-                    // edit
+                    Notice editNotice = new Notice();
+                    editNotice.setId(position);
+                    editNotice.setTitle(binding.titleEdittext.getText().toString());
+                    editNotice.setContent(binding.contentEdittext.getText().toString());
+                    viewModel.editNotice(position, editNotice);
                 }
             }
         });
         viewModel.getNoticeList(dialog);
-        binding.updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Notice notice = new Notice();
-                notice.setTitle(binding.titleEdittext.getText().toString());
-                notice.setContent(binding.contentEdittext.getText().toString());
-                viewModel.editNotice(notice);
-                viewModel.getNoticeList(dialog);
-            }
-        });
+
 
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

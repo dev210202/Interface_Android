@@ -29,13 +29,10 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
 
-
         View view = binding.getRoot();
 
         NoticeAdapter noticeAdapter = new NoticeAdapter();
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
-
-
 
         startProgressBar();
         viewModel.getNoticeList(dialog);

@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'com.yalantis:phoenix:1.2.3'
 }

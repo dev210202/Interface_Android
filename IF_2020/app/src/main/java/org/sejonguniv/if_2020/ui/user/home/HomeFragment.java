@@ -13,6 +13,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
+import org.sejonguniv.if_2020.ui.admin.home.AdminHomeFragment;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
 
 import java.util.Calendar;

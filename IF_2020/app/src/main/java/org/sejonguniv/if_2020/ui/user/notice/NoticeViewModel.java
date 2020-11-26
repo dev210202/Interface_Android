@@ -27,7 +27,7 @@ public class NoticeViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
-    ObservableArrayList<Notice> titleList= new ObservableArrayList<>();
+    ObservableArrayList<Notice> titleList = new ObservableArrayList<>();
 
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -51,55 +51,31 @@ public class NoticeViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
                 if (response.body() != null) {
-
                     List<Notice> data = response.body();
-                    for (Notice u : data) {
-                        titleList.add(u);
-                        Log.e("SUCCESS get title", u.getTitle());
-                        Log.e("asdasd", ""+ u.getId());
-
+                    if (data.isEmpty()) {
+                        Notice emptyNotice = new Notice();
+                        emptyNotice.setTitle("저장되어있는 공지사항이 없습니다.");
+                        titleList.add(emptyNotice);
+                    } else {
+                        for (Notice u : data) {
+                            titleList.add(u);
+                        }
                     }
-
-                    // 테스트 데이터
-                    Notice test = new Notice();
-                    test.setTitle("Test");
-                    test.setContent("Test\bTest\bTest\bTest\bTest\bTest\bTest\bTest\bTest\bTest\bTest\bTest");
-                    test.setDate("2020년 10월 19일");
-                    titleList.add(test);
-                    dialog.dismiss();
                 } else {
-                    Log.e("SS?", "?");
-
-                    dialog.dismiss();
+                    Log.e("respose", "error");
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Notice>> call, Throwable t) {
+                Notice errorNotice = new Notice();
+                errorNotice.setTitle("데이터를 불러오지 못했습니다. 당겨서 새로고침을 통해 다시 시도해주세요.");
+                titleList.add(errorNotice);
                 Log.e("Fail", t.toString());
                 dialog.dismiss();
             }
         });
 
     }
-
-
-    public void saveNotice(Notice notice) {
-
-        Call<String> request = service.saveNotice(notice);
-        request.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body() != null) {
-                    Log.e("Success save", "!");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("Fail save", t.toString());
-            }
-        });
-    }
-
 }

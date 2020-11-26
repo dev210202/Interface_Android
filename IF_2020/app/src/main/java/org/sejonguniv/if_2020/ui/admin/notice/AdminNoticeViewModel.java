@@ -29,7 +29,7 @@ public class AdminNoticeViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
-    ObservableArrayList<Notice> titleList= new ObservableArrayList<>();
+    ObservableArrayList<Notice> titleList = new ObservableArrayList<>();
 
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -53,25 +53,27 @@ public class AdminNoticeViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
                 if (response.body() != null) {
-
                     List<Notice> data = response.body();
-                    for (Notice u : data) {
-                        titleList.add(u);
-                        Log.e("SUCCESS get title", u.getTitle());
-                        Log.e("asdasd", ""+ u.getId());
-
+                    if (data.isEmpty()) {
+                        Notice emptyNotice = new Notice();
+                        emptyNotice.setTitle("저장되어있는 공지사항이 없습니다.");
+                        titleList.add(emptyNotice);
+                    } else {
+                        for (Notice u : data) {
+                            titleList.add(u);
+                        }
                     }
-
                 } else {
-                    Log.e("SS?", "?");
-
+                    Log.e("respose", "error");
                 }
                 dialog.dismiss();
-
             }
 
             @Override
             public void onFailure(Call<List<Notice>> call, Throwable t) {
+                Notice errorNotice = new Notice();
+                errorNotice.setTitle("데이터를 불러오지 못했습니다. 당겨서 새로고침을 통해 다시 시도해주세요.");
+                titleList.add(errorNotice);
                 Log.e("Fail", t.toString());
                 dialog.dismiss();
             }
@@ -98,15 +100,16 @@ public class AdminNoticeViewModel extends ViewModel {
         });
     }
 
-    public void editNotice(Notice notice){
+    public void editNotice(int listNumer, Notice notice) {
         // 공지사항의 index에 맞춰서 update/{index}
 
-        Call<Void> request = service.update(1, notice);
+        Call<Void> request = service.update(listNumer, notice);
         request.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.body() != null) {
                     Log.e("Success save!@#!@#", "!");
+
                 }
             }
 
@@ -116,15 +119,15 @@ public class AdminNoticeViewModel extends ViewModel {
             }
         });
     }
-    public void deleteNotice(int listNumber){
+
+    public void deleteNotice(int listNumber) {
         Call<Void> request = service.delete(listNumber);
         request.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
-                }
-                else  if (response.body() != null) {
+                } else if (response.body() != null) {
                     Log.e("Success delete", "!");
                 }
 

@@ -57,7 +57,6 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         RecycerviewAdminNoticeBinding binding;
-        Notice notice = noticeList.get(getAdapterPosition());
 
         public ViewHolder(RecycerviewAdminNoticeBinding binding) {
             super(binding.getRoot());
@@ -67,6 +66,8 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
+
+                        Notice notice = noticeList.get(getAdapterPosition());
                         mListener.onItemClick(v, notice.getId());
                         Log.e("edit", "onclick");
                     }
@@ -76,6 +77,7 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
             binding.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     if (mListener != null) {
                         Notice notice = noticeList.get(getAdapterPosition());
                         mListener.onItemClick(v, notice.getId());
