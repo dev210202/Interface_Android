@@ -23,7 +23,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
 import org.sejonguniv.if_2020.model.Notice;
-import org.sejonguniv.if_2020.model.People;
+import org.sejonguniv.if_2020.model.AdminPeople;
 import org.sejonguniv.if_2020.model.TopTitle;
 import org.sejonguniv.if_2020.network.APIService;
 
@@ -49,8 +49,6 @@ public class AdminListFragmentViewModel extends ViewModel {
 
     Gson gson = new GsonBuilder().setLenient().create();
 
-    ObservableArrayList<Notice> titleList = new ObservableArrayList<>();
-
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(1, TimeUnit.MINUTES)
@@ -59,7 +57,7 @@ public class AdminListFragmentViewModel extends ViewModel {
             .addInterceptor(loggingInterceptor)
             .build();
 
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app.herokuapp.com/api/v1/")
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app-dev.herokuapp.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build();
@@ -67,9 +65,9 @@ public class AdminListFragmentViewModel extends ViewModel {
     APIService service = retrofit.create(APIService.class);
 
 
-    People base = new People("재학여부", "기수", "학과", "학번", "이름", "전화번호", "1학기회비", "2학기회비", "개총", "종총");
-    People JU = new People("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");
-    ArrayList<People> peopleArrayList = new ArrayList<People>();
+    AdminPeople base = new AdminPeople("재학여부", "기수", "학과", "학번", "이름", "전화번호", "1학기회비", "2학기회비", "개총", "종총");
+    AdminPeople JU = new AdminPeople("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");
+    ObservableArrayList<AdminPeople> peopleArrayList = new ObservableArrayList<AdminPeople>();
 
     List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
     List<TopTitle> topTitles = new ArrayList<TopTitle>();
@@ -147,36 +145,7 @@ public class AdminListFragmentViewModel extends ViewModel {
     public void setExcelData() {
 
 
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        Call<List<People>> request = service.findAll();
-//        request.enqueue(new Callback<List<People>>() {
-//            @Override
-//            public void onResponse(Call<List<People>> call, Response<List<People>> response) {
-//
-//                // 받아온 값 peopleArrayList에 add
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<People>> call, Throwable t) {
-//
-//            }
-//        });
 
-        People a = new People("A","A","A","A","A","A","A","A","A","A");
-        People b = new People("B","B","B","B","B","B","B","B","B","B");
-        People c = new People("C","C","C","C","C","C","C","C","C","C");
-
-        peopleArrayList.add(JU);
-        peopleArrayList.add(a);
-        peopleArrayList.add(b);
-        peopleArrayList.add(c);
-        peopleArrayList.add(a);
-        peopleArrayList.add(b);
-        peopleArrayList.add(c);
-        peopleArrayList.add(a);
-        peopleArrayList.add(b);
-        peopleArrayList.add(c);
-        peopleArrayList.add(a);
 
     }
 

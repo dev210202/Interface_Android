@@ -41,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/name_edittext"></TextView>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/studentid_edittext"
             style="@style/CheckInput"
             android:layout_width="match_parent"
@@ -49,6 +50,7 @@
             android:hint="학번"
             app:layout_constraintTop_toBottomOf="@+id/name_textView"></EditText>
         <EditText
+            android:inputType="number"
             android:id="@+id/groupnum_edittext"
             style="@style/CheckInput"
             android:layout_width="match_parent"

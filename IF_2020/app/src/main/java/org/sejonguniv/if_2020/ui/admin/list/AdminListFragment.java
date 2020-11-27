@@ -12,30 +12,26 @@ import android.widget.Toast;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
-import org.sejonguniv.if_2020.databinding.FragmentListBinding;
-import org.sejonguniv.if_2020.model.CellData;
-import org.sejonguniv.if_2020.model.LeftTitle;
-import org.sejonguniv.if_2020.model.TopTitle;
+import org.sejonguniv.if_2020.databinding.FragmentAdminListBinding;
 import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class AdminListFragment extends BaseFragment<FragmentListBinding, AdminListFragmentViewModel> {
+public class AdminListFragment extends BaseFragment<FragmentAdminListBinding, AdminListFragmentViewModel> {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setBinding(inflater, R.layout.fragment_list, container);
+        setBinding(inflater, R.layout.fragment_admin_list, container);
         setViewModel(AdminListFragmentViewModel.class);
 
 
         viewModel.getLocalExcelData(getContext());
         viewModel.setExcelData();
 
-        ExcelAdapter adapter = new ExcelAdapter(viewModel.setLeftTitle(),viewModel.setTopTilteCell(),viewModel.setCell());
-
+        ExcelAdapter adapter = new ExcelAdapter();
+        adapter.setTopList(viewModel.setTopTilteCell());
+        adapter.setLeftList(viewModel.setLeftTitle());
+        adapter.setCellList(viewModel.setCell());
 
         binding.excelpanel.setPanelAdapter(adapter);
         View view = binding.getRoot();

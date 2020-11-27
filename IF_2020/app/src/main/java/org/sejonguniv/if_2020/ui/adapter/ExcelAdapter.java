@@ -30,24 +30,32 @@ public class ExcelAdapter extends PanelAdapter {
     private static final int COL_TYPE = 2;
     private static final int CELL_TYPE = 3;
 
-    public ExcelAdapter(List<LeftTitle> leftList, List<TopTitle> topList, List<List<CellData>> cellList) {
-        this.leftList = leftList;
-        this.topList = topList;
-        this.cellList = cellList;
-    }
 
     List<LeftTitle> leftList;
     List<TopTitle> topList ;
     List<List<CellData>> cellList;
 
+    public void setLeftList(List<LeftTitle> leftList) {
+        this.leftList = leftList;
+
+    }
+
+    public void setTopList(List<TopTitle> topList) {
+        this.topList = topList;
+    }
+
+    public void setCellList(List<List<CellData>> cellList) {
+        this.cellList = cellList;
+    }
+
     @Override
     public int getRowCount() {
-        return topList.size() + 1;
+        return leftList.size() + 1;
     }
 
     @Override
     public int getColumnCount() {
-        return leftList.size();
+        return topList.size() + 1;
     }
 
     @Override
@@ -104,7 +112,7 @@ public class ExcelAdapter extends PanelAdapter {
         if(pos <= topList.size()){
 
             TopTitle info = topList.get(pos - 1);
-            viewHolder.titleEditText.setText(info.getTitle());
+            viewHolder.titleTextView.setText(info.getTitle());
         }
     }
 
@@ -117,12 +125,12 @@ public class ExcelAdapter extends PanelAdapter {
     }
 
     private void setCellView(int row, int col, CellViewHolder viewHolder) {
-        if (col <= cellList.get(row).size()) {
+        if (col <= cellList.get(row - 1).size()) {
             CellData info = cellList.get(row - 1).get(col - 1);
 
             Log.e("info data", info.getTitle() + "  row : "+ row +" col : "+ col);
-            viewHolder.titleEditText.setText(info.getTitle());
-            viewHolder.titleEditText.addTextChangedListener(new TextWatcher() {
+            viewHolder.titleTextView.setText(info.getTitle());
+            viewHolder.titleTextView.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -150,11 +158,11 @@ public class ExcelAdapter extends PanelAdapter {
         }
     }
     private static class RowViewHolder extends RecyclerView.ViewHolder {
-        public EditText titleEditText;
+        public TextView titleTextView;
 
         public RowViewHolder(View view) {
             super(view);
-            this.titleEditText = (EditText) view.findViewById(R.id.excel_edittext);
+            this.titleTextView = (TextView) view.findViewById(R.id.excel_textview);
         }
     }
 
@@ -168,11 +176,11 @@ public class ExcelAdapter extends PanelAdapter {
     }
 
     private static class CellViewHolder extends RecyclerView.ViewHolder {
-        public EditText titleEditText;
+        public TextView titleTextView;
 
         public CellViewHolder(View view) {
             super(view);
-            this.titleEditText = (EditText) view.findViewById(R.id.excel_edittext);
+            this.titleTextView = (TextView) view.findViewById(R.id.excel_textview);
 
         }
     }

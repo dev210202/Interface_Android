@@ -15,6 +15,7 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
 import org.sejonguniv.if_2020.ui.admin.home.AdminHomeFragment;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
+import org.sejonguniv.if_2020.ui.user.list.ListFragment;
 
 import java.util.Calendar;
 
@@ -38,7 +39,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 AdminNoticeFragment homeFragment = new AdminNoticeFragment();
-                transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
+                ListFragment listFragment = new ListFragment();
+
+                transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
             }
         });
 

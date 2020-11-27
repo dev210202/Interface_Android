@@ -65,6 +65,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
                     Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
                 }
                 else{
+
                     Attendee attendee = new Attendee();
                     attendee.setName(binding.nameEdittext.getText().toString());
                     attendee.setGroupnum(Integer.parseInt(binding.groupnumEdittext.getText().toString()));
