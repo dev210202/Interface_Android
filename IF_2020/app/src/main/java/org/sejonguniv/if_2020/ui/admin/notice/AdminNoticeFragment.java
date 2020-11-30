@@ -26,7 +26,7 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         setBinding(inflater, R.layout.fragment_admin_notice, container);
         setViewModel(AdminNoticeViewModel.class);
 
-        View view = binding.getRoot();
+
 
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
@@ -74,6 +74,6 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 }

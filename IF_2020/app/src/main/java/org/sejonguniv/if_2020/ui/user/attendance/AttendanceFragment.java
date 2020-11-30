@@ -56,7 +56,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         double longithude = gpsTracker.getLongitude();
 
         Log.e("Current Lat, Lon", "lat : "+ latitude + " lon : " + longithude);
-
+        binding.checkButton.setEnabled(false);
         binding.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

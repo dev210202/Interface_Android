@@ -34,7 +34,7 @@ public class AdminListFragment extends BaseFragment<FragmentAdminListBinding, Ad
         adapter.setCellList(viewModel.setCell());
 
         binding.excelpanel.setPanelAdapter(adapter);
-        View view = binding.getRoot();
+
         binding.completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +51,7 @@ public class AdminListFragment extends BaseFragment<FragmentAdminListBinding, Ad
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 
 

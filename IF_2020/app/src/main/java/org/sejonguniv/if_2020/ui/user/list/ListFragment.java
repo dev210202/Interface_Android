@@ -20,20 +20,13 @@ public class ListFragment extends BaseFragment<FragmentListBinding, ListViewMode
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+      
         setBinding(inflater, R.layout.fragment_list, container);
         setViewModel(ListViewModel.class);
 
         binding.setPeopleList(viewModel.peopleArrayList);
         viewModel.setExcelData();
 
-
-
-
-        View view = binding.getRoot();
-
-
-        return view;
+        return binding.getRoot();
     }
 }

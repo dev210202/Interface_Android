@@ -18,21 +18,16 @@ import org.sejonguniv.if_2020.databinding.FragmentCalendarBinding;
 
 import java.util.ArrayList;
 
-public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel>  {
+public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_calendar, container);
         setViewModel(CalendarViewModel.class);
 
-        View view = binding.getRoot();
-
         ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
         calendarDayList.add(CalendarDay.today());
         calendarDayList.add(CalendarDay.from(2020, 11, 25));
-
-
-
 
         EventDecorator eventDecorator = new EventDecorator(calendarDayList, getActivity(), binding.calendarTextview);
         binding.calendarview.addDecorators(eventDecorator);
@@ -40,10 +35,9 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
-                if(calendarDayList.contains(date)){
+                if (calendarDayList.contains(date)) {
                     eventDecorator.setText("CLICK");
-                }
-                else{
+                } else {
 
                     OtherDecorator otherDecorator = new OtherDecorator(date, getActivity(), binding.calendarTextview);
                     binding.calendarview.addDecorator(otherDecorator);
@@ -52,7 +46,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 
 }

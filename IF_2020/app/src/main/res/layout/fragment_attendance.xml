@@ -70,15 +70,17 @@
             app:layout_constraintTop_toBottomOf="@+id/groupnum_edittext"></EditText>
 
         <Button
-            android:textColor="@color/interface_white"
-            android:background="@drawable/complete_button_background"
             android:id="@+id/check_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/complete_button_background"
             android:onClick="sendAttendance"
             android:text="완료"
+            android:textColor="@color/interface_white"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"></Button>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></Button>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

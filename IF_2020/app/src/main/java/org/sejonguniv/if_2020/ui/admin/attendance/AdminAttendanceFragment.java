@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.admin.home;
+package org.sejonguniv.if_2020.ui.admin.attendance;
 
 import android.os.Bundle;
 
@@ -8,18 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yalantis.phoenix.PullToRefreshView;
-
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
-import org.sejonguniv.if_2020.databinding.FragmentAdminHomeBinding;
+import org.sejonguniv.if_2020.databinding.FragmentAdminAttendanceBinding;
 
-public class AdminHomeFragment extends BaseFragment<FragmentAdminHomeBinding, AdminHomeViewModel> {
-
+public class AdminAttendanceFragment extends BaseFragment<FragmentAdminAttendanceBinding, AdminAttendanceViewModel> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
 
         return binding.getRoot();
     }

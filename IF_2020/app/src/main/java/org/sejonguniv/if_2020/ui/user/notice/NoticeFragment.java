@@ -29,8 +29,6 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
 
-        View view = binding.getRoot();
-
         NoticeAdapter noticeAdapter = new NoticeAdapter();
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
 
@@ -51,9 +49,8 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
                 return false;
             }
         });
-        return view;
+        return binding.getRoot();
     }
-
 
 
 }
