@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,7 +13,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.sejonguniv.if_2020.base.BaseActivity;
 import org.sejonguniv.if_2020.R;
@@ -37,6 +42,18 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
         transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
 
         externalPermissionCheck();
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if(!task.isSuccessful()){
+
+                    Log.e("FCM 토큰 에러", String.valueOf(task.getException()));
+                    return ;
+                }
+                Log.e("FCM 토큰", task.getResult().getToken());
+            }
+        });
 
         binding.navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
