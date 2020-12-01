@@ -38,9 +38,10 @@ public class InterfaceFirebaseMessagingService extends com.google.firebase.messa
                     .setContentText(body) // Firebase Console 에서 사용자가 전달한 메시지내용
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
-
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, notificationBuilder.build());
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+            notificationManagerCompat.notify(0x1001, notificationBuilder.build());
+//            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//            notificationManager.notify(0, notificationBuilder.build());
 
 
         }
