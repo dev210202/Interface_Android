@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
+import org.sejonguniv.if_2020.base.BaseViewModel;
 import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.network.APIService;
@@ -19,22 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AttendanceViewModel extends ViewModel {
-
-    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-
-    OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build();
-
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app.herokuapp.com/api/v1/meet/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build();
-    APIService service = retrofit.create(APIService.class);
+public class AttendanceViewModel extends BaseViewModel {
 
     public void sendUserAttendance(Attendee attendee){
 
@@ -56,6 +42,5 @@ public class AttendanceViewModel extends ViewModel {
         });
 
     }
-
 
 }

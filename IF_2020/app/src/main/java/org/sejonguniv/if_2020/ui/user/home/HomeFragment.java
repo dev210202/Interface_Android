@@ -43,43 +43,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         binding.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserData userData = new UserData();
-                userData.FCMToken = FirebaseInstanceId.getInstance().getToken();
-                JSONObject root = new JSONObject();
-                JSONObject notification = new JSONObject();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                AdminNoticeFragment homeFragment = new AdminNoticeFragment();
+                ListFragment listFragment = new ListFragment();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            notification.put("body", "1201");
-                            notification.put("title", "1201 test");
-                            root.put("notification", notification);
-                            root.put("to", userData.FCMToken);
-                            URL url = new URL("https://fcm.googleapis.com/fcm/send");
-                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                            conn.setRequestMethod("POST");
-                            conn.setDoOutput(true);
-                            conn.setDoInput(true);
-                            conn.addRequestProperty("Authorization", "key=" + "AAAAWxrxiPs:APA91bHK5AQv5eBDtaJM2pf3U7LO9ApAstz-Zn0asmOPouh7CJyn053wf3RHfrWtQmyUQvblcakUOKpBVqyO-BBW1QrTp4mpp8eJEtaJ13NiOc3NOE6oZ6DQu2X9acQdMhNu730PODDb");
-                            conn.setRequestProperty("Accept", "application/json");
-                            conn.setRequestProperty("Content-type", "application/json");
-                            OutputStream os = conn.getOutputStream();
-                            os.write(root.toString().getBytes("utf-8"));
-                            os.flush();
-                            conn.getResponseCode();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                AdminNoticeFragment homeFragment = new AdminNoticeFragment();
-//                ListFragment listFragment = new ListFragment();
-//
-//                transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
+                transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
             }
         });
 

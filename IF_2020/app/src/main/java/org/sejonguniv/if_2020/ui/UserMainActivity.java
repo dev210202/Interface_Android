@@ -41,20 +41,6 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
 
-        externalPermissionCheck();
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if(!task.isSuccessful()){
-
-                    Log.e("FCM 토큰 에러", String.valueOf(task.getException()));
-                    return ;
-                }
-                Log.e("FCM 토큰", task.getResult().getToken());
-            }
-        });
-
         binding.navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -98,14 +84,5 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
         binding.drawerlayout.openDrawer(GravityCompat.START);
     }
 
-    private void externalPermissionCheck() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-            return;
-        }
-    }
 }

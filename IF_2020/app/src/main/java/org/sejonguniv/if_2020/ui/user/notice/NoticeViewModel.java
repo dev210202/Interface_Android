@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.sejonguniv.if_2020.base.BaseViewModel;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.network.APIService;
 
@@ -23,24 +24,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NoticeViewModel extends ViewModel {
-
-    Gson gson = new GsonBuilder().setLenient().create();
+public class NoticeViewModel extends BaseViewModel {
 
     ObservableArrayList<Notice> titleList = new ObservableArrayList<>();
-
-    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-    OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build();
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app-dev.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build();
-    APIService service = retrofit.create(APIService.class);
 
     public void getNoticeList(Dialog dialog) {
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_24"
+            android:title="홈"
+            ></item>
+
+        <item
+            android:id="@+id/notice"
+            android:icon="@drawable/ic_notice_24"
+            android:title="공지사항 관리"></item>
+
+        <item
+            android:id="@+id/attendancecheck"
+            android:icon="@drawable/ic_check_24"
+            android:title="출석 관리"></item>
+        <item
+            android:id="@+id/list"
+            android:icon="@drawable/ic_people_24"
+            android:title="명부 관리"></item>
+        <item
+            android:id="@+id/calendar"
+            android:icon="@drawable/ic_calendar_24"
+            android:title="일정 관리">
+        </item>
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/notification_24"
+            android:title="알람 보내기">
+        </item>
+
+    </group>
+</menu>
