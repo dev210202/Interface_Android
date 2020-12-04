@@ -19,7 +19,7 @@
             android:icon="@drawable/ic_check_24"
             android:title="출석 관리"></item>
         <item
-            android:id="@+id/list"
+            android:id="@+id/excel"
             android:icon="@drawable/ic_people_24"
             android:title="명부 관리"></item>
         <item

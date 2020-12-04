@@ -8,23 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
-import org.sejonguniv.if_2020.model.UserData;
-import org.sejonguniv.if_2020.ui.admin.home.AdminHomeFragment;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
-import org.sejonguniv.if_2020.ui.user.list.ListFragment;
+import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 
 
@@ -45,9 +36,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 AdminNoticeFragment homeFragment = new AdminNoticeFragment();
-                ListFragment listFragment = new ListFragment();
+                ExcelFragment excelFragment = new ExcelFragment();
 
-                transaction.replace(R.id.frame_layout, listFragment).commitAllowingStateLoss();
+                transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
             }
         });
 

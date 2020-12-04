@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel" />
+            type="org.sejonguniv.if_2020.ui.admin.excel.AdminExcelFragmentViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.admin.list.ListActivity">
+        tools:context=".ui.admin.excel.ListActivity">
 
         <EditText
             android:id="@+id/name_edittext"

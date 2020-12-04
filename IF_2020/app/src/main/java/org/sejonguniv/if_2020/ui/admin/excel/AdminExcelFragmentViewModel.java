@@ -1,15 +1,10 @@
-package org.sejonguniv.if_2020.ui.admin.list;
+package org.sejonguniv.if_2020.ui.admin.excel;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
 import androidx.databinding.ObservableArrayList;
-import androidx.lifecycle.ViewModel;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -20,50 +15,21 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.sejonguniv.if_2020.base.BaseViewModel;
 import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
-import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.AdminPeople;
 import org.sejonguniv.if_2020.model.TopTitle;
-import org.sejonguniv.if_2020.network.APIService;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class AdminListFragmentViewModel extends ViewModel {
-
-    Gson gson = new GsonBuilder().setLenient().create();
-
-    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-    OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build();
-
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app-dev.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build();
-
-    APIService service = retrofit.create(APIService.class);
-
+public class AdminExcelFragmentViewModel extends BaseViewModel {
 
     AdminPeople base = new AdminPeople("재학여부", "기수", "학과", "학번", "이름", "전화번호", "1학기회비", "2학기회비", "개총", "종총");
     AdminPeople JU = new AdminPeople("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");

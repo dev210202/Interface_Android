@@ -1,23 +1,14 @@
 package org.sejonguniv.if_2020.ui;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import org.sejonguniv.if_2020.base.BaseActivity;
 import org.sejonguniv.if_2020.R;
@@ -25,8 +16,8 @@ import org.sejonguniv.if_2020.databinding.ActivityUserMainBinding;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
 import org.sejonguniv.if_2020.ui.user.attendance.AttendanceFragment;
 import org.sejonguniv.if_2020.ui.user.calendar.CalendarFragment;
-import org.sejonguniv.if_2020.ui.admin.list.AdminListFragment;
 import org.sejonguniv.if_2020.ui.user.home.HomeFragment;
+import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 import org.sejonguniv.if_2020.ui.user.notice.NoticeFragment;
 
 public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
@@ -62,9 +53,9 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
                         transaction.replace(R.id.frame_layout, attendanceFragment).commitAllowingStateLoss();
                         break;
                     }
-                    case R.id.list: {
-                        AdminListFragment adminListFragment = new AdminListFragment();
-                        transaction.replace(R.id.frame_layout, adminListFragment).commitAllowingStateLoss();
+                    case R.id.excel: {
+                        ExcelFragment excelFragment = new ExcelFragment();
+                        transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.calendar: {

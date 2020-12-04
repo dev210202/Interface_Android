@@ -11,8 +11,9 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.ObservableField;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +25,7 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
 import org.sejonguniv.if_2020.gps.GpsTracker;
 import org.sejonguniv.if_2020.model.Attendee;
-import org.sejonguniv.if_2020.ui.admin.list.AdminListFragmentViewModel;
-
-import java.util.Observable;
-import java.util.Observer;
+import org.w3c.dom.Text;
 
 public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, AttendanceViewModel> {
 
@@ -55,7 +53,12 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         double latitude = gpsTracker.getLatitude();
         double longithude = gpsTracker.getLongitude();
 
-        Log.e("Current Lat, Lon", "lat : "+ latitude + " lon : " + longithude);
+        Log.e("Current Lat, Lon", "lat : " + latitude + " lon : " + longithude);
+
+        binding.nameEdittext.addTextChangedListener(textWatcher);
+        binding.studentidEdittext.addTextChangedListener(textWatcher);
+        binding.groupnumEdittext.addTextChangedListener(textWatcher);
+        binding.passwordEdittext.addTextChangedListener(textWatcher);
         binding.checkButton.setEnabled(false);
         binding.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +66,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
 
                 if (isExistEmptyInput()) {
                     Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
-                }
-                else{
+                } else {
 
                     Attendee attendee = new Attendee();
                     attendee.setName(binding.nameEdittext.getText().toString());
@@ -76,7 +78,6 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
                 }
             }
         });
-
 
 
         return view;
@@ -110,16 +111,14 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(getActivity().getApplicationContext(), "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
                 // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
 
 
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
             }
+            ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
+                    PERMISSIONS_REQUEST_CODE);
 
         }
 
@@ -154,10 +153,31 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    private boolean isExistEmptyInput(){
-        return (binding.nameEdittext.getText().length() == 0  ||
+    private boolean isExistEmptyInput() {
+        return (binding.nameEdittext.getText().length() == 0 ||
                 binding.studentidEdittext.getText().length() == 0 ||
                 binding.groupnumEdittext.getText().length() == 0 ||
                 binding.passwordEdittext.getText().length() == 0);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if(!isExistEmptyInput()){
+                binding.checkButton.setEnabled(true);
+            }
+        }
+    };
+
+
 }
