@@ -22,57 +22,58 @@ import org.sejonguniv.if_2020.ui.user.notice.NoticeFragment;
 
 public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
 
+    HomeFragment homeFragment = new HomeFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main);
         setBinding(R.layout.activity_user_main);
-        AdminNoticeFragment adminNoticeFragment = new AdminNoticeFragment();
-        HomeFragment homeFragment = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
-
-        binding.navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                switch (id) {
-                    case R.id.home: {
-                        transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
-                        break;
-                    }
-
-                    case R.id.notice: {
-                        NoticeFragment noticeFragment = new NoticeFragment();
-                        transaction.replace(R.id.frame_layout, noticeFragment).commitAllowingStateLoss();
-                        break;
-                    }
-                    case R.id.attendancecheck: {
-                        AttendanceFragment attendanceFragment = new AttendanceFragment();
-                        transaction.replace(R.id.frame_layout, attendanceFragment).commitAllowingStateLoss();
-                        break;
-                    }
-                    case R.id.excel: {
-                        ExcelFragment excelFragment = new ExcelFragment();
-                        transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
-                        break;
-                    }
-                    case R.id.calendar: {
-                        CalendarFragment calendarFragment = new CalendarFragment();
-                        transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
-                        break;
-                    }
-
-                }
-                binding.drawerlayout.closeDrawer(GravityCompat.START);
-                return false;
-            }
-        });
+        binding.navigationview.setNavigationItemSelectedListener(new navigationItemSelectedListener());
     }
 
     public void openDrawerLayout(View view) {
         binding.drawerlayout.openDrawer(GravityCompat.START);
+    }
+
+    private class navigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            int id = item.getItemId();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            switch (id) {
+                case R.id.home: {
+                    transaction.replace(R.id.frame_layout, homeFragment).commitAllowingStateLoss();
+                    break;
+                }
+
+                case R.id.notice: {
+                    NoticeFragment noticeFragment = new NoticeFragment();
+                    transaction.replace(R.id.frame_layout, noticeFragment).commitAllowingStateLoss();
+                    break;
+                }
+                case R.id.attendancecheck: {
+                    AttendanceFragment attendanceFragment = new AttendanceFragment();
+                    transaction.replace(R.id.frame_layout, attendanceFragment).commitAllowingStateLoss();
+                    break;
+                }
+                case R.id.excel: {
+                    ExcelFragment excelFragment = new ExcelFragment();
+                    transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
+                    break;
+                }
+                case R.id.calendar: {
+                    CalendarFragment calendarFragment = new CalendarFragment();
+                    transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
+                    break;
+                }
+
+            }
+            binding.drawerlayout.closeDrawer(GravityCompat.START);
+            return false;
+        }
     }
 
 

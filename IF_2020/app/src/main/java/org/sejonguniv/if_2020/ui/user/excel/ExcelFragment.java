@@ -25,10 +25,10 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
         setBinding(inflater, R.layout.fragment_excel, container);
         setViewModel(ExcelViewModel.class);
 
-        startProgressBar();
-        externalPermissionCheck();
         binding.setPeopleList(viewModel.peopleArrayList);
 
+        startProgressBar();
+        externalPermissionCheck();
         viewModel.setExcelData(dialog);
 
         return binding.getRoot();

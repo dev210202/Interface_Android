@@ -27,7 +27,6 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         setViewModel(AdminNoticeViewModel.class);
 
 
-
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
 
@@ -35,45 +34,51 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
 
         startProgressBar();
 
-        binding.swipeRefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                binding.swipeRefreshlayout.setRefreshing(false);
-                dialog.show();
-                viewModel.titleList.clear();
-                viewModel.getNoticeList(dialog);
-            }
-        });
+        binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
         binding.noticeRecyclerview.setAdapter(adapter);
-        adapter.setOnItemClickListener(new AdminNoticeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                if(v.getId() == R.id.delete_button){
-                   viewModel.deleteNotice(position);
-                }
-                else {
-                    Notice editNotice = new Notice();
-                    editNotice.setId(position);
-                    editNotice.setTitle(binding.titleEdittext.getText().toString());
-                    editNotice.setContent(binding.contentEdittext.getText().toString());
-                    viewModel.editNotice(position, editNotice);
-                }
-            }
-        });
+        adapter.setOnItemClickListener(new onAdapterItemClickListener());
         viewModel.getNoticeList(dialog);
 
-
-        binding.saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Notice notice = new Notice();
-                notice.setTitle(binding.titleEdittext.getText().toString());
-                notice.setContent(binding.contentEdittext.getText().toString());
-                viewModel.saveNotice(notice);
-            }
-        });
+        binding.saveButton.setOnClickListener(new onClickListener());
 
         return binding.getRoot();
     }
+
+    private class onRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+        @Override
+        public void onRefresh() {
+            binding.swipeRefreshlayout.setRefreshing(false);
+            dialog.show();
+            viewModel.titleList.clear();
+            viewModel.getNoticeList(dialog);
+        }
+    }
+
+    private class onAdapterItemClickListener implements AdminNoticeAdapter.OnItemClickListener {
+        @Override
+        public void onItemClick(View v, int position) {
+            if (v.getId() == R.id.delete_button) {
+                viewModel.deleteNotice(position);
+            } else {
+                Notice editNotice = new Notice();
+                editNotice.setId(position);
+                editNotice.setTitle(binding.titleEdittext.getText().toString());
+                editNotice.setContent(binding.contentEdittext.getText().toString());
+                viewModel.editNotice(position, editNotice);
+            }
+        }
+    }
+
+    private class onClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Notice notice = new Notice();
+            notice.setTitle(binding.titleEdittext.getText().toString());
+            notice.setContent(binding.contentEdittext.getText().toString());
+            viewModel.saveNotice(notice);
+        }
+    }
+
 }

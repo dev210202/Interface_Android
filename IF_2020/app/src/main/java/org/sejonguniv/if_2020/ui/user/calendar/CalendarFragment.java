@@ -19,34 +19,39 @@ import org.sejonguniv.if_2020.databinding.FragmentCalendarBinding;
 import java.util.ArrayList;
 
 public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> {
+    ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
+    EventDecorator eventDecorator;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_calendar, container);
         setViewModel(CalendarViewModel.class);
 
-        ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
         calendarDayList.add(CalendarDay.today());
         calendarDayList.add(CalendarDay.from(2020, 11, 25));
 
         EventDecorator eventDecorator = new EventDecorator(calendarDayList, getActivity(), binding.calendarTextview);
+
         binding.calendarview.addDecorators(eventDecorator);
-        binding.calendarview.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-
-                if (calendarDayList.contains(date)) {
-                    eventDecorator.setText("CLICK");
-                } else {
-
-                    OtherDecorator otherDecorator = new OtherDecorator(date, getActivity(), binding.calendarTextview);
-                    binding.calendarview.addDecorator(otherDecorator);
-                    eventDecorator.setText(" ");
-                }
-            }
-        });
+        binding.calendarview.setOnDateChangedListener(new onDateChangedListener());
 
         return binding.getRoot();
     }
 
+    private class onDateChangedListener implements OnDateSelectedListener {
+
+        @Override
+        public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
+            if (calendarDayList.contains(date)) {
+                eventDecorator.setText("CLICK");
+            } else {
+
+                OtherDecorator otherDecorator = new OtherDecorator(date, getActivity(), binding.calendarTextview);
+                binding.calendarview.addDecorator(otherDecorator);
+                eventDecorator.setText(" ");
+            }
+
+        }
+    }
 }

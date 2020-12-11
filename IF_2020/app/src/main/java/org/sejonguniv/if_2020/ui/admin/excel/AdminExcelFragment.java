@@ -13,6 +13,7 @@ import android.widget.Toast;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAdminExcelBinding;
+import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
 
 
@@ -34,24 +35,28 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
 
         binding.excelpanel.setPanelAdapter(adapter);
 
-        binding.completeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.saveData();
-             //   viewModel.uploadData(); -> 서버에 cell data 모두 저장
-                Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        binding.saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               //  viewModel. -> edittext data 서버에 저장
-            }
-        });
+        binding.completeButton.setOnClickListener(new onClickListener());
+        binding.saveButton.setOnClickListener(new onClickListener());
 
         return binding.getRoot();
     }
 
+    private class onClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            switch (id){
+                case R.id.complete_button :{
+                    viewModel.saveData();
+                    Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                case R.id.save_button:{
+                    break;
+                }
+            }
+        }
+    }
 
 }

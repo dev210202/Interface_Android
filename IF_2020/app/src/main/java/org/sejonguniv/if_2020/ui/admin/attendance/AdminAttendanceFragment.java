@@ -17,11 +17,6 @@ public class AdminAttendanceFragment extends BaseFragment<FragmentAdminAttendanc
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-
-
-
         return binding.getRoot();
     }
 }

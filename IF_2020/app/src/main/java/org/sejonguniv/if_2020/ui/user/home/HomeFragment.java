@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,6 +14,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
+import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
 import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 
@@ -25,25 +27,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         setBinding(inflater, R.layout.fragment_home, container);
         setViewModel(HomeViewModel.class);
 
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
-
-        binding.checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                AdminNoticeFragment homeFragment = new AdminNoticeFragment();
-                ExcelFragment excelFragment = new ExcelFragment();
-
-                transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
-            }
-        });
+        binding.checkButton.setOnClickListener(new onClickListener());
 
         return binding.getRoot();
-
     }
 
     private String getDay() {
@@ -74,5 +64,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 break;
         }
         return today;
+    }
+
+    private class onClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            AdminNoticeFragment homeFragment = new AdminNoticeFragment();
+            ExcelFragment excelFragment = new ExcelFragment();
+
+            transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
+
+        }
     }
 }

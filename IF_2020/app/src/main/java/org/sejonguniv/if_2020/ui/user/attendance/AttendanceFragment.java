@@ -25,6 +25,7 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
 import org.sejonguniv.if_2020.gps.GpsTracker;
 import org.sejonguniv.if_2020.model.Attendee;
+import org.sejonguniv.if_2020.model.Notice;
 import org.w3c.dom.Text;
 
 public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, AttendanceViewModel> {
@@ -60,25 +61,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         binding.groupnumEdittext.addTextChangedListener(textWatcher);
         binding.passwordEdittext.addTextChangedListener(textWatcher);
         binding.checkButton.setEnabled(false);
-        binding.checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isExistEmptyInput()) {
-                    Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
-                } else {
-
-                    Attendee attendee = new Attendee();
-                    attendee.setName(binding.nameEdittext.getText().toString());
-                    attendee.setGroupnum(Integer.parseInt(binding.groupnumEdittext.getText().toString()));
-                    attendee.setPasskey(binding.passwordEdittext.getText().toString());
-                    attendee.setStudentId(Integer.parseInt(binding.studentidEdittext.getText().toString()));
-
-                    viewModel.sendUserAttendance(attendee);
-                }
-            }
-        });
-
+        binding.checkButton.setOnClickListener(new onClickListener());
 
         return view;
     }
@@ -173,11 +156,31 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!isExistEmptyInput()){
+            if (!isExistEmptyInput()) {
                 binding.checkButton.setEnabled(true);
             }
         }
     };
 
+    private class onClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+            if (isExistEmptyInput()) {
+                Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
+            } else {
+
+                Attendee attendee = new Attendee();
+                attendee.setName(binding.nameEdittext.getText().toString());
+                attendee.setGroupnum(Integer.parseInt(binding.groupnumEdittext.getText().toString()));
+                attendee.setPasskey(binding.passwordEdittext.getText().toString());
+                attendee.setStudentId(Integer.parseInt(binding.studentidEdittext.getText().toString()));
+
+                viewModel.sendUserAttendance(attendee);
+            }
+
+        }
+    }
 
 }
