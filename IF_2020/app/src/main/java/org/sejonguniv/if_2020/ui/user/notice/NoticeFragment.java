@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,11 +31,22 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         binding.setNoticeList(viewModel.titleList);
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
         binding.searchView.setOnQueryTextListener(new onQueryTextListener());
+        binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
         startProgressBar();
         viewModel.getNoticeList(dialog);
 
         return binding.getRoot();
+    }
+
+    private class onRefreshListener implements SwipeRefreshLayout.OnRefreshListener{
+        @Override
+        public void onRefresh() {
+            binding.swipeRefreshlayout.setRefreshing(false);
+            dialog.show();
+            viewModel.titleList.clear();
+            viewModel.getNoticeList(dialog);
+        }
     }
 
     private class onQueryTextListener implements SearchView.OnQueryTextListener {

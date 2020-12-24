@@ -6,7 +6,7 @@ public class Notice implements Serializable {
     int id;
     String title;
     String content;
-    String date;
+    String modifiedDate;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class Notice implements Serializable {
         this.content = content;
     }
 
-    public String getDate() {
-        return date;
+    public String getModifiedDate() {
+        return modifiedDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }

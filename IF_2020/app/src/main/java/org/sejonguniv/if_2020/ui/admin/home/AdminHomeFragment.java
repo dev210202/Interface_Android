@@ -21,6 +21,9 @@ public class AdminHomeFragment extends BaseFragment<FragmentAdminHomeBinding, Ad
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setBinding(inflater, R.layout.fragment_admin_home, container);
+        setViewModel(AdminHomeViewModel.class);
+
         return binding.getRoot();
     }
 }

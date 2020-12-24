@@ -29,7 +29,10 @@ public interface APIService {
     @PUT("posts/{id}")
     Call<Void> update(@Path("id")int id, @Body Notice notice);
 
-    @POST("userCheck")
+
+
+
+    @POST("meet/userCheck")
     Call<Void> insertAttendee(@Body Attendee attendee);
 
     @GET("member/list")

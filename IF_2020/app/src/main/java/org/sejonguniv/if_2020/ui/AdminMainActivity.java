@@ -27,6 +27,11 @@ import org.sejonguniv.if_2020.ui.user.notice.NoticeFragment;
 public class AdminMainActivity extends BaseActivity<ActivityAdminMainBinding> {
 
     AdminHomeFragment adminHomeFragment = new AdminHomeFragment();
+    AdminNoticeFragment adminNoticeFragment = new AdminNoticeFragment();
+    AdminAttendanceFragment adminAttendanceFragment = new AdminAttendanceFragment();
+    AdminExcelFragment adminExcelFragment = new AdminExcelFragment();
+    AdminCalendarFragment adminCalendarFragment = new AdminCalendarFragment();
+    AdminNotificationFragment adminNotificationFragment = new AdminNotificationFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +59,22 @@ public class AdminMainActivity extends BaseActivity<ActivityAdminMainBinding> {
                     break;
                 }
                 case R.id.notice: {
-                    AdminNoticeFragment adminNoticeFragment = new AdminNoticeFragment();
                     transaction.replace(R.id.frame_layout, adminNoticeFragment).commitAllowingStateLoss();
                     break;
                 }
                 case R.id.attendancecheck: {
-                    AdminAttendanceFragment adminAttendanceFragment = new AdminAttendanceFragment();
                     transaction.replace(R.id.frame_layout, adminAttendanceFragment).commitAllowingStateLoss();
                     break;
                 }
                 case R.id.excel: {
-                    AdminExcelFragment adminExcelFragment = new AdminExcelFragment();
                     transaction.replace(R.id.frame_layout, adminExcelFragment).commitAllowingStateLoss();
                     break;
                 }
                 case R.id.calendar: {
-                    AdminCalendarFragment adminCalendarFragment = new AdminCalendarFragment();
                     transaction.replace(R.id.frame_layout, adminCalendarFragment).commitAllowingStateLoss();
                     break;
                 }
                 case R.id.notification: {
-                    AdminNotificationFragment adminNotificationFragment = new AdminNotificationFragment();
                     transaction.replace(R.id.frame_layout, adminNotificationFragment).commitAllowingStateLoss();
                     break;
                 }

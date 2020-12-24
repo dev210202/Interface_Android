@@ -2,16 +2,16 @@ package org.sejonguniv.if_2020.model;
 
 public class Attendee {
 
-    int studentId;
+    String studentId;
     String name;
-    int groupnum;
+    String groupNum;
     String passkey;
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -23,12 +23,12 @@ public class Attendee {
         this.name = name;
     }
 
-    public int getGroupnum() {
-        return groupnum;
+    public String getGroupNum() {
+        return groupNum;
     }
 
-    public void setGroupnum(int groupnum) {
-        this.groupnum = groupnum;
+    public void setGroupNum(String groupNum) {
+        this.groupNum = groupNum;
     }
 
     public String getPasskey() {

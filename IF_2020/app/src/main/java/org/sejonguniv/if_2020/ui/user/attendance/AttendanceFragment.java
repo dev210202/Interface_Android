@@ -173,9 +173,9 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
 
                 Attendee attendee = new Attendee();
                 attendee.setName(binding.nameEdittext.getText().toString());
-                attendee.setGroupnum(Integer.parseInt(binding.groupnumEdittext.getText().toString()));
+                attendee.setGroupNum(binding.groupnumEdittext.getText().toString());
                 attendee.setPasskey(binding.passwordEdittext.getText().toString());
-                attendee.setStudentId(Integer.parseInt(binding.studentidEdittext.getText().toString()));
+                attendee.setStudentId(binding.studentidEdittext.getText().toString());
 
                 viewModel.sendUserAttendance(attendee);
             }

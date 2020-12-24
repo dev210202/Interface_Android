@@ -8,39 +8,39 @@
     </data>
 
     <LinearLayout
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
 
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-android:layout_weight="3"
-            android:background="@drawable/main_background"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendarview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@drawable/main_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mcv_headerTextAppearance="@style/MainTitle"
             app:mcv_dateTextAppearance="@style/MainTitle"
-            app:mcv_weekDayTextAppearance="@style/MainTitle"
-            app:mcv_showOtherDates="defaults" />
+            app:mcv_headerTextAppearance="@style/MainTitle"
+            app:mcv_showOtherDates="defaults"
+            app:mcv_weekDayTextAppearance="@style/MainTitle" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-           android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="9dp"
             android:layout_marginBottom="9dp"
-            android:background="@drawable/main_background"
 
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_weight="1"
+            android:background="@drawable/main_background">
 
             <TextView
+
                 android:id="@+id/calendar_textview"
                 style="@style/MainTitle"
                 android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package org.sejonguniv.if_2020.ui.admin.notification;
 
+import android.util.Log;
+
 import androidx.lifecycle.ViewModel;
 
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ public class AdminNotificationViewModel extends BaseViewModel {
             @Override
             public void run() {
                 try {
+                    Log.e("RUN", "Notification");
                     notification.put("body", content);
                     notification.put("title", title);
                     root.put("notification", notification);
@@ -44,7 +47,7 @@ public class AdminNotificationViewModel extends BaseViewModel {
                     os.flush();
                     conn.getResponseCode();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("ERROR", String.valueOf(e.getStackTrace()));
                 }
             }
         }).start();

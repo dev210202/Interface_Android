@@ -30,7 +30,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         calendarDayList.add(CalendarDay.today());
         calendarDayList.add(CalendarDay.from(2020, 11, 25));
 
-        EventDecorator eventDecorator = new EventDecorator(calendarDayList, getActivity(), binding.calendarTextview);
+        eventDecorator = new EventDecorator(calendarDayList, getActivity(), binding.calendarTextview);
 
         binding.calendarview.addDecorators(eventDecorator);
         binding.calendarview.setOnDateChangedListener(new onDateChangedListener());
@@ -44,6 +44,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
             if (calendarDayList.contains(date)) {
+                // 서버에서 일정 불러옴
                 eventDecorator.setText("CLICK");
             } else {
 

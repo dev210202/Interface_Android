@@ -19,18 +19,15 @@ import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
 
 
 public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding, AdminNoticeViewModel> {
-
+    AdminNoticeAdapter adapter = new AdminNoticeAdapter();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_admin_notice, container);
         setViewModel(AdminNoticeViewModel.class);
 
-
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
-
-        AdminNoticeAdapter adapter = new AdminNoticeAdapter();
 
         startProgressBar();
 
@@ -65,19 +62,22 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
                 editNotice.setId(position);
                 editNotice.setTitle(binding.titleEdittext.getText().toString());
                 editNotice.setContent(binding.contentEdittext.getText().toString());
+
                 viewModel.editNotice(position, editNotice);
             }
         }
     }
 
     private class onClickListener implements View.OnClickListener{
-
         @Override
         public void onClick(View v) {
             Notice notice = new Notice();
             notice.setTitle(binding.titleEdittext.getText().toString());
             notice.setContent(binding.contentEdittext.getText().toString());
             viewModel.saveNotice(notice);
+            dialog.show();
+            viewModel.getNoticeList(dialog);
+            adapter.notifyDataSetChanged();
         }
     }
 

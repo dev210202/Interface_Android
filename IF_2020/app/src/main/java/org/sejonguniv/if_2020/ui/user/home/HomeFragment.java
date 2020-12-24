@@ -1,5 +1,6 @@
 package org.sejonguniv.if_2020.ui.user.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
 import org.sejonguniv.if_2020.model.Attendee;
+import org.sejonguniv.if_2020.ui.AdminMainActivity;
 import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
 import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 
@@ -71,11 +73,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         @Override
         public void onClick(View v) {
 
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            AdminNoticeFragment homeFragment = new AdminNoticeFragment();
-            ExcelFragment excelFragment = new ExcelFragment();
-
-            transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
+           Intent intent = new Intent(getActivity().getApplicationContext(), AdminMainActivity.class);
+           startActivity(intent);
 
         }
     }

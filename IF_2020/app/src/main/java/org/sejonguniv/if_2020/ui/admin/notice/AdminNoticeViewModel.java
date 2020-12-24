@@ -31,6 +31,7 @@ public class AdminNoticeViewModel extends BaseViewModel {
 
     public void getNoticeList(Dialog dialog) {
 
+        titleList.clear();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         Call<List<Notice>> request = service.getNotice();
@@ -39,12 +40,9 @@ public class AdminNoticeViewModel extends BaseViewModel {
             public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
                 if (response.body() != null) {
                     List<Notice> data = response.body();
-                    if (data.isEmpty()) {
-                        Notice emptyNotice = new Notice();
-                        emptyNotice.setTitle("저장되어있는 공지사항이 없습니다.");
-                        titleList.add(emptyNotice);
-                    } else {
+                    if (!data.isEmpty()) {
                         for (Notice u : data) {
+                            Log.e("DATE", u.getModifiedDate());
                             titleList.add(u);
                         }
                     }
