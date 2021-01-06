@@ -170,17 +170,18 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
             if (isExistEmptyInput()) {
                 Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
             } else {
-
-                Attendee attendee = new Attendee();
-                attendee.setName(binding.nameEdittext.getText().toString());
-                attendee.setGroupNum(binding.groupnumEdittext.getText().toString());
-                attendee.setPasskey(binding.passwordEdittext.getText().toString());
-                attendee.setStudentId(binding.studentidEdittext.getText().toString());
-
-                viewModel.sendUserAttendance(attendee);
+                viewModel.sendUserAttendance(setAttendee());
             }
 
         }
     }
-
+    private Attendee setAttendee(){
+        Attendee attendee = new Attendee();
+        attendee.setName(binding.nameEdittext.getText().toString());
+        attendee.setGroupNum(binding.groupnumEdittext.getText().toString());
+        attendee.setPasskey(binding.passwordEdittext.getText().toString());
+        attendee.setStudentId(binding.studentidEdittext.getText().toString());
+        attendee.setDateTime("2020-09-09T00:10");
+        return attendee;
+    }
 }

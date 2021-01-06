@@ -27,7 +27,6 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
 
         binding.setPeopleList(viewModel.peopleArrayList);
 
-        startProgressBar();
         externalPermissionCheck();
         viewModel.setExcelData(dialog);
 

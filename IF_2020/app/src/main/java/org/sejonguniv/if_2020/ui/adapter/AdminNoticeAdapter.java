@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sejonguniv.if_2020.databinding.RecycerviewAdminNoticeBinding;
@@ -20,11 +21,11 @@ import java.util.List;
 public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.ViewHolder> {
 
 
-    List<Notice> noticeList;
+    MutableLiveData<ArrayList<Notice>> noticeList;
     private OnItemClickListener mListener = null;
 
     public AdminNoticeAdapter() {
-        this.noticeList = new ArrayList<Notice>();
+        this.noticeList = new MutableLiveData<ArrayList<Notice>>();
     }
 
     @NonNull
@@ -39,19 +40,23 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Notice notice = noticeList.get(position);
+        Notice notice = noticeList.getValue().get(position);
         holder.bind(notice);
 
     }
 
-    public void setNotice(List<Notice> noticeList) {
+    public void setNotice(MutableLiveData<ArrayList<Notice>> noticeList) {
         this.noticeList = noticeList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return noticeList.size();
+        if (noticeList.getValue() == null) {
+            return 0;
+        } else {
+            return noticeList.getValue().size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +72,7 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
                 public void onClick(View v) {
                     if (mListener != null) {
 
-                        Notice notice = noticeList.get(getAdapterPosition());
+                        Notice notice = noticeList.getValue().get(getAdapterPosition());
                         mListener.onItemClick(v, notice.getId());
                         Log.e("edit", "onclick");
                     }
@@ -79,7 +84,7 @@ public class AdminNoticeAdapter extends RecyclerView.Adapter<AdminNoticeAdapter.
                 public void onClick(View v) {
 
                     if (mListener != null) {
-                        Notice notice = noticeList.get(getAdapterPosition());
+                        Notice notice = noticeList.getValue().get(getAdapterPosition());
                         mListener.onItemClick(v, notice.getId());
                     }
                 }

@@ -31,7 +31,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_home, container);
         setViewModel(HomeViewModel.class);
-
+        viewModel.sendUserToken();
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
         binding.checkButton.setOnClickListener(new onClickListener());
 

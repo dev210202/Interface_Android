@@ -5,15 +5,21 @@
 
     <data>
 
+        <import type="java.util.ArrayList"></import>
+
+        <import type="androidx.lifecycle.MutableLiveData"></import>
+
+        <import type="org.sejonguniv.if_2020.model.AdminPeople"></import>
+
         <variable
-            name="viewModel"
-            type="org.sejonguniv.if_2020.ui.admin.excel.AdminExcelFragmentViewModel" />
+            name="peopleList"
+            type="MutableLiveData&lt;ArrayList&lt;AdminPeople&gt;>" />
     </data>
 
     <LinearLayout
-        android:background="@color/interface_grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/interface_grey"
         android:orientation="vertical"
         tools:context=".ui.admin.excel.ListActivity">
 
@@ -24,6 +30,7 @@
             android:hint="이름"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></EditText>
+
         <EditText
             android:id="@+id/studentid_edittext"
             android:layout_width="match_parent"
@@ -31,6 +38,7 @@
             android:hint="학번"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></EditText>
+
         <EditText
             android:id="@+id/groupnum_edittext"
             android:layout_width="match_parent"
@@ -38,6 +46,7 @@
             android:hint="기수"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></EditText>
+
         <EditText
             android:id="@+id/name_textView"
             android:layout_width="match_parent"
@@ -45,16 +54,18 @@
             android:hint="이름"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></EditText>
+
         <Button
             android:id="@+id/save_button"
-            android:text="저장"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Button>
+            android:layout_height="wrap_content"
+            android:text="저장"></Button>
+
         <Button
             android:id="@+id/complete_button"
-            android:text="수정완료"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Button>
+            android:layout_height="wrap_content"
+            android:text="수정완료"></Button>
 
         <com.kelin.scrollablepanel.library.ScrollablePanel
             android:id="@+id/excelpanel"

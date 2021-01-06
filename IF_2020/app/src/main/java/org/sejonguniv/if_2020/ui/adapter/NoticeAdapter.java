@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -20,11 +21,11 @@ import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
 
-    List<Notice> noticeList;
+    MutableLiveData<ArrayList<Notice>> noticeList;
     String input;
 
     public NoticeAdapter() {
-        this.noticeList = new ArrayList<Notice>();
+        this.noticeList = new MutableLiveData<ArrayList<Notice>>();
         this.input = new String("INIT");
     }
 
@@ -37,7 +38,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Notice notice = noticeList.get(position);
+        Notice notice = noticeList.getValue().get(position);
         String text = input;
         holder.bind(notice, text);
     }
@@ -45,10 +46,14 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return noticeList.size();
+        if (noticeList.getValue() == null) {
+            return 0;
+        } else {
+            return noticeList.getValue().size();
+        }
     }
 
-    public void setNotice(List<Notice> noticeList) {
+    public void setNotice(MutableLiveData<ArrayList<Notice>> noticeList) {
         this.noticeList = noticeList;
         notifyDataSetChanged();
     }
@@ -57,8 +62,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         this.input = input;
         notifyDataSetChanged();
     }
-
-
+    
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         RecyclerviewNoticeBinding binding;

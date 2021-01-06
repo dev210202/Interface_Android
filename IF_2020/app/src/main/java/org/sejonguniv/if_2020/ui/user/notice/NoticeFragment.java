@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.lifecycle.Observer;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -17,6 +18,8 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentNoticeBinding;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
+
+import java.util.ArrayList;
 
 public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeViewModel> {
     NoticeAdapter noticeAdapter = new NoticeAdapter();
@@ -33,8 +36,18 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         binding.searchView.setOnQueryTextListener(new onQueryTextListener());
         binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
-        startProgressBar();
-        viewModel.getNoticeList(dialog);
+        setProgressBar();
+        viewModel.getNoticeList();
+
+        Observer<ArrayList<Notice>> noticeObserver = new Observer<ArrayList<Notice>>() {
+            @Override
+            public void onChanged(ArrayList<Notice> notices) {
+                binding.setNoticeList(viewModel.titleList);
+                Log.e("CHANGED","!!");
+            }
+        };
+
+        viewModel.titleList.observe(this, noticeObserver);
 
         return binding.getRoot();
     }
@@ -43,9 +56,8 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         @Override
         public void onRefresh() {
             binding.swipeRefreshlayout.setRefreshing(false);
-            dialog.show();
-            viewModel.titleList.clear();
-            viewModel.getNoticeList(dialog);
+            setProgressBar();
+            viewModel.getNoticeList();
         }
     }
 

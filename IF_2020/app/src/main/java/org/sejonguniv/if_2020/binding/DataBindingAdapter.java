@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,14 +48,14 @@ public class DataBindingAdapter {
 
 
     @BindingAdapter("item")
-    public static void setItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
+    public static void setItem(RecyclerView view, MutableLiveData<ArrayList<Notice>> noticeList) {
         NoticeAdapter adapter = (NoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
         Log.e("DataBindingAdapter", "item set OK");
     }
 
     @BindingAdapter("adminItem")
-    public static void setAdminItem(RecyclerView view, ObservableArrayList<Notice> noticeList) {
+    public static void setAdminItem(RecyclerView view, MutableLiveData<ArrayList<Notice>> noticeList) {
         AdminNoticeAdapter adapter = (AdminNoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
         Log.e("DataBindingAdapter", "adminItem set OK");

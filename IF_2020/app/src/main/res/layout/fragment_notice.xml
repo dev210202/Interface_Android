@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="androidx.databinding.ObservableArrayList"></import>
+        <import type="java.util.ArrayList"></import>
+        <import type="androidx.lifecycle.MutableLiveData"></import>
 
         <import type="org.sejonguniv.if_2020.model.Notice"></import>
 
         <variable
             name="noticeList"
-            type="ObservableArrayList&lt;Notice&gt;" />
+            type="MutableLiveData&lt;ArrayList&lt;Notice&gt;&gt;" />
 
         <variable
             name="viewModel"

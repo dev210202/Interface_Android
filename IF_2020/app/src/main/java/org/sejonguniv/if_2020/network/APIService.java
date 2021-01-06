@@ -5,6 +5,7 @@ import org.sejonguniv.if_2020.model.Data;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.People;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +22,7 @@ public interface APIService {
     Call<String> saveNotice(@Body Notice notice);
 
     @GET("posts/list")
-    Call<List<Notice>> getNotice();
+    Call<ArrayList<Notice>> getNotice();
 
     @GET("posts/{noticeId}")
     Call<Notice> find(@Path("noticeId") int noticeId);
