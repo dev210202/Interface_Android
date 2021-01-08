@@ -13,10 +13,6 @@
             name="noticeList"
             type="MutableLiveData&lt;ArrayList&lt;Notice&gt;&gt;" />
 
-        <variable
-            name="viewModel"
-            type="org.sejonguniv.if_2020.ui.user.notice.NoticeViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

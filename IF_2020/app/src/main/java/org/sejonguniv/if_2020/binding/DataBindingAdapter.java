@@ -1,32 +1,24 @@
 package org.sejonguniv.if_2020.binding;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
-import androidx.databinding.ObservableArrayList;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.kelin.scrollablepanel.library.PanelAdapter;
 import com.kelin.scrollablepanel.library.ScrollablePanel;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
-import org.sejonguniv.if_2020.R;
+import org.sejonguniv.if_2020.model.AdminPeople;
 import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
 import org.sejonguniv.if_2020.model.Notice;
@@ -35,7 +27,6 @@ import org.sejonguniv.if_2020.model.TopTitle;
 import org.sejonguniv.if_2020.ui.adapter.AdminNoticeAdapter;
 import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
-import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +36,6 @@ public class DataBindingAdapter {
     public static void setText(EditText editText, String text) {
         editText.setText(text);
     }
-
 
     @BindingAdapter("item")
     public static void setItem(RecyclerView view, MutableLiveData<ArrayList<Notice>> noticeList) {
@@ -108,7 +98,6 @@ public class DataBindingAdapter {
 
     }
 
-
     @BindingAdapter("contentTextInput")
     public static void contentTextInput(ExpandableTextView view, String input) {
 
@@ -152,67 +141,105 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter("listItem")
-    public static void listItem(ScrollablePanel view, ObservableArrayList<People> peopleList) {
-
-
+    public static void listItem(ScrollablePanel view, MutableLiveData<ArrayList<People>> peopleList) {
         ExcelAdapter adapter = new ExcelAdapter();
-        adapter.setTopList(setTopTilteCell(peopleList));
+        adapter.setTopList(setTopTitleCell(peopleList));
         adapter.setLeftList(setLeftTitle(peopleList));
         adapter.setCellList(setCell(peopleList));
         view.setPanelAdapter(adapter);
         view.notifyDataSetChanged();
-
-
     }
 
-    public static List<TopTitle> setTopTilteCell(ObservableArrayList<People> peopleList) {
+    @BindingAdapter("listAdminItem")
+    public static void listAdminItem(ScrollablePanel view, MutableLiveData<ArrayList<AdminPeople>> peopleList) {
+        ExcelAdapter adapter = new ExcelAdapter();
+        adapter.setTopList(setTopTitleCell(peopleList));
+        adapter.setLeftList(setLeftTitle(peopleList));
+        adapter.setCellList(setCell(peopleList));
+        view.setPanelAdapter(adapter);
+        view.notifyDataSetChanged();
+    }
 
-        List<TopTitle> topTitles = new ArrayList<TopTitle>();
-        if (!peopleList.isEmpty()) {
-            for (int i = 0; i < peopleList.get(0).itemSize(); i++) {
-                Log.e("TOP ITEMSIZE", ""+ peopleList.get(0).itemSize());
-                TopTitle topTitle = new TopTitle();
-                topTitle.setTitle(peopleList.get(0).getData(i));
-                topTitles.add(topTitle);
+    public static <T> List<TopTitle> setTopTitleCell(MutableLiveData<ArrayList<T>> peopleArrayList) {
+
+        List<TopTitle> topTitles = new ArrayList<>();
+
+        if (peopleArrayList.getValue() != null) {
+
+            if (peopleArrayList.getValue().get(0) instanceof People) {
+                for (int i = 0; i < ((People) peopleArrayList.getValue().get(0)).itemSize(); i++) {
+                    Log.e("TOP ITEMSIZE", "" + ((People) peopleArrayList.getValue().get(0)).itemSize());
+                    TopTitle topTitle = new TopTitle();
+                    topTitle.setTitle(((People) peopleArrayList.getValue().get(i)).getData(i));
+                    topTitles.add(topTitle);
+                }
+            } else if (peopleArrayList.getValue().get(0) instanceof AdminPeople) {
+                for (int i = 0; i < ((AdminPeople) peopleArrayList.getValue().get(0)).itemSize(); i++) {
+                    Log.e("TOP ITEMSIZE", "" + ((AdminPeople) peopleArrayList.getValue().get(0)).itemSize());
+                    TopTitle topTitle = new TopTitle();
+                    topTitle.setTitle(((AdminPeople) peopleArrayList.getValue().get(i)).getData(i));
+                    topTitles.add(topTitle);
+                }
             }
         }
         return topTitles;
-
-
     }
 
-    public static List<LeftTitle> setLeftTitle(ObservableArrayList<People> peopleArrayList) {
-
+    public static <T> List<LeftTitle> setLeftTitle(MutableLiveData<ArrayList<T>> peopleArrayList) {
         List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
-        for (int i = 0; i < peopleArrayList.size(); i++) {
 
-            Log.e("LEFT ITEMSIZE", ""+ peopleArrayList.size());
-            LeftTitle leftTitle = new LeftTitle();
-            if (i == 0) {
-                leftTitle.setTitle("");
-            } else {
-                leftTitle.setTitle("" + i);
+        if (peopleArrayList.getValue() != null) {
+
+            for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
+
+                Log.e("LEFT ITEMSIZE", "" + peopleArrayList.getValue().size());
+                LeftTitle leftTitle = new LeftTitle();
+                if (i == 0) {
+                    leftTitle.setTitle("");
+                } else {
+                    leftTitle.setTitle("" + i);
+                }
+                leftTitles.add(leftTitle);
             }
-            leftTitles.add(leftTitle);
         }
         return leftTitles;
     }
 
-    public static List<List<CellData>> setCell(ObservableArrayList<People> peopleArrayList) {
+    public static <T> List<List<CellData>> setCell(MutableLiveData<ArrayList<T>> peopleArrayList) {
         List<List<CellData>> cells = new ArrayList<>();
-        for (int i = 0; i < peopleArrayList.size(); i++) {
-            ArrayList<CellData> cellList = new ArrayList<>();
-            Log.e("CELL ITEMSIZE1", ""+ peopleArrayList.size());
-            for (int k = 0; k < peopleArrayList.get(i).itemSize(); k++) {
-                CellData cellData = new CellData();
-                cellData.setTitle(peopleArrayList.get(i).getData(k));
+        if (peopleArrayList.getValue() != null) {
 
-                Log.e("CELL ITEMSIZE2", ""+peopleArrayList.get(i).itemSize());
-                cellList.add(cellData);
+            if (peopleArrayList.getValue().get(0) instanceof People) {
+                for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
+                    ArrayList<CellData> cellList = new ArrayList<>();
+                    Log.e("CELL ITEMSIZE1", "" + peopleArrayList.getValue().size());
+                    for (int k = 0; k < ((People) peopleArrayList.getValue().get(0)).itemSize(); k++) {
+                        CellData cellData = new CellData();
+                        cellData.setTitle(((People) peopleArrayList.getValue().get(i)).getData(k));
+
+                        Log.e("CELL ITEMSIZE2", "" + ((People) peopleArrayList.getValue().get(0)).itemSize());
+                        cellList.add(cellData);
+                    }
+                    cells.add(cellList);
+                }
+            } else if (peopleArrayList.getValue().get(0) instanceof AdminPeople) {
+                for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
+                    ArrayList<CellData> cellList = new ArrayList<>();
+                    Log.e("CELL ITEMSIZE1", "" + peopleArrayList.getValue().size());
+                    for (int k = 0; k < ((AdminPeople) peopleArrayList.getValue().get(0)).itemSize(); k++) {
+                        CellData cellData = new CellData();
+                        cellData.setTitle(((AdminPeople) peopleArrayList.getValue().get(i)).getData(k));
+
+                        Log.e("CELL ITEMSIZE2", "" + ((AdminPeople) peopleArrayList.getValue().get(0)).itemSize());
+                        cellList.add(cellData);
+                    }
+                    cells.add(cellList);
+                }
             }
-            cells.add(cellList);
+
         }
         return cells;
     }
+
 
 }

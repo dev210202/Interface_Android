@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NoticeViewModel extends BaseViewModel {
 
     MutableLiveData<ArrayList<Notice>> titleList = new MutableLiveData<>();
-    UserRepository userRepository = new UserRepository();
+    UserRepository userRepository = UserRepository.getInstance();
 
     public void getNoticeList() {
         userRepository.getNotice(titleList);

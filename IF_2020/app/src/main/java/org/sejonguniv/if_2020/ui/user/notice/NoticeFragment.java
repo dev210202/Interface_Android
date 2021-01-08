@@ -30,7 +30,6 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         setBinding(inflater, R.layout.fragment_notice, container);
         setViewModel(NoticeViewModel.class);
 
-        binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
         binding.searchView.setOnQueryTextListener(new onQueryTextListener());

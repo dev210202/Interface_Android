@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdminNoticeViewModel extends BaseViewModel {
 
     MutableLiveData<ArrayList<Notice>> titleList = new MutableLiveData<>();
-    AdminRepository adminRepository = new AdminRepository();
+    AdminRepository adminRepository = AdminRepository.getInstance();
 
     public void getNoticeList() {
         adminRepository.getNotice(titleList);

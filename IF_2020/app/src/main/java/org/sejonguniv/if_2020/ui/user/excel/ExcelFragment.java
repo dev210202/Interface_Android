@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,10 @@ import android.view.ViewGroup;
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentExcelBinding;
+import org.sejonguniv.if_2020.model.People;
+
+import java.util.ArrayList;
+import java.util.Observable;
 
 public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewModel> {
 
@@ -28,7 +33,16 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
         binding.setPeopleList(viewModel.peopleArrayList);
 
         externalPermissionCheck();
-        viewModel.setExcelData(dialog);
+        viewModel.getExcelData();
+
+        Observer<ArrayList<People>> peopleArrayListObserver = new Observer<ArrayList<People>>() {
+            @Override
+            public void onChanged(ArrayList<People> people) {
+                binding.setPeopleList(viewModel.peopleArrayList);
+            }
+        };
+
+        viewModel.peopleArrayList.observe(this, peopleArrayListObserver);
 
         return binding.getRoot();
     }

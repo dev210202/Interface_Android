@@ -26,14 +26,9 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
         setViewModel(AdminExcelFragmentViewModel.class);
 
         viewModel.getLocalExcelData(getContext());
-        viewModel.setExcelData();
+        viewModel.getExcelData();
 
-        ExcelAdapter adapter = new ExcelAdapter();
-        adapter.setTopList(viewModel.setTopTilteCell());
-        adapter.setLeftList(viewModel.setLeftTitle());
-        adapter.setCellList(viewModel.setCell());
-
-        binding.excelpanel.setPanelAdapter(adapter);
+        binding.setPeopleList(viewModel.peopleArrayList);
 
         binding.completeButton.setOnClickListener(new onClickListener());
         binding.saveButton.setOnClickListener(new onClickListener());

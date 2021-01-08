@@ -9,9 +9,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.network.APIService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -23,6 +25,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserRepository extends Repository{
+
+    private static UserRepository instance;
+    private UserRepository(){
+
+    }
+    public static UserRepository getInstance(){
+        if(instance == null){
+            synchronized (UserRepository.class){
+                if(instance == null){
+                    instance = new UserRepository();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void getNotice(MutableLiveData<ArrayList<Notice>> userList) {
 
@@ -58,4 +75,30 @@ public class UserRepository extends Repository{
         });
     }
 
+    public void getExcelData(MutableLiveData<ArrayList<People>> peopleArrayList){
+
+        People base = new People("학번", "이름", "기수", "연락처");
+        Call<List<People>> request = service.findAll();
+        request.enqueue(new Callback<List<People>>() {
+            @Override
+            public void onResponse(Call<List<People>> call, Response<List<People>> response) {
+
+                // 받아온 값 peopleArrayList에 add
+                ArrayList<People> peopleList = new ArrayList<People>();
+                peopleList.add(base);
+                for (People people : response.body()) {
+                    peopleList.add(people);
+                    Log.e("getExcelData People", people.getName());
+                }
+                peopleArrayList.postValue(peopleList);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<People>> call, Throwable t) {
+                Log.e("getExcelData", "Fail" + t.toString());
+            }
+        });
+
+    }
 }

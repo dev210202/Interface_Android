@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import androidx.databinding.ObservableArrayList;
+import androidx.lifecycle.MutableLiveData;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -20,6 +21,8 @@ import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
 import org.sejonguniv.if_2020.model.AdminPeople;
 import org.sejonguniv.if_2020.model.TopTitle;
+import org.sejonguniv.if_2020.repository.AdminRepository;
+import org.sejonguniv.if_2020.repository.UserRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,46 +36,11 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
 
     AdminPeople base = new AdminPeople("재학여부", "기수", "학과", "학번", "이름", "전화번호", "1학기회비", "2학기회비", "개총", "종총");
     AdminPeople JU = new AdminPeople("휴학", "29기", "컴퓨터공학과", "16011094", "주이식", "010-9557-1081", "X", "A", "D", "O");
-    ObservableArrayList<AdminPeople> peopleArrayList = new ObservableArrayList<AdminPeople>();
+    MutableLiveData<ArrayList<AdminPeople>> peopleArrayList = new MutableLiveData<ArrayList<AdminPeople>>();
 
-    List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
-    List<TopTitle> topTitles = new ArrayList<TopTitle>();
     List<List<CellData>> cells = new ArrayList<>();
 
-    public List<TopTitle> setTopTilteCell() {
-        for (int i = 0; i < base.itemSize(); i++) {
-            TopTitle topTitle = new TopTitle();
-            topTitle.setTitle(base.getData(i));
-            topTitles.add(topTitle);
-        }
-        return topTitles;
-    }
-
-    public List<LeftTitle> setLeftTitle() {
-        for (int i = 0; i < peopleArrayList.size(); i++) {
-            LeftTitle leftTitle = new LeftTitle();
-            leftTitle.setTitle("" + (i + 1));
-            leftTitles.add(leftTitle);
-        }
-        return leftTitles;
-    }
-
-    public List<List<CellData>> setCell() {
-
-        for (int i = 0; i < peopleArrayList.size(); i++) {
-            ArrayList<CellData> cellList = new ArrayList<>();
-            for (int k = 0; k < peopleArrayList.get(i).itemSize(); k++) {
-                CellData cellData = new CellData();
-                cellData.setTitle(peopleArrayList.get(i).getData(k));
-                Log.e("VM CELL DATA", cellData.getTitle());
-                cellList.add(cellData);
-            }
-            Log.e("!!", "!!");
-            cells.add(cellList);
-        }
-        return cells;
-    }
-
+    AdminRepository adminRepository = AdminRepository.getInstance();
 
     public void getLocalExcelData(Context context) {
         try {
@@ -108,11 +76,8 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         }
     }
 
-    public void setExcelData() {
-
-
-
-
+    public void getExcelData() {
+        adminRepository.getExcelData(peopleArrayList);
     }
 
     public void saveData() {
@@ -134,7 +99,7 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
                 base.getSecondDues(),
                 base.getOpeningMeeting(),
                 base.getFinalMeeting());
-        for (int i = 0; i < peopleArrayList.size(); i++) {
+        for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
             row = sheet.createRow(i + 1);
             createCell(cell, row,
                     cells.get(i).get(0).getTitle(),

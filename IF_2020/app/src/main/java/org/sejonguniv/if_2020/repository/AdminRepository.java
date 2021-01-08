@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import org.sejonguniv.if_2020.model.AdminPeople;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.People;
 
 import java.util.ArrayList;
 
@@ -14,6 +16,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdminRepository extends Repository {
+    private static AdminRepository instance;
+
+    private AdminRepository() {
+
+    }
+
+    public static AdminRepository getInstance() {
+        if (instance == null) {
+            synchronized (AdminRepository.class) {
+                if (instance == null) {
+                    instance = new AdminRepository();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void getNotice(MutableLiveData<ArrayList<Notice>> userList) {
 
@@ -106,5 +124,8 @@ public class AdminRepository extends Repository {
         });
     }
 
+    public void getExcelData(MutableLiveData<ArrayList<AdminPeople>> peopleArrayList) {
+        // admin 회원데이터 서버에서 가져옴
+    }
 
 }
