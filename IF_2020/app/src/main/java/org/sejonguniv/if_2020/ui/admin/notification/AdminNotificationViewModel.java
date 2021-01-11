@@ -2,11 +2,9 @@ package org.sejonguniv.if_2020.ui.admin.notification;
 
 import android.util.Log;
 
-import androidx.lifecycle.ViewModel;
-
 import org.json.JSONObject;
 import org.sejonguniv.if_2020.base.BaseViewModel;
-import org.sejonguniv.if_2020.model.UserData;
+import org.sejonguniv.if_2020.model.FCMToken;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -20,8 +18,8 @@ public class AdminNotificationViewModel extends BaseViewModel {
     
     public void sendNotification(String title, String content, String token){
 
-        UserData userData = new UserData();
-        userData.FCMToken = token;
+        FCMToken fcmToken = new FCMToken();
+        fcmToken.FCMToken = token;
         JSONObject root = new JSONObject();
         JSONObject notification = new JSONObject();
 
@@ -33,7 +31,7 @@ public class AdminNotificationViewModel extends BaseViewModel {
                     notification.put("body", content);
                     notification.put("title", title);
                     root.put("notification", notification);
-                    root.put("to", userData.FCMToken);
+                    root.put("to", fcmToken.FCMToken);
                     URL url = new URL("https://fcm.googleapis.com/fcm/send");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");

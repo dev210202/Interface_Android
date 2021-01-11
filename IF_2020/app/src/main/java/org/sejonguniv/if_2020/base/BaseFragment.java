@@ -33,10 +33,12 @@ public abstract class BaseFragment<B extends ViewDataBinding, V extends ViewMode
             ViewModelProvider.AndroidViewModelFactory viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
             viewModel = (V) new ViewModelProvider(getViewModelStore(), viewModelFactory).get(c);
     }
-    protected void setProgressBar() {
+    protected void showProgressBar() {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.progressbar_main);
+        dialog.show();
     }
+
 }

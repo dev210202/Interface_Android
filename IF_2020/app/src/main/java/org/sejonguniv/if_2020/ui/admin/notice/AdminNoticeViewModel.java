@@ -34,7 +34,18 @@ public class AdminNoticeViewModel extends BaseViewModel {
     AdminRepository adminRepository = AdminRepository.getInstance();
 
     public void getNoticeList() {
-        adminRepository.getNotice(titleList);
+        adminRepository.getNotice().subscribe(
+                notices -> {
+                    if (notices.isEmpty()) {
+                        titleList.postValue(setEmptyList());
+                    } else {
+                        titleList.postValue(notices);
+                    }
+                },
+                error -> {
+                    titleList.postValue(setErrorList());
+                }
+        );
     }
 
     public void saveNotice(Notice notice) {
@@ -49,4 +60,19 @@ public class AdminNoticeViewModel extends BaseViewModel {
         adminRepository.deleteNotice(listNumber);
     }
 
+    private ArrayList<Notice> setErrorList() {
+        Notice notice = new Notice();
+        notice.setTitle("데이터를 불러올 수 없습니다. 다시 시도해주세요");
+        ArrayList<Notice> errorList = new ArrayList<>();
+        errorList.add(notice);
+        return errorList;
+    }
+
+    private ArrayList<Notice> setEmptyList() {
+        Notice notice = new Notice();
+        notice.setTitle("공지사항이 없습니다.");
+        ArrayList<Notice> emptyList = new ArrayList<>();
+        emptyList.add(notice);
+        return emptyList;
+    }
 }

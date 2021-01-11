@@ -9,11 +9,11 @@
 
         <import type="androidx.lifecycle.MutableLiveData"></import>
 
-        <import type="org.sejonguniv.if_2020.model.AdminPeople"></import>
+        <import type="org.sejonguniv.if_2020.model.People"></import>
 
         <variable
             name="peopleList"
-            type="MutableLiveData&lt;ArrayList&lt;AdminPeople&gt;>" />
+            type="MutableLiveData&lt;ArrayList&lt;People&gt;>"/>
     </data>
 
     <LinearLayout
@@ -68,8 +68,8 @@
             android:text="수정완료"></Button>
 
         <com.kelin.scrollablepanel.library.ScrollablePanel
-            listAdminItem="@{peopleList}"
             android:id="@+id/excelpanel"
+            listAdminItem="@{peopleList}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">

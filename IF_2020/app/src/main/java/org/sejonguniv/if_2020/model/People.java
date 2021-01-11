@@ -2,26 +2,40 @@ package org.sejonguniv.if_2020.model;
 
 public class People {
 
-    String studentId;
+    String state;
+    String generation;
     String name;
-    String groupNum;
+    String department;
+    String studenId;
+    String phoneNumber;
     String contact;
+    ManageStatus manageStatus;
 
-    public People(String studentId, String name, String groupNum, String contact) {
-
-        this.studentId = studentId;
+    public People(String state, String generation, String name, String department, String studenId, String phoneNumber, String contact, ManageStatus manageStatus) {
+        this.state = state;
+        this.generation = generation;
         this.name = name;
-        this.groupNum = groupNum;
+        this.department = department;
+        this.studenId = studenId;
+        this.phoneNumber = phoneNumber;
+        this.contact = contact;
+        this.manageStatus = manageStatus;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
-
-    public String getStudentId() {
-        return studentId;
+    public String getStudenId() {
+        return studenId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setStudenId(String studenId) {
+        this.studenId = studenId;
     }
 
     public String getName() {
@@ -32,45 +46,89 @@ public class People {
         this.name = name;
     }
 
-    public String getGroupNum() {
-        return groupNum;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setGroupNum(String groupNum) {
-        this.groupNum = groupNum;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
-    public String getContact() {
-        return contact;
+    public String getState() {
+        return state;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-    public int itemSize(){
-        return 4;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public String getData(int i){
+    public String getDepartment() {
+        return department;
+    }
 
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
-        switch (i){
-            case 0 :{
-                return studentId;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public ManageStatus getManageStatus() {
+        return manageStatus;
+    }
+
+    public void setManageStatus(ManageStatus manageStatus) {
+        this.manageStatus = manageStatus;
+    }
+
+    public int itemSize() {
+        return 11;
+    }
+
+    public String getValue(int input) {
+        switch (input) {
+            case 0: {
+                return state;
             }
-            case 1:{
+            case 1: {
+                return generation;
+            }
+            case 2: {
                 return name;
             }
-            case 2:{
-                return groupNum;
-            }
             case 3:{
+                return department;
+            }
+            case 4:{
+                return studenId;
+            }
+            case 5:{
+                return phoneNumber;
+            }
+            case 6:{
                 return contact;
             }
-
+            case 7:{
+                return manageStatus.firstDues;
+            }
+            case 8:{
+                return manageStatus.secondDues;
+            }
+            case 9:{
+                return manageStatus.openingMeeting;
+            }
+            case 10: {
+                return manageStatus.finalMeeting;
+            }
             default:{
-                return "X";
+                break;
             }
         }
+        return "ERROR";
     }
 }

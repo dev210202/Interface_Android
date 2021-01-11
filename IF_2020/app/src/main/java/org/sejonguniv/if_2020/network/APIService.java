@@ -4,10 +4,13 @@ import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.model.Data;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.People;
+import org.sejonguniv.if_2020.model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -22,7 +25,7 @@ public interface APIService {
     Call<String> saveNotice(@Body Notice notice);
 
     @GET("posts/list")
-    Call<ArrayList<Notice>> getNotice();
+    Observable<ArrayList<Notice>> getNoticeList();
 
     @GET("posts/{noticeId}")
     Call<Notice> find(@Path("noticeId") int noticeId);
@@ -37,7 +40,7 @@ public interface APIService {
     Call<Void> insertAttendee(@Body Attendee attendee);
 
     @GET("member/list")
-    Call<List<People>> findAll();
+    Observable<ArrayList<People>> getMemberList();
 
     @DELETE("posts/{noticeId}")
     Call<Void> delete(@Path("noticeId")int noticeId);

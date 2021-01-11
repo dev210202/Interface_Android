@@ -25,10 +25,10 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
         setBinding(inflater, R.layout.fragment_admin_excel, container);
         setViewModel(AdminExcelFragmentViewModel.class);
 
+        binding.setPeopleList(viewModel.peopleArrayList);
         viewModel.getLocalExcelData(getContext());
         viewModel.getExcelData();
 
-        binding.setPeopleList(viewModel.peopleArrayList);
 
         binding.completeButton.setOnClickListener(new onClickListener());
         binding.saveButton.setOnClickListener(new onClickListener());

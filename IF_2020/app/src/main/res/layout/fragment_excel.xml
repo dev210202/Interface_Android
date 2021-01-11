@@ -9,7 +9,7 @@
         <import type="org.sejonguniv.if_2020.model.People"></import>
         <variable
             name="peopleList"
-            type="MutableLiveData&lt;ArrayList&lt;People&gt;>" />
+            type="MutableLiveData&lt;ArrayList&lt;People&gt;>"/>
 
     </data>
 

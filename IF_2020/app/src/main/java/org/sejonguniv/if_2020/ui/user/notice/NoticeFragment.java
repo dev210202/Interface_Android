@@ -1,5 +1,6 @@
 package org.sejonguniv.if_2020.ui.user.notice;
 
+import android.database.Observable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,11 @@ import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
 
 import java.util.ArrayList;
 
+import io.reactivex.Single;
+import io.reactivex.functions.Function;
+
 public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeViewModel> {
+
     NoticeAdapter noticeAdapter = new NoticeAdapter();
 
     @Nullable
@@ -35,27 +40,35 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         binding.searchView.setOnQueryTextListener(new onQueryTextListener());
         binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
-        setProgressBar();
+        showProgressBar();
         viewModel.getNoticeList();
 
         Observer<ArrayList<Notice>> noticeObserver = new Observer<ArrayList<Notice>>() {
             @Override
             public void onChanged(ArrayList<Notice> notices) {
                 binding.setNoticeList(viewModel.titleList);
-                Log.e("CHANGED","!!");
+                Log.e("CHANGED", "!!");
+            }
+        };
+
+        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                dialog.dismiss();
             }
         };
 
         viewModel.titleList.observe(this, noticeObserver);
+        viewModel.isDataReceive.observe(this, dialogObserver);
 
         return binding.getRoot();
     }
 
-    private class onRefreshListener implements SwipeRefreshLayout.OnRefreshListener{
+    private class onRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {
             binding.swipeRefreshlayout.setRefreshing(false);
-            setProgressBar();
+            showProgressBar();
             viewModel.getNoticeList();
         }
     }
@@ -74,4 +87,12 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
             return false;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        // fragment가 파괴되는 시점에 리소스 해제
+        super.onDestroy();
+        viewModel.getCompsiteDisposable().clear();
+    }
+
 }

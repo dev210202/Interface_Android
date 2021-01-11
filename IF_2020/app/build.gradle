@@ -43,6 +43,9 @@ dependencies {
     implementation 'com.kelin.scrollablepanel:library:1.2.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -52,4 +55,5 @@ dependencies {
     compile 'com.yalantis:phoenix:1.2.3'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation 'com.android.support:multidex:1.0.3'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 }

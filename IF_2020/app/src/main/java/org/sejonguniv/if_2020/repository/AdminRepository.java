@@ -4,13 +4,14 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import org.sejonguniv.if_2020.model.AdminPeople;
+import org.sejonguniv.if_2020.model.ManageStatus;
 import org.sejonguniv.if_2020.model.Notice;
-import org.sejonguniv.if_2020.model.People;
 
 import java.util.ArrayList;
 
-import okhttp3.logging.HttpLoggingInterceptor;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,8 +34,9 @@ public class AdminRepository extends Repository {
         return instance;
     }
 
-    public void getNotice(MutableLiveData<ArrayList<Notice>> userList) {
-
+    public Observable<ArrayList<Notice>> getNotice() {
+        return service.getNoticeList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+/*
         Call<ArrayList<Notice>> request = service.getNotice();
         ArrayList<Notice> data = new ArrayList<Notice>();
         request.enqueue(new Callback<ArrayList<Notice>>() {
@@ -64,7 +66,7 @@ public class AdminRepository extends Repository {
 
             }
         });
-
+*/
     }
 
     public void saveNotice(Notice notice) {
@@ -124,7 +126,7 @@ public class AdminRepository extends Repository {
         });
     }
 
-    public void getExcelData(MutableLiveData<ArrayList<AdminPeople>> peopleArrayList) {
+    public void getExcelData() {
         // admin 회원데이터 서버에서 가져옴
     }
 

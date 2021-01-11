@@ -33,7 +33,7 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.titleList);
 
-        setProgressBar();
+        showProgressBar();
 
         binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
