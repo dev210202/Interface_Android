@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +40,8 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+        DialogFragment fragment = new DateFragment();
         setBinding(inflater, R.layout.fragment_attendance, container);
         setViewModel(AttendanceViewModel.class);
 

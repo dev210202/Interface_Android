@@ -8,6 +8,8 @@ import org.sejonguniv.if_2020.model.User;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

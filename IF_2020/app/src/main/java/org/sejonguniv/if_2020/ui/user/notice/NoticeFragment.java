@@ -1,18 +1,16 @@
 package org.sejonguniv.if_2020.ui.user.notice;
 
-import android.database.Observable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
@@ -22,11 +20,9 @@ import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
 
 import java.util.ArrayList;
 
-import io.reactivex.Single;
-import io.reactivex.functions.Function;
-
 public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeViewModel> {
 
+    private Notice notice;
     NoticeAdapter noticeAdapter = new NoticeAdapter();
 
     @Nullable
@@ -35,18 +31,19 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         setBinding(inflater, R.layout.fragment_notice, container);
         setViewModel(NoticeViewModel.class);
 
-        binding.setNoticeList(viewModel.titleList);
+        binding.setNoticeList(viewModel.noticeList);
         binding.noticeRecyclerview.setAdapter(noticeAdapter);
-        binding.searchView.setOnQueryTextListener(new onQueryTextListener());
+
         binding.swipeRefreshlayout.setOnRefreshListener(new onRefreshListener());
 
-        showProgressBar();
+        setProgressBar();
+        dialog.show();
         viewModel.getNoticeList();
 
         Observer<ArrayList<Notice>> noticeObserver = new Observer<ArrayList<Notice>>() {
             @Override
             public void onChanged(ArrayList<Notice> notices) {
-                binding.setNoticeList(viewModel.titleList);
+                binding.setNoticeList(viewModel.noticeList);
                 Log.e("CHANGED", "!!");
             }
         };
@@ -58,8 +55,8 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
             }
         };
 
-        viewModel.titleList.observe(this, noticeObserver);
-        viewModel.isDataReceive.observe(this, dialogObserver);
+        viewModel.noticeList.observe(getViewLifecycleOwner(), noticeObserver);
+        viewModel.isDataReceive.observe(getViewLifecycleOwner(), dialogObserver);
 
         return binding.getRoot();
     }
@@ -68,7 +65,7 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
         @Override
         public void onRefresh() {
             binding.swipeRefreshlayout.setRefreshing(false);
-            showProgressBar();
+            dialog.show();
             viewModel.getNoticeList();
         }
     }

@@ -25,7 +25,8 @@
         <item
             android:id="@+id/calendar"
             android:icon="@drawable/ic_calendar_24"
-            android:title="일정보기">
+            android:title="일정보기"
+            >
 
 
         </item>

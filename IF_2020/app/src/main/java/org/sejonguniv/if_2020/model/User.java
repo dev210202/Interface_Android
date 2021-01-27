@@ -1,11 +1,23 @@
 package org.sejonguniv.if_2020.model;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
+import java.util.Arrays;
+import java.util.List;
+
 public class User {
     String state;
     String generation;
     String name;
     String department;
-    String contact;
+
+
+    public User(String state, String generation, String name, String department) {
+        this.state = state;
+        this.generation = generation;
+        this.name = name;
+        this.department = department;
+    }
 
     public String getState() {
         return state;
@@ -39,17 +51,19 @@ public class User {
         this.department = department;
     }
 
-    public String getContact() {
-        return contact;
+    public int itemSize() {
+        Class userClass = User.class;
+        Constructor[] constructors = userClass.getDeclaredConstructors();
+        int parametersSize = 0;
+        for (Constructor constructor : constructors) {
+            parametersSize = constructor.getParameterCount();
+
+        }
+        return parametersSize;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-    public int itemSize(){
-        return 5;
-    }
     public String getValue(int input) {
+
         switch (input) {
             case 0: {
                 return state;
@@ -60,13 +74,10 @@ public class User {
             case 2: {
                 return name;
             }
-            case 3:{
+            case 3: {
                 return department;
             }
-            case 4:{
-                return contact;
-            }
-            default:{
+            default: {
                 break;
             }
         }

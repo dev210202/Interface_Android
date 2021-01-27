@@ -9,35 +9,34 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:background="@color/interface_black"
         android:id="@+id/drawerlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.AdminMainActivity">
+        android:background="@color/interface_black"
+        tools:context=".ui.UserMainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/tab_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/ic_tab_24"
                     android:onClick="openDrawerLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="16dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </ImageButton>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,14 +48,22 @@
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView
-
+            android:background="@color/interface_gray_3838"
             android:id="@+id/navigationview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
+            android:layout_gravity="end"
             android:fitsSystemWindows="true"
+            app:itemBackground="@color/interface_gray_3838"
+            app:itemTextColor="@color/inteface_icon_white"
+            app:itemIconTint="@color/inteface_icon_white"
             app:headerLayout="@layout/navi_header"
             app:menu="@menu/admin_menu">
+
+
+
+
+
 
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>

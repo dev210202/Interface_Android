@@ -1,24 +1,19 @@
 package org.sejonguniv.if_2020.ui.user.home;
 
 import android.content.Intent;
+import androidx.lifecycle.Observer;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import androidx.fragment.app.FragmentTransaction;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
-import org.sejonguniv.if_2020.model.Attendee;
+import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.AdminMainActivity;
-import org.sejonguniv.if_2020.ui.admin.notice.AdminNoticeFragment;
-import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 
 import java.util.Calendar;
 
@@ -31,9 +26,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_home, container);
         setViewModel(HomeViewModel.class);
+        binding.setNotice(new Notice("제목","내용"));
+        viewModel.getRecentNotice();
         viewModel.sendUserToken();
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
         binding.checkButton.setOnClickListener(new onClickListener());
+
+
+        Observer<Notice> noticeObserver = new Observer<Notice>() {
+            @Override
+            public void onChanged(Notice notice) {
+                binding.setNotice(notice);
+            }
+        };
+
+        viewModel.notice.observe(this, noticeObserver);
 
         return binding.getRoot();
     }

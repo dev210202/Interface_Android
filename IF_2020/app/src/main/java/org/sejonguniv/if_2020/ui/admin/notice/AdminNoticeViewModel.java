@@ -30,47 +30,48 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdminNoticeViewModel extends BaseViewModel {
 
-    MutableLiveData<ArrayList<Notice>> titleList = new MutableLiveData<>();
+    MutableLiveData<ArrayList<Notice>> noticeList = new MutableLiveData<>();
     AdminRepository adminRepository = AdminRepository.getInstance();
+    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
 
     public void getNoticeList() {
-        adminRepository.getNotice().subscribe(
-                notices -> {
-                    if (notices.isEmpty()) {
-                        titleList.postValue(setEmptyList());
-                    } else {
-                        titleList.postValue(notices);
-                    }
-                },
-                error -> {
-                    titleList.postValue(setErrorList());
-                }
-        );
-    }
-
-    public void saveNotice(Notice notice) {
-        adminRepository.saveNotice(notice);
-    }
-
-    public void editNotice(int listNumer, Notice notice) {
-        adminRepository.editNotice(listNumer, notice);
+        compositeDisposable.add(
+                adminRepository.getNotice().subscribe(
+                        notices -> {
+                            if (notices.isEmpty()) {
+                                noticeList.postValue(setEmptyList());
+                            } else {
+                                noticeList.postValue(notices);
+                            }
+                        },
+                        error -> {
+                            noticeList.postValue(setErrorList());
+                            isDataReceive.setValue(true);
+                        },
+                        () -> isDataReceive.setValue(true)
+                ));
     }
 
     public void deleteNotice(int listNumber) {
-        adminRepository.deleteNotice(listNumber);
+        compositeDisposable.add(adminRepository.deleteNotice(listNumber).subscribe());
     }
 
+    public void editNotice(int listNumber, Notice notice) {
+        compositeDisposable.add(adminRepository.editNotice(listNumber, notice).subscribe());
+    }
+
+    public void saveNotice(Notice notice){
+        compositeDisposable.add(adminRepository.saveNotice(notice).subscribe());
+    }
     private ArrayList<Notice> setErrorList() {
-        Notice notice = new Notice();
-        notice.setTitle("데이터를 불러올 수 없습니다. 다시 시도해주세요");
+        Notice notice = new Notice("오류","데이터를 불러올 수 없습니다. 다시 시도해주세요");
         ArrayList<Notice> errorList = new ArrayList<>();
         errorList.add(notice);
         return errorList;
     }
 
     private ArrayList<Notice> setEmptyList() {
-        Notice notice = new Notice();
-        notice.setTitle("공지사항이 없습니다.");
+        Notice notice = new Notice("공지사항이 없습니다.","");
         ArrayList<Notice> emptyList = new ArrayList<>();
         emptyList.add(notice);
         return emptyList;

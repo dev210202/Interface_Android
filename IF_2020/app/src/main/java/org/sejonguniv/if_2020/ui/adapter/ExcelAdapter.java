@@ -1,14 +1,8 @@
 package org.sejonguniv.if_2020.ui.adapter;
 
-import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +14,6 @@ import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
 import org.sejonguniv.if_2020.model.TopTitle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +25,7 @@ public class ExcelAdapter extends PanelAdapter {
 
 
     List<LeftTitle> leftList;
-    List<TopTitle> topList ;
+    List<TopTitle> topList;
     List<List<CellData>> cellList;
 
     public void setLeftList(List<LeftTitle> leftList) {
@@ -109,7 +102,7 @@ public class ExcelAdapter extends PanelAdapter {
     }
 
     private void setRowView(int pos, RowViewHolder viewHolder) {
-        if(pos <= topList.size()){
+        if (pos <= topList.size()) {
 
             TopTitle info = topList.get(pos - 1);
             viewHolder.titleTextView.setText(info.getTitle());
@@ -117,7 +110,7 @@ public class ExcelAdapter extends PanelAdapter {
     }
 
     private void setColView(int pos, ColViewHolder viewHolder) {
-        if(pos <= leftList.size()){
+        if (pos <= leftList.size()) {
 
             LeftTitle info = leftList.get(pos - 1);
             viewHolder.titleTextView.setText(info.getTitle());
@@ -127,42 +120,24 @@ public class ExcelAdapter extends PanelAdapter {
     private void setCellView(int row, int col, CellViewHolder viewHolder) {
         if (col <= cellList.get(row - 1).size()) {
             CellData info = cellList.get(row - 1).get(col - 1);
-
-            Log.e("info data", info.getTitle() + "  row : "+ row +" col : "+ col);
             viewHolder.titleTextView.setText(info.getTitle());
-            viewHolder.titleTextView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    cellList.get(row -1).get(col -1).setTitle(s.toString());
-                    Log.e("S", s.toString());
-                    Log.e("INFO TITLE", cellList.get(row -1).get(col -1).getTitle());
-                }
-            });
         }
 
 
     }
-    private static class NoViewHolder extends RecyclerView.ViewHolder{
-        public NoViewHolder(View view){
+
+    private static class NoViewHolder extends RecyclerView.ViewHolder {
+        public NoViewHolder(View view) {
             super(view);
         }
     }
+
     private static class RowViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTextView;
 
         public RowViewHolder(View view) {
             super(view);
-            this.titleTextView = (TextView) view.findViewById(R.id.excel_textview);
+            this.titleTextView = view.findViewById(R.id.excel_textview);
         }
     }
 
@@ -171,7 +146,7 @@ public class ExcelAdapter extends PanelAdapter {
 
         public ColViewHolder(View view) {
             super(view);
-            this.titleTextView = (TextView) view.findViewById(R.id.excel_textview);
+            this.titleTextView = view.findViewById(R.id.excel_textview);
         }
     }
 
@@ -180,7 +155,7 @@ public class ExcelAdapter extends PanelAdapter {
 
         public CellViewHolder(View view) {
             super(view);
-            this.titleTextView = (TextView) view.findViewById(R.id.excel_textview);
+            this.titleTextView = view.findViewById(R.id.excel_textview);
 
         }
     }

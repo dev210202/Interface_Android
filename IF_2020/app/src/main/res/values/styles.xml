@@ -13,9 +13,9 @@
     </style>
 
     <style name="MainTitle">
-        <item name="android:fontFamily">@font/notosans_medium</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/interface_white</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">26dp</item>
     </style>
 
     <style name="MainContent">
@@ -25,9 +25,9 @@
     </style>
 
     <style name="Title">
-        <item name="android:textColor">@color/interface_white</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">26dp</item>
+        <item name="android:textColor">@color/interface_white</item>
+        <item name="android:textSize">16dp</item>
 
     </style>
 
@@ -37,10 +37,64 @@
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:textColor">@color/interface_white</item>
         <item name="android:textSize">15dp</item>
-        <item name="android:textColorHint">@color/interface_grey</item>
+        <item name="android:textColorHint">@color/interface_gray</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
+    </style>
+
+
+    <style name="GrayText">
+        <item name="android:textColor">@color/interface_gray</item>
+    </style>
+
+    <style name="NavigationImage">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginBottom">14dp</item>
+        <item name="android:layout_marginTop">14dp</item>
+    </style>
+
+    <style name="NavigationText">
+        <item name="android:textColor">@color/inteface_icon_white</item>
+        <item name="android:layout_marginStart">18dp</item>
+        <item name="android:layout_marginLeft">18dp</item>
+    </style>
+
+    <style name="NoticeTitleText">
+        <item name="android:hint">제목을 입력해주세요</item>
+        <item name="android:textColorHint">@color/interface_gray</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="singleLine">false</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">11dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/interface_white</item>
+    </style>
+
+    <style name="NoticeContentText">
+        <item name="android:hint">내용을 입력해주세요</item>
+        <item name="android:textColorHint">@color/interface_gray</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="singleLine">false</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/interface_white</item>
+
+    </style>
+
+    <style name="AttendanceInfoText">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/interface_white</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginTop">21dp</item>
+
     </style>
 
 </resources>

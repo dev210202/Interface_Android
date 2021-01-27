@@ -47,7 +47,7 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
     }
 
     public void openDrawerLayout(View view) {
-        binding.drawerlayout.openDrawer(GravityCompat.START);
+        binding.drawerlayout.openDrawer(GravityCompat.END);
     }
 
     private class navigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -88,7 +88,7 @@ public class UserMainActivity extends BaseActivity<ActivityUserMainBinding> {
                 }
 
             }
-            binding.drawerlayout.closeDrawer(GravityCompat.START);
+            binding.drawerlayout.closeDrawer(GravityCompat.END);
             return false;
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,10 @@ import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAdminExcelBinding;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
+
+import java.util.ArrayList;
 
 
 public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, AdminExcelFragmentViewModel> {
@@ -26,13 +30,29 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
         setViewModel(AdminExcelFragmentViewModel.class);
 
         binding.setPeopleList(viewModel.peopleArrayList);
-        viewModel.getLocalExcelData(getContext());
+        setProgressBar();
+        dialog.show();
         viewModel.getExcelData();
 
 
-        binding.completeButton.setOnClickListener(new onClickListener());
-        binding.saveButton.setOnClickListener(new onClickListener());
+        Observer<ArrayList<People>> arrayListObserver = new Observer<ArrayList<People>>() {
+            @Override
+            public void onChanged(ArrayList<People> people) {
+                binding.setPeopleList(viewModel.peopleArrayList);
+            }
+        };
 
+        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                dialog.dismiss();
+            }
+        };
+
+
+
+        viewModel.peopleArrayList.observe(this, arrayListObserver);
+        viewModel.isDataReceive.observe(this, dialogObserver);
         return binding.getRoot();
     }
 
@@ -47,9 +67,7 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
                     Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
                     break;
                 }
-                case R.id.save_button:{
-                    break;
-                }
+
             }
         }
     }

@@ -1,34 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="java.util.ArrayList"></import>
+
         <import type="androidx.lifecycle.MutableLiveData"></import>
+
         <import type="org.sejonguniv.if_2020.model.People"></import>
+
         <variable
             name="peopleList"
-            type="MutableLiveData&lt;ArrayList&lt;People&gt;>"/>
+            type="MutableLiveData&lt;ArrayList&lt;People&gt;>" />
 
     </data>
 
-    <LinearLayout
-        android:background="@color/interface_grey"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/interface_black">
 
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="인터페이스 멤버"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/GrayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="인터페이스 부원들의 명단입니다.\n오류가 있을 시 집부에게 연락해주세요"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"></TextView>
 
         <com.kelin.scrollablepanel.library.ScrollablePanel
-            listItem="@{peopleList}"
             android:id="@+id/scrollable_pannel"
+            listItem="@{peopleList}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
 
 
         </com.kelin.scrollablepanel.library.ScrollablePanel>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

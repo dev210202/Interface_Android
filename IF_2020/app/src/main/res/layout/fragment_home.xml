@@ -5,169 +5,291 @@
 
     <data>
 
+        <variable
+            name="notice"
+            type="org.sejonguniv.if_2020.model.Notice" />
+
     </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/interface_black">
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:background="@color/interface_black">
+        <TextView
+            android:id="@+id/date_textview"
+            style="@style/MainContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
-       <TextView
-           android:id="@+id/today_textview"
-           style="@style/MainTitle"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginLeft="16dp"
-           android:layout_marginTop="16dp"
-           android:text="오늘의 인페 일정"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent"></TextView>
-
-       <TextView
-           android:id="@+id/date_textview"
-           style="@style/MainContent"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginLeft="16dp"
-           android:text="date"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/today_textview"></TextView>
-
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:id="@+id/constraintLayout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginLeft="16dp"
-           android:layout_marginTop="22dp"
-           android:layout_marginEnd="16dp"
-           android:layout_marginRight="16dp"
-           android:background="@drawable/main_background"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/date_textview">
+        <TextView
+            android:id="@+id/today_textview"
+            style="@style/MainTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="오늘의 인페 일정"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_textview"></TextView>
 
 
-           <ImageView
-               android:id="@+id/imageView2"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="12dp"
-               android:layout_marginLeft="12dp"
-               android:layout_marginTop="12dp"
-               android:background="@drawable/ic_schedule_24"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent" />
-
-           <TextView
-
-               android:id="@+id/title_textview"
-               style="@style/MainTitle"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-
-               android:layout_marginStart="12dp"
-               android:layout_marginLeft="12dp"
-               android:layout_marginTop="12dp"
-               android:layout_marginEnd="12dp"
-               android:layout_marginRight="12dp"
-               android:text="어어 "
-               app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toEndOf="@+id/imageView2"
-               app:layout_constraintTop_toTopOf="parent"></TextView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/main_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_textview">
 
 
-           <TextView
-               android:id="@+id/place_textview"
-               style="@style/MainContent"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="12dp"
-               android:layout_marginEnd="12dp"
-               android:layout_marginRight="12dp"
-               android:text="asdasdvdd"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="@+id/title_textview"
-               app:layout_constraintTop_toBottomOf="@+id/title_textview">
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_schedule_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-           </TextView>
+            <TextView
 
-           <TextView
-               android:id="@+id/time_textview"
-               style="@style/MainContent"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_marginEnd="12dp"
-               android:layout_marginRight="12dp"
-               android:text="asdczxczcxsd"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="@+id/place_textview"
-               app:layout_constraintTop_toBottomOf="@+id/place_textview">
+                android:id="@+id/title_textview"
+                style="@style/Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
 
-           </TextView>
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:text="어어 "
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
-           <Button
-               android:id="@+id/check_button"
-               style="@style/MainContent"
-               android:layout_width="0dp"
-               android:layout_height="26dp"
-               android:layout_marginTop="20dp"
-               android:layout_marginEnd="12dp"
-               android:layout_marginRight="12dp"
-               android:layout_marginBottom="16dp"
-               android:background="@drawable/main_button_background"
-               android:text="출석체크"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/time_textview"></Button>
-       </androidx.constraintlayout.widget.ConstraintLayout>
 
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="14dp"
-           android:layout_marginLeft="14dp"
-           android:layout_marginTop="24dp"
-           android:layout_marginEnd="14dp"
-           android:layout_marginRight="14dp"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            <TextView
+                android:id="@+id/place_textview"
+                style="@style/MainContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:text="asdasdvdd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title_textview"
+                app:layout_constraintTop_toBottomOf="@+id/title_textview">
 
-           <TextView
-               android:id="@+id/textView3"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="16dp"
-               android:layout_marginLeft="16dp"
-               android:text="공지사항"
-               android:textColor="@color/interface_white"
-               android:textSize="14dp"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent"></TextView>
+            </TextView>
 
-           <LinearLayout
-               android:id="@+id/linearLayout"
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:layout_marginTop="8dp"
-               android:background="@color/interface_white"
+            <TextView
+                android:id="@+id/time_textview"
+                style="@style/MainContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:text="asdczxczcxsd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/place_textview"
+                app:layout_constraintTop_toBottomOf="@+id/place_textview">
 
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/textView3"
-               android:orientation="horizontal"></LinearLayout>
+            </TextView>
 
-           <androidx.recyclerview.widget.RecyclerView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            <Button
+                android:id="@+id/check_button"
+                style="@style/MainContent"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/main_button_background"
+                android:text="출석체크"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_textview"></Button>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-           </androidx.recyclerview.widget.RecyclerView>
-       </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notice_out_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-   </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/notice_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공지사항"
+                android:textColor="@color/interface_white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notice_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/content_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notice_textview">
+
+                <TextView
+                    android:id="@+id/notice_title_textview"
+                    style="@style/Title"
+                    setTextToTextView="@{notice.title}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="16dp"
+                    android:text="제목"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    style="@style/GrayText"
+                    android:id="@+id/notice_date_textview"
+                    setTextToTextView="@{notice.modifiedDate}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="날짜"
+                    android:textSize="11dp"
+                    app:layout_constraintStart_toStartOf="@+id/notice_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/notice_title_textview"></TextView>
+
+                <TextView
+                    android:id="@+id/notice_content_textview"
+                    style="@style/MainContent"
+                    setTextToTextView="@{notice.content}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="내용"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/notice_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/notice_date_textview"></TextView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calendar_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/content_background"
+            app:layout_constraintEnd_toEndOf="@+id/notice_out_layout"
+            app:layout_constraintStart_toStartOf="@+id/notice_out_layout"
+            app:layout_constraintTop_toBottomOf="@+id/notice_out_layout">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_calendar_24_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+            <TextView
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="인터페이스 일정"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"></TextView>
+
+            <ImageButton
+                android:id="@+id/calendar_arrow_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/ic_arrow_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"></ImageButton>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/content_background"
+            app:layout_constraintEnd_toEndOf="@+id/calendar_layout"
+            app:layout_constraintStart_toStartOf="@+id/calendar_layout"
+            app:layout_constraintTop_toBottomOf="@+id/calendar_layout">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_people_24_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+            <TextView
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="인터페이스 멤버"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4"></TextView>
+
+            <ImageButton
+                android:id="@+id/member_arrow_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/ic_arrow_24"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView4"></ImageButton>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>

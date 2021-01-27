@@ -25,10 +25,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mcv_dateTextAppearance="@style/MainTitle"
-            app:mcv_headerTextAppearance="@style/MainTitle"
+            app:mcv_dateTextAppearance="@style/MainContent"
+            app:mcv_headerTextAppearance="@style/MainContent"
             app:mcv_showOtherDates="defaults"
-            app:mcv_weekDayTextAppearance="@style/MainTitle" />
+            app:mcv_weekDayTextAppearance="@style/MainContent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             <TextView
 
                 android:id="@+id/calendar_textview"
-                style="@style/MainTitle"
+                style="@style/MainContent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"

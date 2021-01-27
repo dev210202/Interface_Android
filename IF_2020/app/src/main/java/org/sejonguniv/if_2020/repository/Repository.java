@@ -18,7 +18,7 @@ public abstract class Repository {
 
     protected HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     protected OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(3, TimeUnit.MINUTES)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)

@@ -12,36 +12,38 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class NoticeViewModel extends BaseViewModel {
 
-    MutableLiveData<ArrayList<Notice>> titleList = new MutableLiveData<>();
+    MutableLiveData<ArrayList<Notice>> noticeList = new MutableLiveData<>();
     UserRepository userRepository = UserRepository.getInstance();
 
     MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
+
     public void getNoticeList() {
         compositeDisposable.add(
                 userRepository.getNotice().subscribe(
                         notices -> {
                             if (notices.isEmpty()) {
-                                titleList.postValue(setEmptyList());
+                                noticeList.postValue(setEmptyList());
                             } else {
-                                titleList.postValue(notices);
+                                noticeList.postValue(notices);
                             }
                         },
-                        error -> titleList.postValue(setErrorList()),
+                        error -> {
+                            noticeList.postValue(setErrorList());
+                            isDataReceive.setValue(true);
+                        },
                         () -> isDataReceive.setValue(true)
                 ));
     }
 
     private ArrayList<Notice> setErrorList() {
-        Notice notice = new Notice();
-        notice.setTitle("데이터를 불러올 수 없습니다. 다시 시도해주세요");
+        Notice notice = new Notice("오류", "데이터를 불러올 수 없습니다. 다시 시도해주세요");
         ArrayList<Notice> errorList = new ArrayList<>();
         errorList.add(notice);
         return errorList;
     }
 
     private ArrayList<Notice> setEmptyList() {
-        Notice notice = new Notice();
-        notice.setTitle("공지사항이 없습니다.");
+        Notice notice = new Notice("공지사항이 없습니다.", "");
         ArrayList<Notice> emptyList = new ArrayList<>();
         emptyList.add(notice);
         return emptyList;

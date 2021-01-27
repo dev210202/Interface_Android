@@ -37,6 +37,9 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
 
     List<List<CellData>> cells = new ArrayList<>();
 
+    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
+
+
     AdminRepository adminRepository = AdminRepository.getInstance();
 
     public void getLocalExcelData(Context context) {
@@ -74,7 +77,17 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
     }
 
     public void getExcelData() {
-        adminRepository.getExcelData();
+        adminRepository.getExcelData().subscribe(
+                excelData -> {
+                    peopleArrayList.postValue(excelData);
+                },
+                error -> {
+                    Log.e("EXCEL LOAD ERROR", "!!");
+                },
+                () -> {
+                    isDataReceive.setValue(true);
+                }
+        );
     }
 
     public void saveData() {

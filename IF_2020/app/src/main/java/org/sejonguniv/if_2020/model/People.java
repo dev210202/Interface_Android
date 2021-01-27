@@ -1,5 +1,11 @@
 package org.sejonguniv.if_2020.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.lang.reflect.Constructor;
+
 public class People {
 
     String state;
@@ -7,17 +13,17 @@ public class People {
     String name;
     String department;
     String studenId;
-    String phoneNumber;
+    String phone;
     String contact;
     ManageStatus manageStatus;
 
-    public People(String state, String generation, String name, String department, String studenId, String phoneNumber, String contact, ManageStatus manageStatus) {
+    public People(String state, String generation, String name, String department, String studenId, String phone, String contact, ManageStatus manageStatus) {
         this.state = state;
         this.generation = generation;
         this.name = name;
         this.department = department;
         this.studenId = studenId;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.contact = contact;
         this.manageStatus = manageStatus;
     }
@@ -70,12 +76,12 @@ public class People {
         this.department = department;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
     }
 
     public ManageStatus getManageStatus() {
@@ -86,7 +92,16 @@ public class People {
         this.manageStatus = manageStatus;
     }
 
+
     public int itemSize() {
+//        Class peopleClass = People.class;
+//        Constructor[] constructors = peopleClass.getDeclaredConstructors();
+//        int parametersSize = 0;
+//        for (Constructor constructor : constructors) {
+//            parametersSize = constructor.getParameterCount();
+//
+//        }
+        //return parametersSize;
         return 11;
     }
 
@@ -101,31 +116,31 @@ public class People {
             case 2: {
                 return name;
             }
-            case 3:{
+            case 3: {
                 return department;
             }
-            case 4:{
+            case 4: {
                 return studenId;
             }
-            case 5:{
-                return phoneNumber;
+            case 5: {
+                return phone;
             }
-            case 6:{
+            case 6: {
                 return contact;
             }
-            case 7:{
+            case 7: {
                 return manageStatus.firstDues;
             }
-            case 8:{
+            case 8: {
                 return manageStatus.secondDues;
             }
-            case 9:{
+            case 9: {
                 return manageStatus.openingMeeting;
             }
             case 10: {
                 return manageStatus.finalMeeting;
             }
-            default:{
+            default: {
                 break;
             }
         }

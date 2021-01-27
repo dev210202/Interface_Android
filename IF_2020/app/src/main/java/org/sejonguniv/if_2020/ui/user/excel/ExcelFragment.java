@@ -34,7 +34,8 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
 
         binding.setPeopleList(viewModel.peopleArrayList);
 
-        showProgressBar();
+        setProgressBar();
+        dialog.show();
         viewModel.getExcelData();
 
         Observer<ArrayList<People>> peopleArrayListObserver = new Observer<ArrayList<People>>() {
@@ -51,19 +52,8 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
             }
         };
 
-        viewModel.peopleArrayList.observe(this, peopleArrayListObserver);
-        viewModel.isDataReceive.observe(this, dialogObserver);
+        viewModel.peopleArrayList.observe(getViewLifecycleOwner(), peopleArrayListObserver);
+        viewModel.isDataReceive.observe(getViewLifecycleOwner(), dialogObserver);
         return binding.getRoot();
     }
-/*
-    private void externalPermissionCheck() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions((Activity) getActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-            return;
-        }
-    }*/
 }
