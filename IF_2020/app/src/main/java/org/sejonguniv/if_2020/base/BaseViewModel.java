@@ -15,18 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BaseViewModel extends ViewModel {
 
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
-    protected HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-    protected OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build();
-    protected Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app-dev.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build();
-    protected APIService service = retrofit.create(APIService.class);
 
     @Override
     protected void onCleared() {

@@ -21,9 +21,13 @@ import org.sejonguniv.if_2020.model.CellData;
 import org.sejonguniv.if_2020.model.LeftTitle;
 import org.sejonguniv.if_2020.model.ManageStatus;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.PassKey;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.model.TopTitle;
 import org.sejonguniv.if_2020.model.User;
+import org.sejonguniv.if_2020.model.UserPassInfo;
+import org.sejonguniv.if_2020.ui.adapter.AdminAttendancePassKeyAdapter;
+import org.sejonguniv.if_2020.ui.adapter.AdminAttendanceUserPassInfoAdapter;
 import org.sejonguniv.if_2020.ui.adapter.AdminNoticeAdapter;
 import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
 import org.sejonguniv.if_2020.ui.adapter.NoticeAdapter;
@@ -62,89 +66,6 @@ public class DataBindingAdapter {
         view.setText(notice.getContent());
     }
 
-    @BindingAdapter("titleTextInput")
-    public static void titleTextInput(TextView view, String input) {
-
-
-        Log.e("DataBindingAdapter", "titleTextInput input value = " + input);
-
-        int NOT_EXIST_INDEX = -1;
-
-        String text = view.getText().toString();
-
-        SpannableStringBuilder builder = new SpannableStringBuilder(text);
-
-        if (input != "INIT") {
-
-            int startIndex = text.indexOf(input);
-            Log.e("startIndex", "" + startIndex);
-            int endIndex = startIndex + input.length();
-
-
-            if (startIndex != NOT_EXIST_INDEX) {
-                builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                view.setText(builder);
-                while (text.indexOf(input, startIndex + 1) != NOT_EXIST_INDEX) {
-
-                    startIndex = text.indexOf(input, startIndex + 1);
-                    endIndex = startIndex + input.length();
-
-                    builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    view.setText(builder);
-                    Log.e("a1 value", "" + startIndex);
-                }
-            } else {
-                Log.e("DataBindgAdapter", "titleTextInput NOT_EXIST_INDEX");
-                builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                view.setText(builder);
-            }
-        }
-
-    }
-
-    @BindingAdapter("contentTextInput")
-    public static void contentTextInput(ExpandableTextView view, String input) {
-
-
-        Log.e("DataBindingAdapter", "contentTextInput input value = " + input);
-
-        int NOT_EXIST_INDEX = -1;
-
-        String text = view.getText().toString();
-
-        SpannableStringBuilder builder = new SpannableStringBuilder(text);
-
-        if (input != "INIT") {
-
-            int startIndex = text.indexOf(input);
-            Log.e("startIndex", "" + startIndex);
-            int endIndex = startIndex + input.length();
-
-
-            if (startIndex != NOT_EXIST_INDEX) {
-                builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                view.setText(builder);
-                while (text.indexOf(input, startIndex + 1) != NOT_EXIST_INDEX) {
-
-                    startIndex = text.indexOf(input, startIndex + 1);
-                    endIndex = startIndex + input.length();
-
-                    builder.setSpan(new BackgroundColorSpan(Color.parseColor("#ff0000")), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder.setSpan(new RelativeSizeSpan(1.5f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    view.setText(builder);
-                    Log.e("a2 value", "" + startIndex);
-                }
-            } else {
-                Log.e("DataBindingAdapter", "contentTextInput NOT_EXIST_INDEX");
-                builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                view.setText(builder);
-            }
-        }
-
-    }
 
     @BindingAdapter("listItem")
     public static void listItem(ScrollablePanel view, MutableLiveData<ArrayList<People>> peopleList) {
@@ -166,6 +87,18 @@ public class DataBindingAdapter {
         adapter.setCellList(setCell(peopleList));
         view.setPanelAdapter(adapter);
         view.notifyDataSetChanged();
+    }
+
+    @BindingAdapter("passkeyItem")
+    public static void passkeyItem(RecyclerView view, MutableLiveData<ArrayList<PassKey>> passkeyList){
+        AdminAttendancePassKeyAdapter adapter = (AdminAttendancePassKeyAdapter) view.getAdapter();
+        adapter.setPassKeyList(passkeyList);
+    }
+
+    @BindingAdapter("userPassInfo")
+    public static void userPassInfo(RecyclerView view, MutableLiveData<ArrayList<UserPassInfo>> userPassList){
+        AdminAttendanceUserPassInfoAdapter adapter = (AdminAttendanceUserPassInfoAdapter) view.getAdapter();
+        adapter.setPassInfoList(userPassList);
     }
 
     public static List<TopTitle> setUserTopTitleCell() {

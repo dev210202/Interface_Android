@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
@@ -53,17 +55,12 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
             showDialogForLocationServiceSetting();
         }
 
-        GpsTracker gpsTracker = new GpsTracker(getContext());
-        double latitude = gpsTracker.getLatitude();
-        double longithude = gpsTracker.getLongitude();
 
-        Log.e("Current Lat, Lon", "lat : " + latitude + " lon : " + longithude);
 
         binding.nameEdittext.addTextChangedListener(textWatcher);
         binding.studentidEdittext.addTextChangedListener(textWatcher);
         binding.groupnumEdittext.addTextChangedListener(textWatcher);
         binding.passwordEdittext.addTextChangedListener(textWatcher);
-        binding.checkButton.setEnabled(false);
         binding.checkButton.setOnClickListener(new onClickListener());
 
         return view;
@@ -179,12 +176,19 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         }
     }
     private Attendee setAttendee(){
+        GpsTracker gpsTracker = new GpsTracker(getContext());
+        double latitude = gpsTracker.getLatitude();
+        double longithude = gpsTracker.getLongitude();
+
         Attendee attendee = new Attendee();
         attendee.setName(binding.nameEdittext.getText().toString());
-        attendee.setGroupNum(binding.groupnumEdittext.getText().toString());
+        attendee.setGeneration(binding.groupnumEdittext.getText().toString());
         attendee.setPasskey(binding.passwordEdittext.getText().toString());
         attendee.setStudentId(binding.studentidEdittext.getText().toString());
-        attendee.setDateTime("2020-09-09T00:10");
+        attendee.setToken(FirebaseInstanceId.getInstance().getToken());
+        attendee.setLat(String.valueOf(latitude));
+        attendee.setLon(String.valueOf(longithude));
+        attendee.setDateTime("2021-02-03T12:18");
         return attendee;
     }
 }

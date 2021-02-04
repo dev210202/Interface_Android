@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -15,9 +16,19 @@
         android:roundIcon="@mipmap/ic_if"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.admin.notice.AdminNoticeRegistActivity"></activity>
-        <activity android:name=".ui.LoginAcitvity" />
+        <activity android:name=".ui.admin.excel.AdminExcelAddActivity"></activity>
+        <activity android:name=".ui.admin.attendance.AdminAttendanceRegistActivity" />
+        <activity android:name=".ui.admin.attendance.AdminAttendanceUserPassInfoActivity" />
+        <activity android:name=".ui.admin.notice.AdminNoticeRegistActivity" />
+        <activity android:name=".ui.LoginAcitvity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.admin.notice.AdminNoticeEditActivity" />
         <activity android:name=".ui.AdminMainActivity" />
 
@@ -26,11 +37,7 @@
             android:required="false" />
 
         <activity android:name=".ui.UserMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".service.InterfaceFirebaseMessagingService">

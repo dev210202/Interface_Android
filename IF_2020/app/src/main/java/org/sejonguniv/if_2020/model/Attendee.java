@@ -4,9 +4,36 @@ public class Attendee {
 
     String studentId;
     String name;
-    String groupNum;
+    String generation;
     String passkey;
     String dateTime;
+    String token;
+    String lat;
+    String lon;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
 
     public String getStudentId() {
         return studentId;
@@ -24,12 +51,12 @@ public class Attendee {
         this.name = name;
     }
 
-    public String getGroupNum() {
-        return groupNum;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setGroupNum(String groupNum) {
-        this.groupNum = groupNum;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
     public String getPasskey() {

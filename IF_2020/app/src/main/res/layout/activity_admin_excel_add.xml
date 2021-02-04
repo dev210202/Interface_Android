@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/interface_black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/check_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="명단 추가하기"
+            android:textColor="@color/interface_white"
+            android:textSize="16dp"></TextView>
+
+        <EditText
+            android:id="@+id/state_edittext"
+            android:background="@drawable/main_background"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="재학상태"></EditText>
+
+        <EditText
+            android:id="@+id/generation_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="기수"></EditText>
+
+
+
+        <EditText
+            android:id="@+id/name_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="이름"></EditText>
+        <EditText
+            android:id="@+id/department_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="학과"></EditText>
+
+
+        <EditText
+            android:inputType="number"
+            android:id="@+id/studentid_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="학번"></EditText>
+        <EditText
+            android:inputType="number"
+            android:id="@+id/phonenumber_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="전화번호"></EditText>
+        <EditText
+            android:id="@+id/contact_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="연락처"></EditText>
+        <EditText
+            android:id="@+id/firstdues_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="1학기회비"></EditText>
+        <EditText
+            android:id="@+id/seconddues_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="2학기회비"></EditText>
+        <EditText
+            android:id="@+id/opening_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="개강총회 참석"></EditText>
+        <EditText
+            android:id="@+id/closing_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_background"
+            android:hint="종강총회 참석"></EditText>
+        <Button
+            android:layout_marginTop="16dp"
+            android:id="@+id/check_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/complete_button_background"
+            android:onClick="sendAttendance"
+            android:text="완료"
+            android:textColor="@color/interface_white"
+            android:textSize="16dp"></Button>
+
+    </LinearLayout>
+</ScrollView>
+</layout>

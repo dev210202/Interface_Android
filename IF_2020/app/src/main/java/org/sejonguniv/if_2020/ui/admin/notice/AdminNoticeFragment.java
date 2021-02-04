@@ -40,7 +40,6 @@ public class AdminNoticeFragment extends BaseFragment<FragmentAdminNoticeBinding
         setBinding(inflater, R.layout.fragment_admin_notice, container);
         setViewModel(AdminNoticeViewModel.class);
 
-        binding.setViewModel(viewModel);
         binding.setNoticeList(viewModel.noticeList);
 
         setProgressBar();

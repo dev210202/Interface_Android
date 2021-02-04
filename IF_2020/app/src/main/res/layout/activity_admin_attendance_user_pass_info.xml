@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.ArrayList"></import>
+
+        <import type="androidx.lifecycle.MutableLiveData"></import>
+
+        <import type="org.sejonguniv.if_2020.model.UserPassInfo"></import>
+        <import type="org.sejonguniv.if_2020.model.PassKey"></import>
+        <variable
+            name="userPassInfo"
+            type="MutableLiveData&lt;ArrayList&lt;UserPassInfo&gt;&gt;" />
+        <variable
+            name="passkeyInfo"
+            type="PassKey" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/interface_black">
+
+
+        <TextView
+            android:text="@{passkeyInfo.passkey}"
+            android:id="@+id/passkey_textview"
+            style="@style/MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <ImageButton
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_trash"
+            app:layout_constraintBottom_toBottomOf="@+id/passkey_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/passkey_textview"></ImageButton>
+
+        <TextView
+
+            android:id="@+id/startTime_textview"
+            style="@style/GrayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{passkeyInfo.startTime}"
+            app:layout_constraintStart_toStartOf="@+id/passkey_textview"
+            app:layout_constraintTop_toBottomOf="@+id/passkey_textview"></TextView>
+
+        <TextView
+
+            android:id="@+id/endTime_textview"
+            style="@style/GrayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{passkeyInfo.endTime}"
+            app:layout_constraintStart_toStartOf="@+id/startTime_textview"
+            app:layout_constraintTop_toBottomOf="@+id/startTime_textview"></TextView>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refreshlayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endTime_textview">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                userPassInfo="@{userPassInfo}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

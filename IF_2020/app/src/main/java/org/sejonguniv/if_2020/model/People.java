@@ -4,25 +4,26 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
-public class People {
+public class People implements Serializable {
 
     String state;
     String generation;
     String name;
     String department;
-    String studenId;
+    String studentId;
     String phone;
     String contact;
     ManageStatus manageStatus;
 
-    public People(String state, String generation, String name, String department, String studenId, String phone, String contact, ManageStatus manageStatus) {
+    public People(String state, String generation, String name, String department, String studentId, String phone, String contact, ManageStatus manageStatus) {
         this.state = state;
         this.generation = generation;
         this.name = name;
         this.department = department;
-        this.studenId = studenId;
+        this.studentId = studentId;
         this.phone = phone;
         this.contact = contact;
         this.manageStatus = manageStatus;
@@ -36,12 +37,12 @@ public class People {
         this.contact = contact;
     }
 
-    public String getStudenId() {
-        return studenId;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudenId(String studenId) {
-        this.studenId = studenId;
+    public void setStudentId(String studenId) {
+        this.studentId = studenId;
     }
 
     public String getName() {
@@ -120,7 +121,7 @@ public class People {
                 return department;
             }
             case 4: {
-                return studenId;
+                return studentId;
             }
             case 5: {
                 return phone;

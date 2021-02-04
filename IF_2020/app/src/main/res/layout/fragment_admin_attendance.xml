@@ -4,6 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="java.util.ArrayList"></import>
+
+        <import type="androidx.lifecycle.MutableLiveData"></import>
+
+        <import type="org.sejonguniv.if_2020.model.PassKey"></import>
+
+        <variable
+            name="passkey"
+            type="MutableLiveData&lt;ArrayList&lt;PassKey&gt;&gt;" />
 
     </data>
 
@@ -25,6 +34,7 @@
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <ImageButton
+            android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -34,6 +44,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView7"></ImageButton>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refreshlayout"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
@@ -43,6 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7">
 
             <androidx.recyclerview.widget.RecyclerView
+                passkeyItem="@{passkey}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"

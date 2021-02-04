@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.sejonguniv.if_2020.base.BaseViewModel;
 import org.sejonguniv.if_2020.model.CellData;
+import org.sejonguniv.if_2020.model.ExcelList;
 import org.sejonguniv.if_2020.model.ManageStatus;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.repository.AdminRepository;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class AdminExcelFragmentViewModel extends BaseViewModel {
     ManageStatus baseStatus = new ManageStatus("1학기회비", "2학기회비", "개총", "종총");
-    People base = new People("재학여부", "기수", "이름", "학과", "학번", "전화번호","연락처", baseStatus);
+    People base = new People("재학여부", "기수", "이름", "학과", "학번", "전화번호", "연락처", baseStatus);
 
     MutableLiveData<ArrayList<People>> peopleArrayList = new MutableLiveData<ArrayList<People>>();
 
@@ -42,7 +43,7 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
 
     AdminRepository adminRepository = AdminRepository.getInstance();
 
-    public void getLocalExcelData(Context context) {
+    public void getExcelDataToLocal(Context context) {
         try {
             String fileName = "명부.xls";
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -76,7 +77,7 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         }
     }
 
-    public void getExcelData() {
+    public void getExcelDataToServer() {
         adminRepository.getExcelData().subscribe(
                 excelData -> {
                     peopleArrayList.postValue(excelData);
@@ -90,7 +91,7 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         );
     }
 
-    public void saveData() {
+    public void saveDataToLocal() {
         Workbook workbook = new HSSFWorkbook();
 
         Sheet sheet = workbook.createSheet(); // 새로운 시트 생성
@@ -101,20 +102,8 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         createCell(cell, row, base);
         for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
             row = sheet.createRow(i + 1);
-//            createCell(cell, row,
-//                    cells.get(i).get(0).getTitle(),
-//                    cells.get(i).get(1).getTitle(),
-//                    cells.get(i).get(2).getTitle(),
-//                    cells.get(i).get(3).getTitle(),
-//                    cells.get(i).get(4).getTitle(),
-//                    cells.get(i).get(5).getTitle(),
-//                    cells.get(i).get(6).getTitle(),
-//                    cells.get(i).get(7).getTitle(),
-//                    cells.get(i).get(8).getTitle(),
-//                    cells.get(i).get(9).getTitle()
-//            );
+            createCell(cell, row, peopleArrayList.getValue().get(i));
         }
-
 
         String filename = "명부.xls";
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -127,11 +116,16 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         }
     }
 
-    public void createCell(Cell cell, Row row, People people) {
-        for(int i = 0 ; i < people.itemSize(); i++){
+    public void saveDataToServer() {
+        ExcelList excelList = new ExcelList();
+        excelList.setPeopleList(peopleArrayList.getValue());
+        compositeDisposable.add(adminRepository.saveExcelData(excelList).subscribe());
+    }
+
+    private void createCell(Cell cell, Row row, People people) {
+        for (int i = 0; i < people.itemSize(); i++) {
             cell = row.createCell(i);
             cell.setCellValue(people.getValue(i));
         }
-
     }
 }

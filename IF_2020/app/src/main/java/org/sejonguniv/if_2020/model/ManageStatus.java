@@ -1,6 +1,8 @@
 package org.sejonguniv.if_2020.model;
 
-public class ManageStatus {
+import java.io.Serializable;
+
+public class ManageStatus implements Serializable {
 
     String firstDues;
     String secondDues;

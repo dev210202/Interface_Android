@@ -7,37 +7,61 @@
 
     </data>
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-       android:background="@color/interface_gray"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/interface_black">
 
-       <EditText
-           android:id="@+id/title_edittext"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="제목"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent"></EditText>
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/MainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="알람 보내기"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
-       <EditText
-           android:id="@+id/content_edittext"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="내용"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/title_edittext"></EditText>
+        <EditText
+            android:id="@+id/title_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/main_background"
+            android:hint="제목을 입력해주세요"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"></EditText>
 
-       <Button
-           android:id="@+id/notification_button"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="notification"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/content_edittext"></Button>
+        <EditText
+            android:gravity="left"
+            android:id="@+id/content_edittext"
+            style="@style/ExcelInput"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/main_background"
+            android:hint="내용을 입력해주세요"
+            app:layout_constraintBottom_toTopOf="@+id/notification_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_edittext"></EditText>
 
-   </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:textSize="16dp"
+            android:textColor="@color/interface_white"
+            android:background="@drawable/complete_button_background"
+            android:id="@+id/notification_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="알람 보내기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></Button>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

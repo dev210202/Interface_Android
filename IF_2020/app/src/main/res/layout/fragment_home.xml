@@ -18,16 +18,26 @@
         android:layout_height="match_parent"
         android:background="@color/interface_black">
 
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/home_ic_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
         <TextView
             android:id="@+id/date_textview"
             style="@style/MainContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:text="date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/imageView5"></TextView>
 
         <TextView
             android:id="@+id/today_textview"

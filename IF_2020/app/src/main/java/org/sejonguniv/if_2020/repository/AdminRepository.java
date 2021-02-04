@@ -1,9 +1,16 @@
 package org.sejonguniv.if_2020.repository;
 
+import org.sejonguniv.if_2020.model.CalendarData;
+import org.sejonguniv.if_2020.model.ExcelList;
 import org.sejonguniv.if_2020.model.Notice;
+import org.sejonguniv.if_2020.model.PassKey;
 import org.sejonguniv.if_2020.model.People;
+import org.sejonguniv.if_2020.model.RegistPasskey;
+import org.sejonguniv.if_2020.model.DeleteKey;
+import org.sejonguniv.if_2020.model.UserPassInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,7 +44,6 @@ public class AdminRepository extends Repository {
     }
 
     public Observable<Response<Void>> editNotice(int listNumer, Notice notice) {
-        // 공지사항의 index에 맞춰서 update/{index}
         return service.edit(listNumer, notice).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -49,4 +55,26 @@ public class AdminRepository extends Repository {
         return service.getMemberList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<ArrayList<PassKey>> getPassKey(){
+        return service.getPasskeyList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ArrayList<UserPassInfo>> getPassInfo(String passkey){
+        return service.getPassInfo(passkey).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<Void>> registPasskey(RegistPasskey registPasskey){
+        return service.registPasskey(registPasskey).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<Void>> deletePasskey(DeleteKey passkey){
+        return service.deletePasskey(passkey).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+    public Observable<Response<Void>> saveExcelData(ExcelList peopleList){
+        return service.saveExcelData(peopleList).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ArrayList<CalendarData>> getCalendarList(){
+       return service.getCalendarList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }
