@@ -30,6 +30,9 @@ public class AdminAttendanceUserPassInfoActivity extends BaseActivity<ActivityAd
         setContentView(R.layout.activity_admin_attendance_user_pass_info);
         setBinding(R.layout.activity_admin_attendance_user_pass_info);
 
+        setProgressBar();
+        dialog.show();
+
         AdminAttendanceUserPassInfoViewModel viewModel = ViewModelProviders.of(this).get(AdminAttendanceUserPassInfoViewModel.class);
         AdminAttendanceUserPassInfoAdapter adminAttendancePassKeyAdapter = new AdminAttendanceUserPassInfoAdapter();
         binding.recyclerview.setAdapter(adminAttendancePassKeyAdapter);
@@ -51,11 +54,19 @@ public class AdminAttendanceUserPassInfoActivity extends BaseActivity<ActivityAd
             @Override
             public void onRefresh() {
                 // 2/3 10:06 추가
+                dialog.show();
                 binding.swipeRefreshlayout.setRefreshing(false);
                 binding.setUserPassInfo(viewModel.passInfoList);
                 viewModel.getUserPassInfo(passKey.getPasskey());
             }
         });
+        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                dialog.dismiss();
+            }
+        };
+
         Observer<ArrayList<UserPassInfo>> observer = new Observer<ArrayList<UserPassInfo>>() {
             @Override
             public void onChanged(ArrayList<UserPassInfo> userPassInfos) {
@@ -63,6 +74,7 @@ public class AdminAttendanceUserPassInfoActivity extends BaseActivity<ActivityAd
             }
         };
         viewModel.passInfoList.observe(this, observer);
+        viewModel.isDataReceive.observe(this, dialogObserver);
     }
 
     private void showDeleteNoticeDialog(AdminAttendanceUserPassInfoViewModel viewModel, PassKey passKey) {

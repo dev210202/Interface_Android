@@ -45,7 +45,6 @@ public class AdminAttendanceRegistActivity extends BaseActivity<ActivityAdminAtt
         setContentView(R.layout.activity_admin_attendance_regist);
         setBinding(R.layout.activity_admin_attendance_regist);
 
-        // sdk 26이상만 쓸 수 있음
         binding.datepicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -66,8 +65,6 @@ public class AdminAttendanceRegistActivity extends BaseActivity<ActivityAdminAtt
         binding.completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // GPS, startTime, endTime(startTime + 1시간?), passkey
-
 
                 Location location = getLocation();
 
@@ -84,8 +81,6 @@ public class AdminAttendanceRegistActivity extends BaseActivity<ActivityAdminAtt
     }
 
     private MeetingTime getMeetingTime() {
-
-        //2021-12-31T23:34
 
         int year = binding.datepicker.getYear();
         int month = binding.datepicker.getMonth() + 1;

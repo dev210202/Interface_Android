@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.admin.calendar;
+package org.sejonguniv.if_2020.ui.decorator;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

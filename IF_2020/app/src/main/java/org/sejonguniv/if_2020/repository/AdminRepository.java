@@ -77,4 +77,16 @@ public class AdminRepository extends Repository {
     public Observable<ArrayList<CalendarData>> getCalendarList(){
        return service.getCalendarList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<Response<Void>> addCalendar(CalendarData calendarData){
+        return service.addCalendar(calendarData).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<Void>> deleteCalendar(int position){
+        return service.deleteCalendar(position).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<Void>> editCalendar(int position, CalendarData calendarData){
+        return service.updateCalendar(position, calendarData).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }

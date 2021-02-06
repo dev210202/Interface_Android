@@ -1,6 +1,9 @@
 package org.sejonguniv.if_2020.model;
 
-public class CalendarData {
+import java.io.Serializable;
+
+public class CalendarData implements Serializable {
+    int id;
     String date;
     String title;
     String content;
@@ -9,6 +12,14 @@ public class CalendarData {
         this.date = date;
         this.title = title;
         this.content = content;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {

@@ -68,4 +68,12 @@ public interface APIService {
     @GET("calendar/list")
     Observable<ArrayList<CalendarData>> getCalendarList();
 
+    @POST("calendar")
+    Observable<Response<Void>> addCalendar(@Body CalendarData calendarData);
+
+    @DELETE("calendar/{calendarId}")
+    Observable<Response<Void>> deleteCalendar(@Path("calendarId") int calendarId);
+
+    @PUT("calendar/{calendarId}")
+    Observable<Response<Void>> updateCalendar(@Path("calendarId") int calendarId, @Body CalendarData calendarData);
 }

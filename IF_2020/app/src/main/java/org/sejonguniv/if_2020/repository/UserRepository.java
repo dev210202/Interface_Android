@@ -3,6 +3,7 @@ package org.sejonguniv.if_2020.repository;
 import androidx.lifecycle.MutableLiveData;
 
 import org.sejonguniv.if_2020.model.Attendee;
+import org.sejonguniv.if_2020.model.CalendarData;
 import org.sejonguniv.if_2020.model.Login;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.People;
@@ -51,5 +52,8 @@ public class UserRepository extends Repository {
 
     public Observable<ArrayList<People>> getExcelData() {
         return service.getMemberList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+    public Observable<ArrayList<CalendarData>> getCalendarList(){
+        return service.getCalendarList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

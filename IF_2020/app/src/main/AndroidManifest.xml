@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -13,16 +13,18 @@
         android:configChanges="screenSize|orientation"
         android:icon="@mipmap/ic_if"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_if"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.admin.excel.AdminExcelAddActivity"></activity>
+        <activity android:name=".ui.admin.calendar.AdminCalendarEditActivity" />
+        <activity android:name=".ui.admin.calendar.AdminCalendarAddActivity" />
+        <activity android:name=".ui.admin.excel.AdminExcelAddActivity" />
         <activity android:name=".ui.admin.attendance.AdminAttendanceRegistActivity" />
         <activity android:name=".ui.admin.attendance.AdminAttendanceUserPassInfoActivity" />
         <activity android:name=".ui.admin.notice.AdminNoticeRegistActivity" />
-        <activity android:name=".ui.LoginAcitvity" >
+        <activity android:name=".ui.LoginAcitvity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,9 +38,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".ui.UserMainActivity">
-
-        </activity>
+        <activity android:name=".ui.UserMainActivity" />
 
         <service android:name=".service.InterfaceFirebaseMessagingService">
             <intent-filter>

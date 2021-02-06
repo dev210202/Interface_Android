@@ -14,6 +14,7 @@ public class AdminCalendarViewModel extends BaseViewModel {
 
     AdminRepository adminRepository = AdminRepository.getInstance();
     MutableLiveData<ArrayList<CalendarData>>  calendarDataArrayList = new MutableLiveData<>();
+    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
     public void getCalendarList(){
         compositeDisposable.add(adminRepository.getCalendarList().subscribe(
 
@@ -21,12 +22,24 @@ public class AdminCalendarViewModel extends BaseViewModel {
                     calendarDataArrayList.postValue(calendarData);
                 },
                 error ->{
-
+                    isDataReceive.setValue(true);
                 },
                 () -> {
-
+                    isDataReceive.setValue(true);
                 }
 
         ));
+    }
+
+    public void addCalendar(CalendarData calendarData){
+        compositeDisposable.add(adminRepository.addCalendar(calendarData).subscribe());
+    }
+
+    public void deleteCalendar(int position){
+        compositeDisposable.add(adminRepository.deleteCalendar(position).subscribe());
+    }
+
+    public void editCalendar(int position, CalendarData calendarData){
+        compositeDisposable.add(adminRepository.editCalendar(position, calendarData).subscribe());
     }
 }

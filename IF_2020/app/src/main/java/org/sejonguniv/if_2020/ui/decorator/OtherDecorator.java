@@ -1,4 +1,4 @@
-package org.sejonguniv.if_2020.ui.user.calendar;
+package org.sejonguniv.if_2020.ui.decorator;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -9,9 +9,6 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import org.sejonguniv.if_2020.R;
-
-import java.util.Collection;
-import java.util.HashSet;
 
 public class OtherDecorator implements DayViewDecorator {
 

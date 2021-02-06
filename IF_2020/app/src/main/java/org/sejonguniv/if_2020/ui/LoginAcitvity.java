@@ -21,9 +21,9 @@ public class LoginAcitvity extends BaseActivity<ActivityLoginAcitvityBinding> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_acitvity);
         setBinding(R.layout.activity_login_acitvity);
-
         LoginViewModel viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
+        setProgressBar();
 
         binding.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,9 +35,16 @@ public class LoginAcitvity extends BaseActivity<ActivityLoginAcitvityBinding> {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.show();
                 viewModel.login(binding.editText.getText().toString());
             }
         });
+        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                dialog.dismiss();
+            }
+        };
 
         Observer<String> responseObserver = new Observer<String>() {
             @Override
@@ -57,6 +64,7 @@ public class LoginAcitvity extends BaseActivity<ActivityLoginAcitvityBinding> {
             }
         };
         viewModel.loginResponse.observe(this,responseObserver);
+        viewModel.isDataReceive.observe(this, dialogObserver);
     }
 
 }
