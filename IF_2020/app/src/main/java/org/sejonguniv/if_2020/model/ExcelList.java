@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ExcelList {
 
-    List<People> peopleList;
+    List<People> collection;
 
-    public List<People> getPeopleList() {
-        return peopleList;
+    public List<People> getCollection() {
+        return collection;
     }
 
-    public void setPeopleList(List<People> peopleList) {
-        this.peopleList = peopleList;
+    public void setCollection(List<People> collection) {
+        this.collection = collection;
     }
 }

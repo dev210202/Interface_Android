@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "org.sejonguniv.if_2020"
         minSdkVersion 24
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -56,4 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    implementation 'gun0912.ted:tedpermission:2.2.3'
+
+    implementation 'gun0912.ted:tedpermission-rx2:2.2.3'
 }

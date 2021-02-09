@@ -1,7 +1,14 @@
 package org.sejonguniv.if_2020.ui.admin.excel;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -24,11 +31,14 @@ import org.sejonguniv.if_2020.repository.AdminRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class AdminExcelFragmentViewModel extends BaseViewModel {
     ManageStatus baseStatus = new ManageStatus("1학기회비", "2학기회비", "개총", "종총");
@@ -40,42 +50,8 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
 
     MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
 
-
     AdminRepository adminRepository = AdminRepository.getInstance();
 
-    public void getExcelDataToLocal(Context context) {
-        try {
-            String fileName = "명부.xls";
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            File xls = new File(dir, fileName);
-
-            FileInputStream fileInputStream = new FileInputStream(xls);
-
-            POIFSFileSystem poifsFileSystem = new POIFSFileSystem(fileInputStream);
-
-            HSSFWorkbook workbook = new HSSFWorkbook(poifsFileSystem);
-
-            if (workbook.getNumberOfSheets() != 0) {
-                HSSFSheet mySheet = workbook.getSheetAt(0); //첫번째 시트
-
-                /** We now need something to iterate through the cells. **/
-                Iterator rowIter = mySheet.rowIterator();
-
-                while (rowIter.hasNext()) {
-                    HSSFRow myRow = (HSSFRow) rowIter.next(); // 한줄 데이터
-                    Iterator cellIter = myRow.cellIterator();
-                    Log.e("!!", "Row : " + myRow.getRowNum());
-                    while (cellIter.hasNext()) {
-                        HSSFCell myCell = (HSSFCell) cellIter.next();
-                        Log.e("!!", "Cell Value: " + myCell.toString());
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void getExcelDataToServer() {
         adminRepository.getExcelData().subscribe(
@@ -91,7 +67,7 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
         );
     }
 
-    public void saveDataToLocal() {
+    public void saveDataToLocal(Uri uri, Context context){
         Workbook workbook = new HSSFWorkbook();
 
         Sheet sheet = workbook.createSheet(); // 새로운 시트 생성
@@ -104,21 +80,18 @@ public class AdminExcelFragmentViewModel extends BaseViewModel {
             row = sheet.createRow(i + 1);
             createCell(cell, row, peopleArrayList.getValue().get(i));
         }
-
-        String filename = "명부.xls";
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File xls = new File(dir, filename);
         try {
-            FileOutputStream os = new FileOutputStream(xls);
-            workbook.write(os);
-        } catch (IOException e) {
+            ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "w");
+            FileOutputStream fos = new FileOutputStream(pfd.getFileDescriptor());
+            workbook.write(fos);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public void saveDataToServer() {
         ExcelList excelList = new ExcelList();
-        excelList.setPeopleList(peopleArrayList.getValue());
+        excelList.setCollection(peopleArrayList.getValue());
         compositeDisposable.add(adminRepository.saveExcelData(excelList).subscribe());
     }
 

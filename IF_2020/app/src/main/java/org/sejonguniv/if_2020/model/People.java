@@ -106,6 +106,59 @@ public class People implements Serializable {
         return 11;
     }
 
+    public void setValue(int input, String value) {
+        switch (input) {
+            case 0: {
+                this.state = value;
+                break;
+            }
+            case 1: {
+                this.generation = value;
+                break;
+            }
+            case 2: {
+                this.name = value;
+                break;
+            }
+            case 3: {
+                this.department = value;
+                break;
+            }
+            case 4: {
+                this.studentId = value;
+                break;
+            }
+            case 5: {
+                this.phone = value;
+                break;
+            }
+            case 6: {
+                this.contact = value;
+                break;
+            }
+            case 7: {
+                this.manageStatus.firstDues = value;
+                break;
+            }
+            case 8: {
+                this.manageStatus.secondDues = value;
+                break;
+            }
+            case 9: {
+
+                this.manageStatus.openingMeeting = value;
+                break;
+            }
+            case 10: {
+                this.manageStatus.finalMeeting = value;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
     public String getValue(int input) {
         switch (input) {
             case 0: {
