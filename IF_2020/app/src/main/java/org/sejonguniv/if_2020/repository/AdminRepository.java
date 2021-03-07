@@ -4,6 +4,7 @@ import org.sejonguniv.if_2020.model.CalendarData;
 import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.PassKey;
+import org.sejonguniv.if_2020.model.PassWord;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.model.RegistPasskey;
 import org.sejonguniv.if_2020.model.UserPassInfo;
@@ -95,5 +96,9 @@ public class AdminRepository extends Repository {
 
     public Observable<Response<Void>> editCalendar(int position, CalendarData calendarData){
         return service.updateCalendar(position, calendarData).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ResponseBody> updatePassword(String password, String role){
+        return service.updatePassword(new PassWord(password, role)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

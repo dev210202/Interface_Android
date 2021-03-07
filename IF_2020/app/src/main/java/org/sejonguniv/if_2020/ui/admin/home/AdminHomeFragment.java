@@ -20,6 +20,7 @@ import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.ui.AdminMainActivity;
 import org.sejonguniv.if_2020.ui.admin.calendar.AdminCalendarFragment;
 import org.sejonguniv.if_2020.ui.admin.excel.AdminExcelFragment;
+import org.sejonguniv.if_2020.ui.admin.password.PassWordChangeFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +39,7 @@ public class AdminHomeFragment extends BaseFragment<FragmentAdminHomeBinding, Ad
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
         binding.calendarArrowButton.setOnClickListener(new onClickListener());
         binding.memberArrowButton.setOnClickListener(new onClickListener());
+        binding.ifImage.setOnClickListener(new onClickListener());
 
         Observer<Notice> noticeObserver = notice -> binding.setNotice(notice);
         Observer<ArrayList<CalendarData>> calendarObsever = calendarDataArrayList -> {
@@ -111,6 +113,10 @@ public class AdminHomeFragment extends BaseFragment<FragmentAdminHomeBinding, Ad
             } else if (id == R.id.check_button) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), AdminMainActivity.class);
                 startActivity(intent);
+            } else if (id == R.id.if_image) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                PassWordChangeFragment passWordChangeFragment = new PassWordChangeFragment();
+                transaction.replace(R.id.frame_layout, passWordChangeFragment).commitAllowingStateLoss();
             }
         }
     }

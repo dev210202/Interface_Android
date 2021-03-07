@@ -6,6 +6,7 @@ import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.Login;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.PassKey;
+import org.sejonguniv.if_2020.model.PassWord;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.model.RegistPasskey;
 import org.sejonguniv.if_2020.model.UserPassInfo;
@@ -79,4 +80,7 @@ public interface APIService {
 
     @PUT("calendar/{calendarId}")
     Observable<Response<Void>> updateCalendar(@Path("calendarId") int calendarId, @Body CalendarData calendarData);
+
+    @POST("login/update")
+    Observable<ResponseBody> updatePassword(@Body PassWord password);
 }
