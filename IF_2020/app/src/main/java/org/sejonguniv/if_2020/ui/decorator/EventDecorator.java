@@ -16,10 +16,9 @@ import java.util.HashSet;
 public class EventDecorator implements DayViewDecorator {
 
     private final Drawable drawable;
-    private int color;
-    private HashSet<CalendarDay> dates;
-    private TextView titleView;
-    private TextView contentView;
+    private final HashSet<CalendarDay> dates;
+    private final TextView titleView;
+    private final TextView contentView;
 
     public EventDecorator(Collection<CalendarDay> dates, Activity context, TextView titleView, TextView contentView) {
         drawable = context.getResources().getDrawable(R.drawable.calendar_background);

@@ -1,17 +1,9 @@
 package org.sejonguniv.if_2020.binding;
 
-import android.graphics.Color;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kelin.scrollablepanel.library.ScrollablePanel;
@@ -41,21 +33,15 @@ public class DataBindingAdapter {
         textView.setText(text);
     }
 
-
-    @BindingAdapter("setTextToEditText")
-    public static void setTextToEditText(EditText editText, String text) {
-        editText.setText(text);
-    }
-
     @BindingAdapter("item")
-    public static void setItem(RecyclerView view, MutableLiveData<ArrayList<Notice>> noticeList) {
+    public static void setItem(RecyclerView view, ArrayList<Notice> noticeList) {
         NoticeAdapter adapter = (NoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
         Log.e("DataBindingAdapter", "item set OK");
     }
 
     @BindingAdapter("adminItem")
-    public static void setAdminItem(RecyclerView view, MutableLiveData<ArrayList<Notice>> noticeList) {
+    public static void setAdminItem(RecyclerView view, ArrayList<Notice> noticeList) {
         AdminNoticeAdapter adapter = (AdminNoticeAdapter) view.getAdapter();
         adapter.setNotice(noticeList);
         Log.e("DataBindingAdapter", "adminItem set OK");
@@ -68,8 +54,7 @@ public class DataBindingAdapter {
 
 
     @BindingAdapter("listItem")
-    public static void listItem(ScrollablePanel view, MutableLiveData<ArrayList<People>> peopleList) {
-
+    public static void listItem(ScrollablePanel view, ArrayList<People> peopleList) {
         ExcelAdapter adapter = new ExcelAdapter();
         adapter.setTopList(setUserTopTitleCell());
         adapter.setLeftList(setLeftTitleCell(peopleList));
@@ -79,10 +64,15 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter("listAdminItem")
-    public static void listAdminItem(ScrollablePanel view, MutableLiveData<ArrayList<People>> peopleList) {
-        Log.e("!!!", "!!!");
+    public static void listAdminItem(ScrollablePanel view, ArrayList<People> peopleList) {
+        if(peopleList != null){
+
+            for(People people : peopleList){
+                Log.e("PEOPLE", people.getName());
+            }
+        }
         ExcelAdapter adapter = new ExcelAdapter();
-        adapter.setTopList(setTopTitleCell(peopleList));
+        adapter.setTopList(setTopTitleCell());
         adapter.setLeftList(setLeftTitleCell(peopleList));
         adapter.setCellList(setCell(peopleList));
         view.setPanelAdapter(adapter);
@@ -90,13 +80,13 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter("passkeyItem")
-    public static void passkeyItem(RecyclerView view, MutableLiveData<ArrayList<PassKey>> passkeyList){
+    public static void passkeyItem(RecyclerView view, ArrayList<PassKey> passkeyList){
         AdminAttendancePassKeyAdapter adapter = (AdminAttendancePassKeyAdapter) view.getAdapter();
         adapter.setPassKeyList(passkeyList);
     }
 
     @BindingAdapter("userPassInfo")
-    public static void userPassInfo(RecyclerView view, MutableLiveData<ArrayList<UserPassInfo>> userPassList){
+    public static void userPassInfo(RecyclerView view, ArrayList<UserPassInfo> userPassList){
         AdminAttendanceUserPassInfoAdapter adapter = (AdminAttendanceUserPassInfoAdapter) view.getAdapter();
         adapter.setPassInfoList(userPassList);
     }
@@ -111,10 +101,10 @@ public class DataBindingAdapter {
         return topTitles;
     }
 
-    public static List<List<CellData>> setUserCell(MutableLiveData<ArrayList<People>> peopleArrayList) {
+    public static List<List<CellData>> setUserCell(ArrayList<People> peopleArrayList) {
         List<List<CellData>> cells = new ArrayList<>();
 
-        if (peopleArrayList.getValue() != null) {
+        if (peopleArrayList != null) {
             ArrayList<User> userArrayList = transformPeopleToUser(peopleArrayList);
             for (int i = 0; i < userArrayList.size(); i++) {
                 ArrayList<CellData> cellList = new ArrayList<>();
@@ -130,7 +120,7 @@ public class DataBindingAdapter {
         return cells;
     }
 
-    public static List<TopTitle> setTopTitleCell(MutableLiveData<ArrayList<People>> peopleArrayList) {
+    public static List<TopTitle> setTopTitleCell() {
         List<TopTitle> topTitles = new ArrayList<>();
         for (int i = 0; i < getTopPeopleCellBase().itemSize(); i++) {
             TopTitle topTitle = new TopTitle();
@@ -142,13 +132,11 @@ public class DataBindingAdapter {
 
     }
 
-    public static <T> List<LeftTitle> setLeftTitleCell(MutableLiveData<ArrayList<T>> peopleArrayList) {
-        List<LeftTitle> leftTitles = new ArrayList<LeftTitle>();
+    public static <T> List<LeftTitle> setLeftTitleCell(ArrayList<T> peopleArrayList) {
+        List<LeftTitle> leftTitles = new ArrayList<>();
 
-        if (peopleArrayList.getValue() != null) {
-
-            for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
-
+        if (peopleArrayList != null) {
+            for (int i = 0; i < peopleArrayList.size(); i++) {
                 LeftTitle leftTitle = new LeftTitle();
                 leftTitle.setTitle("" + (i + 1));
                 leftTitles.add(leftTitle);
@@ -157,16 +145,16 @@ public class DataBindingAdapter {
         return leftTitles;
     }
 
-    public static <T> List<List<CellData>> setCell(MutableLiveData<ArrayList<T>> peopleArrayList) {
+    public static <T> List<List<CellData>> setCell(ArrayList<T> peopleArrayList) {
         List<List<CellData>> cells = new ArrayList<>();
-        if (peopleArrayList.getValue() != null) {
+        if (peopleArrayList != null) {
 
-                for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
+                for (int i = 0; i < peopleArrayList.size(); i++) {
                     ArrayList<CellData> cellList = new ArrayList<>();
-                    for (int k = 0; k < ((People) peopleArrayList.getValue().get(0)).itemSize(); k++) {
+                    for (int k = 0; k < ((People) peopleArrayList.get(0)).itemSize(); k++) {
                         CellData cellData = new CellData();
-                        cellData.setTitle(((People) peopleArrayList.getValue().get(i)).getValue(k));
-
+                        cellData.setTitle(((People) peopleArrayList.get(i)).getValue(k));
+                        Log.e("CELLDATA", cellData.getTitle());
                         cellList.add(cellData);
                     }
                     cells.add(cellList);
@@ -185,15 +173,15 @@ public class DataBindingAdapter {
         return new People("재학여부","기수","이름","학과","학번","전화번호","연락처",new ManageStatus("1학기회비","2학기회비","개총","종총"));
     }
 
-    private static ArrayList<User> transformPeopleToUser(MutableLiveData<ArrayList<People>> peopleArrayList) {
+    private static ArrayList<User> transformPeopleToUser(ArrayList<People> peopleArrayList) {
         ArrayList<User> userArrayList = new ArrayList<>();
 
-        for (int i = 0; i < peopleArrayList.getValue().size(); i++) {
+        for (int i = 0; i < peopleArrayList.size(); i++) {
             User user = new User(
-                    peopleArrayList.getValue().get(i).getState(),
-                    peopleArrayList.getValue().get(i).getGeneration(),
-                    peopleArrayList.getValue().get(i).getName(),
-                    peopleArrayList.getValue().get(i).getDepartment()
+                    peopleArrayList.get(i).getState(),
+                    peopleArrayList.get(i).getGeneration(),
+                    peopleArrayList.get(i).getName(),
+                    peopleArrayList.get(i).getDepartment()
             );
 
             userArrayList.add(user);

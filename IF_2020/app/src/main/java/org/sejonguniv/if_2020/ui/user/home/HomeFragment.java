@@ -1,25 +1,26 @@
 package org.sejonguniv.if_2020.ui.user.home;
 
-import android.content.Intent;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentHomeBinding;
+import org.sejonguniv.if_2020.model.CalendarData;
 import org.sejonguniv.if_2020.model.Notice;
-import org.sejonguniv.if_2020.ui.AdminMainActivity;
+import org.sejonguniv.if_2020.ui.user.attendance.AttendanceFragment;
 import org.sejonguniv.if_2020.ui.user.calendar.CalendarFragment;
 import org.sejonguniv.if_2020.ui.user.excel.ExcelFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -27,28 +28,56 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_home, container);
         setViewModel(HomeViewModel.class);
-        binding.setNotice(new Notice("제목", "내용"));
+
         viewModel.getRecentNotice();
-        viewModel.sendUserToken();
+        viewModel.checkCalnenader();
+
+        binding.setNotice(new Notice("제목", "내용"));
+        binding.checkButton.setEnabled(false);
         binding.dateTextview.setText(CalendarDay.today().getMonth() + "월" + CalendarDay.today().getDay() + "일" + getDay());
         binding.checkButton.setOnClickListener(new onClickListener());
         binding.calendarArrowButton.setOnClickListener(new onClickListener());
         binding.memberArrowButton.setOnClickListener(new onClickListener());
 
-        Observer<Notice> noticeObserver = new Observer<Notice>() {
-            @Override
-            public void onChanged(Notice notice) {
-                binding.setNotice(notice);
+        Observer<Notice> noticeObserver = notice -> binding.setNotice(notice);
+
+        Observer<ArrayList<CalendarData>> calendarObsever = calendarDataArrayList -> {
+            String today = getToday();
+            for (CalendarData calendarData : calendarDataArrayList) {
+                if (calendarData.getDate().equals(today)) {
+                    binding.calendarTitleTextview.setText(calendarData.getTitle());
+                    binding.calendarContentTextview.setText(calendarData.getContent());
+                    binding.checkButton.setEnabled(true);
+                    binding.checkButton.setBackground(getResources().getDrawable(R.drawable.main_button_background));
+                }
             }
         };
 
         viewModel.notice.observe(this, noticeObserver);
-
+        viewModel.calendarDataArrayList.observe(this, calendarObsever);
         return binding.getRoot();
+    }
+
+    private String getToday() {
+        Calendar calendar = Calendar.getInstance();
+        String year = String.valueOf(calendar.get(Calendar.YEAR));
+        String month;
+        String day;
+        if (calendar.get(Calendar.MONTH) + 1 < 10) {
+            month = "0" + (calendar.get(Calendar.MONTH) + 1);
+        } else {
+            month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        }
+        if (calendar.get(Calendar.DATE) < 10) {
+            day = "0" + calendar.get(Calendar.DATE);
+        } else {
+            day = String.valueOf(calendar.get(Calendar.DATE));
+        }
+        return year + "-" + month + "-" + day;
     }
 
     private String getDay() {
@@ -86,29 +115,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            switch (id) {
-                case R.id.calendar_arrow_button: {
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    CalendarFragment calendarFragment = new CalendarFragment();
-                    transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
-                    break;
-                }
-                case R.id.member_arrow_button: {
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    ExcelFragment excelFragment = new ExcelFragment();
-                    transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
-                    break;
-                }
-                case R.id.check_button: {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), AdminMainActivity.class);
-                    startActivity(intent);
-                }
-                default: {
-
-                }
+            if (id == R.id.calendar_arrow_button) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                CalendarFragment calendarFragment = new CalendarFragment();
+                transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
+            } else if (id == R.id.member_arrow_button) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ExcelFragment excelFragment = new ExcelFragment();
+                transaction.replace(R.id.frame_layout, excelFragment).commitAllowingStateLoss();
+            } else if (id == R.id.check_button) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                AttendanceFragment attendanceFragment = new AttendanceFragment();
+                transaction.replace(R.id.frame_layout, attendanceFragment).commitAllowingStateLoss();
             }
-
-
         }
     }
 }

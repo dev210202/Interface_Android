@@ -1,11 +1,8 @@
 package org.sejonguniv.if_2020.ui.admin.calendar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseActivity;
@@ -31,36 +28,33 @@ public class AdminCalendarEditActivity extends BaseActivity<ActivityAdminCalenda
 
         binding.titleEdittext.setText(title);
         binding.contentEdittext.setText(content);
-        binding.datepicker.updateDate(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
+        binding.datepicker.updateDate(Integer.parseInt(split[0]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[2]));
 
-        binding.completeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.completeButton.setOnClickListener(v -> {
 
-                String month = "";
-                String day = "";
-                if(binding.datepicker.getMonth() < 10){
-                    month = 0 + String.valueOf(binding.datepicker.getMonth() + 1);
-                }
-                else{
-                    month = String.valueOf(binding.datepicker.getMonth() + 1);
-                }
-                if(binding.datepicker.getDayOfMonth() < 10){
-                    day = 0 + String.valueOf(binding.datepicker.getDayOfMonth());
-                }
-                else{
-                    day = String.valueOf(binding.datepicker.getDayOfMonth());
-                }
-
-                Intent intent = getIntent();
-                String date = binding.datepicker.getYear() + "-" + month + "-" +  day;
-                Log.e("DATE DATE DATE", date);
-                CalendarData calendarData = new CalendarData(date, binding.titleEdittext.getText().toString(), binding.contentEdittext.getText().toString());
-                calendarData.setId(id);
-                intent.putExtra("editInfo", calendarData);
-                setResult(EDIT_DONE, intent);
-                finish();
+            String month;
+            String day;
+            if(binding.datepicker.getMonth() < 10){
+                month = 0 + String.valueOf(binding.datepicker.getMonth() + 1);
             }
+            else{
+                month = String.valueOf(binding.datepicker.getMonth() + 1);
+            }
+            if(binding.datepicker.getDayOfMonth() < 10){
+                day = 0 + String.valueOf(binding.datepicker.getDayOfMonth());
+            }
+            else{
+                day = String.valueOf(binding.datepicker.getDayOfMonth());
+            }
+
+            Intent intent1 = getIntent();
+            String date1 = binding.datepicker.getYear() + "-" + month + "-" +  day;
+            Log.e("DATE DATE DATE", date1);
+            CalendarData calendarData = new CalendarData(date1, binding.titleEdittext.getText().toString(), binding.contentEdittext.getText().toString());
+            calendarData.setId(id);
+            intent1.putExtra("editInfo", calendarData);
+            setResult(EDIT_DONE, intent1);
+            finish();
         });
     }
 }

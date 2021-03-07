@@ -35,6 +35,7 @@
             android:hint="재학상태"></EditText>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/generation_edittext"
             style="@style/ExcelInput"
             android:layout_width="match_parent"

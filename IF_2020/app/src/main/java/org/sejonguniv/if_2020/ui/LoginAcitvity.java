@@ -22,49 +22,28 @@ public class LoginAcitvity extends BaseActivity<ActivityLoginAcitvityBinding> {
         setContentView(R.layout.activity_login_acitvity);
         setBinding(R.layout.activity_login_acitvity);
         LoginViewModel viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-
         setProgressBar();
 
-        binding.cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.editText.setText("");
-            }
+        binding.cancelButton.setOnClickListener(v -> binding.editText.setText(""));
+        binding.loginButton.setOnClickListener(v -> {
+            dialog.show();
+            viewModel.login(binding.editText.getText().toString());
         });
 
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.show();
-                viewModel.login(binding.editText.getText().toString());
-            }
-        });
-        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                dialog.dismiss();
-            }
-        };
-
-        Observer<String> responseObserver = new Observer<String>() {
-            @Override
-            public void onChanged(String response) {
-                Intent intent = null;
-                if(response.equals("관리자(으)로 로그인됐습니다.")){
-                    intent = new Intent(getApplicationContext(), AdminMainActivity.class);
-                    startActivity(intent);
-                }
-                else if(response.equals("ERROR")){
-                    Toast.makeText(getApplicationContext(),"존재하지 않는 암호입니다.",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    intent = new Intent(getApplicationContext(), UserMainActivity.class);
-                    startActivity(intent);
-                }
+        Observer<String> responseObserver = response -> {
+            Intent intent;
+            dialog.dismiss();
+            if (response.equals("관리자(으)로 로그인됐습니다.")) {
+                intent = new Intent(getApplicationContext(), AdminMainActivity.class);
+                startActivity(intent);
+            } else if (response.equals("회원(으)로 로그인됐습니다.")) {
+                intent = new Intent(getApplicationContext(), UserMainActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         };
-        viewModel.loginResponse.observe(this,responseObserver);
-        viewModel.isDataReceive.observe(this, dialogObserver);
+        viewModel.loginResponse.observe(this, responseObserver);
     }
 
 }

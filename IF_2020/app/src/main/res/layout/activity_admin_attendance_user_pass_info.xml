@@ -12,7 +12,7 @@
         <import type="org.sejonguniv.if_2020.model.PassKey"></import>
         <variable
             name="userPassInfo"
-            type="MutableLiveData&lt;ArrayList&lt;UserPassInfo&gt;&gt;" />
+            type="ArrayList&lt;UserPassInfo&gt;" />
         <variable
             name="passkeyInfo"
             type="PassKey" />

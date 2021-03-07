@@ -5,14 +5,11 @@
 
     <data>
         <import type="java.util.ArrayList"></import>
-
-        <import type="androidx.lifecycle.MutableLiveData"></import>
-
         <import type="org.sejonguniv.if_2020.model.PassKey"></import>
 
         <variable
             name="passkey"
-            type="MutableLiveData&lt;ArrayList&lt;PassKey&gt;&gt;" />
+            type="ArrayList&lt;PassKey&gt;" />
 
     </data>
 

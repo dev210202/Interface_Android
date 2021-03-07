@@ -30,15 +30,6 @@
             android:hint="이름"
             app:layout_constraintTop_toBottomOf="@+id/check_textview"></EditText>
 
-        <TextView
-            android:id="@+id/name_textView"
-            android:textColor="@color/interface_gray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="6dp"
-            android:text="2~4글자 / 띄어쓰기 금지 / 장난 금지"
-            app:layout_constraintTop_toBottomOf="@+id/name_edittext"></TextView>
 
         <EditText
             android:inputType="number"
@@ -48,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/main_background"
             android:hint="학번"
-            app:layout_constraintTop_toBottomOf="@+id/name_textView"></EditText>
+            app:layout_constraintTop_toBottomOf="@+id/name_edittext"></EditText>
         <EditText
             android:inputType="number"
             android:id="@+id/groupnum_edittext"

@@ -29,52 +29,31 @@ public class AdminAttendanceUserPassInfoActivity extends BaseActivity<ActivityAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_attendance_user_pass_info);
         setBinding(R.layout.activity_admin_attendance_user_pass_info);
-
         setProgressBar();
-        dialog.show();
 
         AdminAttendanceUserPassInfoViewModel viewModel = ViewModelProviders.of(this).get(AdminAttendanceUserPassInfoViewModel.class);
-        AdminAttendanceUserPassInfoAdapter adminAttendancePassKeyAdapter = new AdminAttendanceUserPassInfoAdapter();
-        binding.recyclerview.setAdapter(adminAttendancePassKeyAdapter);
-        binding.setUserPassInfo(viewModel.passInfoList);
+        PassKey passKey = (PassKey) getIntent().getSerializableExtra("passkey");
 
-        Intent intent = getIntent();
-        PassKey passKey = (PassKey) intent.getSerializableExtra("passkey");
-        binding.setPasskeyInfo(passKey);
-
+        dialog.show();
         viewModel.getUserPassInfo(passKey.getPasskey());
 
-        binding.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteNoticeDialog(viewModel, passKey);
-            }
+        AdminAttendanceUserPassInfoAdapter adminAttendancePassKeyAdapter = new AdminAttendanceUserPassInfoAdapter();
+        binding.recyclerview.setAdapter(adminAttendancePassKeyAdapter);
+        binding.setUserPassInfo(viewModel.passInfoList.getValue());
+        binding.setPasskeyInfo(passKey);
+        binding.deleteButton.setOnClickListener(v -> showDeleteNoticeDialog(viewModel, passKey));
+        binding.swipeRefreshlayout.setOnRefreshListener(() -> {
+            dialog.show();
+            binding.swipeRefreshlayout.setRefreshing(false);
+            binding.setUserPassInfo(viewModel.passInfoList.getValue());
+            viewModel.getUserPassInfo(passKey.getPasskey());
         });
-        binding.swipeRefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 2/3 10:06 추가
-                dialog.show();
-                binding.swipeRefreshlayout.setRefreshing(false);
-                binding.setUserPassInfo(viewModel.passInfoList);
-                viewModel.getUserPassInfo(passKey.getPasskey());
-            }
-        });
-        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                dialog.dismiss();
-            }
-        };
 
-        Observer<ArrayList<UserPassInfo>> observer = new Observer<ArrayList<UserPassInfo>>() {
-            @Override
-            public void onChanged(ArrayList<UserPassInfo> userPassInfos) {
-                binding.setUserPassInfo(viewModel.passInfoList);
-            }
+        Observer<ArrayList<UserPassInfo>> observer = userPassInfos -> {
+            binding.setUserPassInfo(userPassInfos);
+            dialog.dismiss();
         };
         viewModel.passInfoList.observe(this, observer);
-        viewModel.isDataReceive.observe(this, dialogObserver);
     }
 
     private void showDeleteNoticeDialog(AdminAttendanceUserPassInfoViewModel viewModel, PassKey passKey) {
@@ -87,20 +66,11 @@ public class AdminAttendanceUserPassInfoActivity extends BaseActivity<ActivityAd
         Button cancelButton = dialogView.findViewById(R.id.cancel_button);
         Button deleteButton = dialogView.findViewById(R.id.delete_button);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                noticeDeleteDialog.dismiss();
-
-            }
-        });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                noticeDeleteDialog.dismiss();
-                viewModel.deletePasskey(passKey.getPasskey());
-                finish();
-            }
+        cancelButton.setOnClickListener(v -> noticeDeleteDialog.dismiss());
+        deleteButton.setOnClickListener(v -> {
+            noticeDeleteDialog.dismiss();
+            viewModel.deletePasskey(passKey.getPasskey());
+            finish();
         });
     }
 

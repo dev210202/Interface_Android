@@ -1,5 +1,6 @@
 package org.sejonguniv.if_2020.ui.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,15 +31,14 @@ public class ExcelAdapter extends PanelAdapter {
 
     public void setLeftList(List<LeftTitle> leftList) {
         this.leftList = leftList;
-
     }
 
     public void setTopList(List<TopTitle> topList) {
         this.topList = topList;
     }
 
-    public void setCellList(List<List<CellData>> cellList) {
-        this.cellList = cellList;
+    public void setCellList(List<List<CellData>> inputList) {
+        this.cellList = inputList;
     }
 
     @Override
@@ -118,12 +118,12 @@ public class ExcelAdapter extends PanelAdapter {
     }
 
     private void setCellView(int row, int col, CellViewHolder viewHolder) {
-        if (col <= cellList.get(row - 1).size()) {
-            CellData info = cellList.get(row - 1).get(col - 1);
+        viewHolder.setViewHolderCellList(cellList);
+        if (col <= viewHolder.cellList.get(row - 1).size()) {
+            CellData info = viewHolder.cellList.get(row - 1).get(col - 1);
+            Log.e("INFO", info.getTitle());
             viewHolder.titleTextView.setText(info.getTitle());
         }
-
-
     }
 
     private static class NoViewHolder extends RecyclerView.ViewHolder {
@@ -152,11 +152,16 @@ public class ExcelAdapter extends PanelAdapter {
 
     private static class CellViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTextView;
+        List<List<CellData>> cellList;
 
         public CellViewHolder(View view) {
             super(view);
-            this.titleTextView = view.findViewById(R.id.excel_textview);
 
+            this.titleTextView = view.findViewById(R.id.excel_textview);
+        }
+
+        private void setViewHolderCellList(List<List<CellData>> cellList){
+            this.cellList = cellList;
         }
     }
 

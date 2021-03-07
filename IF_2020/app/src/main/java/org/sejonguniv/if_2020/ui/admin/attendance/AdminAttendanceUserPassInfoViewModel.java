@@ -13,7 +13,6 @@ public class AdminAttendanceUserPassInfoViewModel extends BaseViewModel {
 
     MutableLiveData<ArrayList<UserPassInfo>> passInfoList = new MutableLiveData<>();
     AdminRepository adminRepository = AdminRepository.getInstance();
-    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
     public void getUserPassInfo(String passkey) {
         compositeDisposable.add(adminRepository.getPassInfo(passkey).subscribe(
                 userPassInfos -> {
@@ -23,13 +22,7 @@ public class AdminAttendanceUserPassInfoViewModel extends BaseViewModel {
                         passInfoList.postValue(userPassInfos);
                     }
                 },
-                error -> {
-                    passInfoList.postValue(setErrorList());
-                    isDataReceive.setValue(true);
-                },
-                () -> {
-                    isDataReceive.setValue(true);
-                }
+                error -> passInfoList.postValue(setErrorList())
         ));
     }
 

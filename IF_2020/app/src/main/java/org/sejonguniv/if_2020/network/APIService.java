@@ -2,21 +2,18 @@ package org.sejonguniv.if_2020.network;
 
 import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.model.CalendarData;
-import org.sejonguniv.if_2020.model.ExcelList;
+import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.Login;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.PassKey;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.model.RegistPasskey;
-import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.UserPassInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -42,13 +39,19 @@ public interface APIService {
     Observable<Response<Void>> edit(@Path("id") int id, @Body Notice notice);
 
     @POST("meet/userCheck")
-    Observable<Response<Void>> insertAttendee(@Body Attendee attendee);
+    Observable<ResponseBody> insertAttendee(@Body Attendee attendee);
 
     @GET("member/list")
     Observable<ArrayList<People>> getMemberList();
 
     @POST("member")
-    Observable<Response<Void>> saveExcelData(@Body ExcelList excelList);
+    Observable<Response<Void>> saveExcelData(@Body People people);
+
+    @DELETE("member/{Id}")
+    Observable<ResponseBody> deleteExcelData(@Path("Id") int id);
+
+    @PUT("member/{Id}")
+    Observable<ResponseBody> editExcelData(@Path("Id") int id, @Body People people);
 
     @DELETE("posts/{noticeId}")
     Observable<Response<Void>> delete(@Path("noticeId") int noticeId);

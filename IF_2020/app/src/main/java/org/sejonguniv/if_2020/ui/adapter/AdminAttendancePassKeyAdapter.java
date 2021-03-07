@@ -1,28 +1,25 @@
 package org.sejonguniv.if_2020.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sejonguniv.if_2020.databinding.RecyclerviewAdminAttendancePasskeyBinding;
-import org.sejonguniv.if_2020.model.Attendee;
 import org.sejonguniv.if_2020.model.PassKey;
 
 import java.util.ArrayList;
 
 public class AdminAttendancePassKeyAdapter extends RecyclerView.Adapter<AdminAttendancePassKeyAdapter.ViewHolder>{
 
-    MutableLiveData<ArrayList<PassKey>> passKeyList;
+    ArrayList<PassKey> passKeyList;
 
     private AdminAttendancePassKeyAdapter.OnItemClickListener mListener = null;
 
     public AdminAttendancePassKeyAdapter(){
-        this.passKeyList = new MutableLiveData<ArrayList<PassKey>>();
+        this.passKeyList = new ArrayList<>();
     }
 
     @NonNull
@@ -36,9 +33,9 @@ public class AdminAttendancePassKeyAdapter extends RecyclerView.Adapter<AdminAtt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PassKey passKey = passKeyList.getValue().get(position);
-        String startTime = "";
-        String endTime = "";
+        PassKey passKey = passKeyList.get(position);
+        String startTime;
+        String endTime;
         if(!(passKey.getPasskey().equals("저장된 암호가 없습니다.") || passKey.getPasskey().equals("암호를 불러올 수 없습니다."))){
             startTime = setStartTime(passKey);
             endTime = setEndime(passKey);
@@ -53,11 +50,11 @@ public class AdminAttendancePassKeyAdapter extends RecyclerView.Adapter<AdminAtt
 
     @Override
     public int getItemCount(){
-        if(passKeyList.getValue() == null){
+        if(passKeyList == null){
             return 0;
         }
         else{
-            return passKeyList.getValue().size();
+            return passKeyList.size();
         }
     }
 
@@ -65,19 +62,10 @@ public class AdminAttendancePassKeyAdapter extends RecyclerView.Adapter<AdminAtt
 
         RecyclerviewAdminAttendancePasskeyBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-
         public ViewHolder(RecyclerviewAdminAttendancePasskeyBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onItemClick(itemView, getAdapterPosition());
-                }
-            });
+            itemView.setOnClickListener(v -> mListener.onItemClick(itemView, getAdapterPosition()));
         }
 
         void bind(PassKey passKey){
@@ -85,7 +73,7 @@ public class AdminAttendancePassKeyAdapter extends RecyclerView.Adapter<AdminAtt
         }
     }
 
-    public void setPassKeyList(MutableLiveData<ArrayList<PassKey>> passKeyList){
+    public void setPassKeyList(ArrayList<PassKey> passKeyList){
         this.passKeyList = passKeyList;
         notifyDataSetChanged();
     }

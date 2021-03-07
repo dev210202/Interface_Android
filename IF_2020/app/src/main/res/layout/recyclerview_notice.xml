@@ -45,7 +45,7 @@
         <com.ms.square.android.expandabletextview.ExpandableTextView
             android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             noticeSet="@{notice}"
             xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
             android:id="@+id/expand_text_view"

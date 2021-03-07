@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 public class People implements Serializable {
-
+    int id;
     String state;
     String generation;
     String name;
@@ -19,6 +19,7 @@ public class People implements Serializable {
     ManageStatus manageStatus;
 
     public People(String state, String generation, String name, String department, String studentId, String phone, String contact, ManageStatus manageStatus) {
+
         this.state = state;
         this.generation = generation;
         this.name = name;
@@ -28,7 +29,13 @@ public class People implements Serializable {
         this.contact = contact;
         this.manageStatus = manageStatus;
     }
+    public int getId(){
+        return id;
+    }
 
+    public int setId(int id){
+        return this.id = id;
+    }
     public String getContact() {
         return contact;
     }

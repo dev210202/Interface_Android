@@ -1,20 +1,19 @@
 package org.sejonguniv.if_2020.repository;
 
 import org.sejonguniv.if_2020.model.CalendarData;
-import org.sejonguniv.if_2020.model.ExcelList;
+import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.PassKey;
 import org.sejonguniv.if_2020.model.People;
 import org.sejonguniv.if_2020.model.RegistPasskey;
-import org.sejonguniv.if_2020.model.DeleteKey;
 import org.sejonguniv.if_2020.model.UserPassInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class AdminRepository extends Repository {
@@ -51,9 +50,6 @@ public class AdminRepository extends Repository {
         return service.delete(listNumber).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<ArrayList<People>> getExcelData() {
-        return service.getMemberList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
 
     public Observable<ArrayList<PassKey>> getPassKey(){
         return service.getPasskeyList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
@@ -70,8 +66,19 @@ public class AdminRepository extends Repository {
     public Observable<Response<Void>> deletePasskey(DeleteKey passkey){
         return service.deletePasskey(passkey).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
-    public Observable<Response<Void>> saveExcelData(ExcelList peopleList){
-        return service.saveExcelData(peopleList).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public Observable<ArrayList<People>> getExcelData() {
+        return service.getMemberList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+    public Observable<Response<Void>> saveExcelData(People people){
+        return service.saveExcelData(people).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ResponseBody> deleteExcelData(int number){
+        return service.deleteExcelData(number).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ResponseBody> editExcelData(int id, People people){
+        return service.editExcelData(id, people).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<ArrayList<CalendarData>> getCalendarList(){

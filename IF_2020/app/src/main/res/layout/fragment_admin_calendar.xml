@@ -7,10 +7,8 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refreshlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,23 +40,24 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"></ImageButton>
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                android:id="@+id/calendarview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="3"
+                android:id="@+id/swipe_refreshlayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/main_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:mcv_dateTextAppearance="@style/MainContent"
                 app:mcv_headerTextAppearance="@style/MainContent"
                 app:mcv_showOtherDates="defaults"
                 app:mcv_weekDayTextAppearance="@style/MainContent" />
-
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -104,10 +103,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
 
-                <TextView
-                    android:id="@+id/content_textview"
-                    style="@style/MainContent"
-                    android:layout_width="0dp"
+                <ScrollView
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
@@ -116,10 +113,15 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_button"></TextView>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_button">
 
+                    <TextView
+                        android:id="@+id/content_textview"
+                        style="@style/MainContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TextView>
+                </ScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

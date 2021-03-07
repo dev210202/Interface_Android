@@ -1,7 +1,5 @@
 package org.sejonguniv.if_2020.ui.admin.calendar;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import org.sejonguniv.if_2020.base.BaseViewModel;
@@ -14,20 +12,10 @@ public class AdminCalendarViewModel extends BaseViewModel {
 
     AdminRepository adminRepository = AdminRepository.getInstance();
     MutableLiveData<ArrayList<CalendarData>>  calendarDataArrayList = new MutableLiveData<>();
-    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
+
     public void getCalendarList(){
         compositeDisposable.add(adminRepository.getCalendarList().subscribe(
-
-                calendarData -> {
-                    calendarDataArrayList.postValue(calendarData);
-                },
-                error ->{
-                    isDataReceive.setValue(true);
-                },
-                () -> {
-                    isDataReceive.setValue(true);
-                }
-
+                calendarData -> calendarDataArrayList.postValue(calendarData)
         ));
     }
 

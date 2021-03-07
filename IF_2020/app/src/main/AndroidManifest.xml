@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_if"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustPan">
+        <activity android:name=".ui.admin.excel.AdminExcelEditActivity"></activity>
         <activity android:name=".ui.admin.calendar.AdminCalendarEditActivity" />
         <activity android:name=".ui.admin.calendar.AdminCalendarAddActivity" />
         <activity android:name=".ui.admin.excel.AdminExcelAddActivity" />

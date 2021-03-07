@@ -8,18 +8,13 @@ import org.sejonguniv.if_2020.repository.UserRepository;
 
 import java.util.ArrayList;
 
-import io.reactivex.disposables.CompositeDisposable;
-
 public class NoticeViewModel extends BaseViewModel {
 
     MutableLiveData<ArrayList<Notice>> noticeList = new MutableLiveData<>();
     UserRepository userRepository = UserRepository.getInstance();
 
-    MutableLiveData<Boolean> isDataReceive = new MutableLiveData<>();
-
     public void getNoticeList() {
-        compositeDisposable.add(
-                userRepository.getNotice().subscribe(
+        compositeDisposable.add(userRepository.getNotice().subscribe(
                         notices -> {
                             if (notices.isEmpty()) {
                                 noticeList.postValue(setEmptyList());
@@ -27,11 +22,7 @@ public class NoticeViewModel extends BaseViewModel {
                                 noticeList.postValue(notices);
                             }
                         },
-                        error -> {
-                            noticeList.postValue(setErrorList());
-                            isDataReceive.setValue(true);
-                        },
-                        () -> isDataReceive.setValue(true)
+                        error -> noticeList.postValue(setErrorList())
                 ));
     }
 

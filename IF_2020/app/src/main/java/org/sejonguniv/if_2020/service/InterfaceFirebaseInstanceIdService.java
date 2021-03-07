@@ -1,7 +1,5 @@
 package org.sejonguniv.if_2020.service;
 
-import android.util.Log;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -9,6 +7,5 @@ public class InterfaceFirebaseInstanceIdService extends FirebaseInstanceIdServic
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.e("Refreshed token: " ,refreshedToken);
     }
 }

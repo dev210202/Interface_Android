@@ -28,32 +28,21 @@ public class ExcelFragment extends BaseFragment<FragmentExcelBinding, ExcelViewM
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         setBinding(inflater, R.layout.fragment_excel, container);
         setViewModel(ExcelViewModel.class);
-
-        binding.setPeopleList(viewModel.peopleArrayList);
-
         setProgressBar();
+
         dialog.show();
         viewModel.getExcelData();
 
-        Observer<ArrayList<People>> peopleArrayListObserver = new Observer<ArrayList<People>>() {
-            @Override
-            public void onChanged(ArrayList<People> people) {
-                binding.setPeopleList(viewModel.peopleArrayList);
-            }
-        };
+        binding.setPeopleList(viewModel.peopleArrayList.getValue());
 
-        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                dialog.dismiss();
-            }
+        Observer<ArrayList<People>> peopleArrayListObserver = people -> {
+            binding.setPeopleList(people);
+            dialog.dismiss();
         };
 
         viewModel.peopleArrayList.observe(getViewLifecycleOwner(), peopleArrayListObserver);
-        viewModel.isDataReceive.observe(getViewLifecycleOwner(), dialogObserver);
         return binding.getRoot();
     }
 }

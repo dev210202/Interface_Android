@@ -37,6 +37,7 @@ public class AdminMainActivity extends BaseActivity<ActivityAdminMainBinding> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
         setBinding(R.layout.activity_admin_main);
+
         if (savedInstanceState != null) {
             currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
             transaction.replace(R.id.frame_layout, currentFragment).commitAllowingStateLoss();
@@ -44,6 +45,7 @@ public class AdminMainActivity extends BaseActivity<ActivityAdminMainBinding> {
             currentFragment = adminHomeFragment;
             transaction.replace(R.id.frame_layout, adminHomeFragment).commitAllowingStateLoss();
         }
+
         binding.navigationview.setNavigationItemSelectedListener(new navigationItemSelectedListener());
     }
 
@@ -97,11 +99,13 @@ public class AdminMainActivity extends BaseActivity<ActivityAdminMainBinding> {
             return false;
         }
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
         super.onSaveInstanceState(outState);
-
+        if (currentFragment.isAdded()) {
+            getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
+        }
     }
 
     @Override

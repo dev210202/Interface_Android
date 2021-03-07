@@ -14,9 +14,8 @@ public class OtherDecorator implements DayViewDecorator {
 
 
     private final Drawable drawable;
-    private int color;
-    private CalendarDay date;
-    private TextView textView;
+    private final CalendarDay date;
+    private final TextView textView;
     public OtherDecorator(CalendarDay date, Activity context, TextView textView) {
         drawable = context.getResources().getDrawable(R.drawable.calendar_other_background);
 

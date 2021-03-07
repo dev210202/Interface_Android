@@ -3,23 +3,21 @@ package org.sejonguniv.if_2020.ui.user.attendance;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -28,8 +26,8 @@ import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAttendanceBinding;
 import org.sejonguniv.if_2020.gps.GpsTracker;
 import org.sejonguniv.if_2020.model.Attendee;
-import org.sejonguniv.if_2020.model.Notice;
-import org.w3c.dom.Text;
+
+import java.util.Calendar;
 
 public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, AttendanceViewModel> {
 
@@ -39,15 +37,10 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        DialogFragment fragment = new DateFragment();
         setBinding(inflater, R.layout.fragment_attendance, container);
         setViewModel(AttendanceViewModel.class);
-
-        View view = binding.getRoot();
 
         if (checkLocationServicesStatus()) {
             checkRunTimePermission();
@@ -55,56 +48,37 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
             showDialogForLocationServiceSetting();
         }
 
-
-
         binding.nameEdittext.addTextChangedListener(textWatcher);
         binding.studentidEdittext.addTextChangedListener(textWatcher);
         binding.groupnumEdittext.addTextChangedListener(textWatcher);
         binding.passwordEdittext.addTextChangedListener(textWatcher);
         binding.checkButton.setOnClickListener(new onClickListener());
 
-        return view;
+        Observer<String> responseObserver = response -> {
+            if (response.equals("출석되었습니다.")) {
+                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        viewModel.responseData.observe(this, responseObserver);
+
+        return binding.getRoot();
     }
 
     private void checkRunTimePermission() {
-
-        //런타임 퍼미션 처리
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
-
-
-        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
-            // 2. 이미 퍼미션을 가지고 있다면
-            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
-
-            // 3.  위치 값을 가져올 수 있음
-
-
-        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
-            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
+        if (!(hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[0])) {
-
-                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(getActivity().getApplicationContext(), "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-                // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-
-
-            } else {
-                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
-                // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
             }
             ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS,
                     PERMISSIONS_REQUEST_CODE);
-
         }
-
     }
 
     private void showDialogForLocationServiceSetting() {
@@ -113,20 +87,12 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
                 + "위치 설정을 수정하시겠습니까?");
         builder.setCancelable(true);
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                Intent callGPSSettingIntent
-                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
-            }
+        builder.setPositiveButton("설정", (dialog, id) -> {
+            Intent callGPSSettingIntent
+                    = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
         });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("취소", (dialog, id) -> dialog.cancel());
         builder.create().show();
     }
 
@@ -143,7 +109,7 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
                 binding.passwordEdittext.getText().length() == 0);
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -168,14 +134,15 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         public void onClick(View v) {
 
             if (isExistEmptyInput()) {
-                Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG);
+                Toast.makeText(getActivity().getApplicationContext(), "빈칸이 없게 입력해주세요!", Toast.LENGTH_LONG).show();
             } else {
                 viewModel.sendUserAttendance(setAttendee());
             }
 
         }
     }
-    private Attendee setAttendee(){
+
+    private Attendee setAttendee() {
         GpsTracker gpsTracker = new GpsTracker(getContext());
         double latitude = gpsTracker.getLatitude();
         double longithude = gpsTracker.getLongitude();
@@ -188,7 +155,40 @@ public class AttendanceFragment extends BaseFragment<FragmentAttendanceBinding, 
         attendee.setToken(FirebaseInstanceId.getInstance().getToken());
         attendee.setLat(String.valueOf(latitude));
         attendee.setLon(String.valueOf(longithude));
-        attendee.setDateTime("2021-02-03T12:18");
+
+        attendee.setDateTime(getDate());
         return attendee;
+    }
+
+    private String getDate() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        String date = year + "-";
+        if (month < 10) {
+            date += "0" + month + "-";
+        } else {
+            date += month + "-";
+        }
+        if (day < 10) {
+            date += "0" + day + "T";
+        } else {
+            date += day + "T";
+        }
+        if (hour < 10) {
+            date += "0" + hour + ":";
+        } else {
+            date += hour + ":";
+        }
+        if(min < 10){
+            date += "0" + min;
+        }
+        else{
+            date += min;
+        }
+        return date;
     }
 }

@@ -7,13 +7,11 @@
 
         <import type="java.util.ArrayList"></import>
 
-        <import type="androidx.lifecycle.MutableLiveData"></import>
-
         <import type="org.sejonguniv.if_2020.model.People"></import>
 
         <variable
             name="peopleList"
-            type="MutableLiveData&lt;ArrayList&lt;People&gt;>"/>
+            type="ArrayList&lt;People&gt;"/>
     </data>
 
 
@@ -52,9 +50,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="@drawable/ic_member_ic_add_member"
+            android:background="@drawable/ic_member_add"
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/delete_member_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/ic_member_delete_member"
+            app:layout_constraintBottom_toBottomOf="@+id/add_member_button"
+            app:layout_constraintStart_toEndOf="@+id/add_member_button"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/edit_member_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/ic_member_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/delete_member_button"
+            app:layout_constraintStart_toEndOf="@+id/delete_member_button"
+            app:layout_constraintTop_toTopOf="@+id/delete_member_button"></ImageButton>
 
         <ImageButton
             android:id="@+id/save_local_button"
@@ -63,15 +80,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/ic_member_ic_excel_down"
-            app:layout_constraintEnd_toStartOf="@+id/save_server_button"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"></ImageButton> 
-        <ImageButton
-            android:id="@+id/save_server_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_member_ic_server_down"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"></ImageButton>
 
@@ -84,7 +92,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/save_server_button"
+            app:layout_constraintEnd_toEndOf="@+id/save_local_button"
             app:layout_constraintStart_toStartOf="@+id/add_member_button"
             app:layout_constraintTop_toBottomOf="@+id/add_member_button">
 

@@ -1,54 +1,41 @@
 package org.sejonguniv.if_2020.ui.admin.excel;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.multidex.BuildConfig;
-
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseFragment;
 import org.sejonguniv.if_2020.databinding.FragmentAdminExcelBinding;
-import org.sejonguniv.if_2020.model.Notice;
 import org.sejonguniv.if_2020.model.People;
-import org.sejonguniv.if_2020.ui.adapter.ExcelAdapter;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, AdminExcelFragmentViewModel> {
 
     int ADD = 10;
     int ADD_DONE = 20;
+    int EDIT = 30;
+    int EDIT_DONE = 40;
     int CREATE_FILE = 1;
 
     @Nullable
@@ -56,71 +43,51 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setBinding(inflater, R.layout.fragment_admin_excel, container);
         setViewModel(AdminExcelFragmentViewModel.class);
-
-        binding.setPeopleList(viewModel.peopleArrayList);
         setProgressBar();
+
         dialog.show();
         viewModel.getExcelDataToServer();
 
+        binding.setPeopleList(viewModel.peopleArrayList.getValue());
         binding.addMemberButton.setOnClickListener(new onClickListener());
         binding.saveLocalButton.setOnClickListener(new onClickListener());
-        binding.saveServerButton.setOnClickListener(new onClickListener());
+        binding.deleteMemberButton.setOnClickListener(new onClickListener());
+        binding.editMemberButton.setOnClickListener(new onClickListener());
 
-        Observer<ArrayList<People>> arrayListObserver = new Observer<ArrayList<People>>() {
-            @Override
-            public void onChanged(ArrayList<People> people) {
-                binding.setPeopleList(viewModel.peopleArrayList);
-            }
+        Observer<ArrayList<People>> arrayListObserver = people -> {
+            binding.setPeopleList(people);
+            dialog.dismiss();
         };
 
-        Observer<Boolean> dialogObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                dialog.dismiss();
-            }
+        Observer<String> responseObserver = s -> {
+            Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+            dialog.dismiss();
         };
-
 
         viewModel.peopleArrayList.observe(this, arrayListObserver);
-        viewModel.isDataReceive.observe(this, dialogObserver);
+        viewModel.isResponseReceive.observe(this, responseObserver);
+
         return binding.getRoot();
     }
 
     private class onClickListener implements View.OnClickListener {
-
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            switch (id) {
-                case R.id.add_member_button: {
-                    Intent intent = new Intent(getContext(), AdminExcelAddActivity.class);
-                    startActivityForResult(intent, ADD);
-                    break;
+            if (id == R.id.add_member_button) {
+                Intent intent = new Intent(getContext(), AdminExcelAddActivity.class);
+                startActivityForResult(intent, ADD);
+            } else if (id == R.id.delete_member_button) {
+                showDeleteDialog();
+            } else if (id == R.id.edit_member_button) {
+                showEditDialog();
+            } else if (id == R.id.save_local_button) {
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    createFile();
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
-
-
-                case R.id.save_local_button: {
-
-
-
-                    if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                        createFile();
-                        Toast.makeText(getActivity().getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    }
-
-                    break;
-                }
-
-                case R.id.save_server_button: {
-                    viewModel.saveDataToServer();
-                    break;
-                }
-
-
             }
         }
     }
@@ -128,20 +95,26 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == ADD_DONE) {
-
-            viewModel.peopleArrayList.getValue().add((People) data.getSerializableExtra("peopleInfo"));
-            viewModel.saveDataToServer();
-            // viewModel에서 멤버추가 메소드 실행
-
+            People people = (People) data.getSerializableExtra("peopleInfo");
+            viewModel.saveDataToServer(people);
         }
-        if(requestCode == CREATE_FILE){
-            Uri uri = data.getData();
-            viewModel.saveDataToLocal(uri, getActivity());
+        if (resultCode == EDIT_DONE) {
+            People people = (People) data.getSerializableExtra("editResult");
+            int id = data.getIntExtra("id", 0);
+            viewModel.editDataToServer(id, people);
         }
-
+        if (requestCode == CREATE_FILE) {
+            try {
+                Uri uri = data.getData();
+                viewModel.saveDataToLocal(uri, getActivity());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createFile() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -151,5 +124,53 @@ public class AdminExcelFragment extends BaseFragment<FragmentAdminExcelBinding, 
         intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, 1);
 
         startActivityForResult(intent, CREATE_FILE);
+    }
+
+    private void showDeleteDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_member_delete, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(dialogView);
+        AlertDialog deleteDialog = builder.create();
+        deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        deleteDialog.show();
+        EditText numberEditText = dialogView.findViewById(R.id.number_edittext);
+        Button cancelButton = dialogView.findViewById(R.id.cancel_button);
+        Button okButton = dialogView.findViewById(R.id.ok_button);
+
+        cancelButton.setOnClickListener(v -> deleteDialog.dismiss());
+        okButton.setOnClickListener(v -> {
+            deleteDialog.dismiss();
+            int value = Integer.parseInt(numberEditText.getText().toString());
+            int id = viewModel.peopleArrayList.getValue().get(value - 1).getId();
+            viewModel.deleteMember(id);
+        });
+
+    }
+
+    private void showEditDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_member_edit, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(dialogView);
+        AlertDialog editDialog = builder.create();
+        editDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        editDialog.show();
+        EditText numberEditText = dialogView.findViewById(R.id.number_edittext);
+        Button cancelButton = dialogView.findViewById(R.id.cancel_button);
+        Button okButton = dialogView.findViewById(R.id.ok_button);
+
+        cancelButton.setOnClickListener(v -> editDialog.dismiss());
+        okButton.setOnClickListener(v -> {
+            editDialog.dismiss();
+            int value = Integer.parseInt(numberEditText.getText().toString());
+            try {
+                People people = viewModel.peopleArrayList.getValue().get(value - 1);
+                Intent intent = new Intent(getActivity(), AdminExcelEditActivity.class);
+                intent.putExtra("editPeople", people);
+                intent.putExtra("id", people.getId());
+                startActivityForResult(intent, EDIT);
+            } catch (IndexOutOfBoundsException e) {
+                viewModel.isResponseReceive.setValue("수정하려는 회원을 찾을 수 없습니다.");
+            }
+        });
     }
 }

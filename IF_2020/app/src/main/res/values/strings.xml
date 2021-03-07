@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete">삭제</string>
     <string name="cancel">취소</string>
+    <string name="main_today_not_exist_calendar">오늘은 일정이 없습니다.</string>
 </resources>

@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 
 import org.sejonguniv.if_2020.network.APIService;
 
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,12 +16,9 @@ public abstract class Repository {
 
     protected HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
     protected OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(3, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build();
-    protected Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app-dev.herokuapp.com/api/v1/")
+    protected Retrofit retrofit = new Retrofit.Builder().baseUrl("https://interface-app.herokuapp.com/api/v1/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)

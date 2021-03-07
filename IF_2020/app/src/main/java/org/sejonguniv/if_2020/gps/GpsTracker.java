@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 public class GpsTracker extends Service implements LocationListener {
@@ -23,7 +22,7 @@ public class GpsTracker extends Service implements LocationListener {
     double longitude;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60;
     protected LocationManager locationManager;
 
 
@@ -53,7 +52,6 @@ public class GpsTracker extends Service implements LocationListener {
                 if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                         hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-                    ;
                 } else
                     return null;
 
@@ -145,15 +143,6 @@ public class GpsTracker extends Service implements LocationListener {
     public IBinder onBind(Intent arg0)
     {
         return null;
-    }
-
-
-    public void stopUsingGPS()
-    {
-        if(locationManager != null)
-        {
-            locationManager.removeUpdates(GpsTracker.this);
-        }
     }
 
 

@@ -5,20 +5,23 @@ import android.os.Bundle;
 
 import org.sejonguniv.if_2020.R;
 import org.sejonguniv.if_2020.base.BaseActivity;
-import org.sejonguniv.if_2020.databinding.ActivityAdminExcelAddBinding;
+import org.sejonguniv.if_2020.databinding.ActivityAdminExcelEditBinding;
 import org.sejonguniv.if_2020.model.ManageStatus;
 import org.sejonguniv.if_2020.model.People;
 
-public class AdminExcelAddActivity extends BaseActivity<ActivityAdminExcelAddBinding> {
+public class AdminExcelEditActivity extends BaseActivity<ActivityAdminExcelEditBinding> {
 
-    int ADD_DONE = 20;
+    int EDIT_DONE = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_excel_add);
-        setBinding(R.layout.activity_admin_excel_add);
+        setContentView(R.layout.activity_admin_excel_edit);
+        setBinding(R.layout.activity_admin_excel_edit);
 
+        People getPeople = (People) getIntent().getSerializableExtra("editPeople");
+
+        binding.setPeople(getPeople);
         binding.checkButton.setOnClickListener(v -> {
             ManageStatus manageStatus = new ManageStatus(
                     binding.firstduesEdittext.getText().toString(),
@@ -35,9 +38,11 @@ public class AdminExcelAddActivity extends BaseActivity<ActivityAdminExcelAddBin
                     binding.phonenumberEdittext.getText().toString(),
                     binding.contactEdittext.getText().toString(),
                     manageStatus);
+            people.setId(getPeople.getId());
             Intent intent = getIntent();
-            intent.putExtra("peopleInfo", people);
-            setResult(ADD_DONE, intent);
+            intent.putExtra("editResult", people);
+            intent.putExtra("id", getIntent().getIntExtra("id", 0));
+            setResult(EDIT_DONE, intent);
             finish();
         });
     }

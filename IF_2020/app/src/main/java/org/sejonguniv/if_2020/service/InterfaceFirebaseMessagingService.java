@@ -3,20 +3,16 @@ package org.sejonguniv.if_2020.service;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.sejonguniv.if_2020.R;
-import org.sejonguniv.if_2020.ui.UserMainActivity;
-import org.sejonguniv.if_2020.ui.admin.home.AdminHomeFragment;
 import org.sejonguniv.if_2020.ui.user.home.HomeFragment;
 
 public class InterfaceFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -26,7 +22,6 @@ public class InterfaceFirebaseMessagingService extends com.google.firebase.messa
         if (remoteMessage.getNotification() != null) {
 
             super.onMessageReceived(remoteMessage);
-            Log.d("msg", "onMessageReceived: " + remoteMessage.getData().get("message"));
 
             Intent intent = new Intent(this, HomeFragment.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -49,7 +44,7 @@ public class InterfaceFirebaseMessagingService extends com.google.firebase.messa
     }
 
     @Override
-    public void onNewToken(String token) {
+    public void onNewToken(@NonNull String token) {
         Log.e("Token", token);
     }
 

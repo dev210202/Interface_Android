@@ -7,13 +7,11 @@
 
         <import type="java.util.ArrayList"></import>
 
-        <import type="androidx.lifecycle.MutableLiveData"></import>
-
         <import type="org.sejonguniv.if_2020.model.Notice"></import>
 
         <variable
             name="noticeList"
-            type="MutableLiveData&lt;ArrayList&lt;Notice&gt;&gt;" />
+            type="ArrayList&lt;Notice&gt;" />
 
 
     </data>
